@@ -1,0 +1,79 @@
+espace_members_teaching:
+    path:     /
+    defaults: { _controller: EspaceMembersMainBundle:Teaching:index }
+
+espace_members_playing_teaching:
+    pattern:  /teaching/{teaching_id}/teacher/{teacher_id}/event/{event_id}
+    defaults: { _controller: EspaceMembersMainBundle:Teaching:play }
+    requirements:
+        _method: GET
+        teaching_id: \d+
+        teacher_id: \d+
+        event_id: \d+
+
+espace_members_detail_teaching:
+    pattern:  /event/{event_id}
+    defaults: { _controller: EspaceMembersMainBundle:Teaching:viewDetail }
+    requirements:
+        _method: GET
+        event_id: \d+
+
+espace_members_filter_teaching_chronology:
+    pattern:  /filter/chronology/{chronology_id}
+    defaults: { _controller: EspaceMembersMainBundle:Teaching:filterChronology }
+    requirements:
+        _method: GET
+        chronology_id: \d+
+
+espace_members_filter_teaching_category:
+    pattern:  /filter/category/{category_id}
+    defaults: { _controller: EspaceMembersMainBundle:Teaching:filterCategory }
+    requirements:
+        _method: GET
+        category_id: \d+
+
+espace_members_filter_teaching_voie:
+    pattern:  /filter/voie/{voie_id}
+    defaults: { _controller: EspaceMembersMainBundle:Teaching:filterVoie }
+    requirements:
+        _method: GET
+        voie_id: \d+
+
+espace_members_filter_teaching_teacher:
+    pattern:  /filter/teacher/{teacher_id}
+    defaults: { _controller: EspaceMembersMainBundle:Teaching:filterTeacher }
+    requirements:
+        _method: GET
+        teacher_id: \d+
+
+espace_members_filter_teaching_tag:
+    pattern:  /filter/tag/{tag_id}
+    defaults: { _controller: EspaceMembersMainBundle:Teaching:filterTag }
+    requirements:
+        _method: GET
+        tag_id: \d+
+
+espace_members_community:
+    path:     /communaute
+    defaults: { _controller: EspaceMembersMainBundle:Community:index }
+
+espace_members_bookmark_show:
+    path:     /bookmark/show
+    defaults: { _controller: EspaceMembersMainBundle:Bookmark:index }
+
+espace_members_bookmark_add:
+    pattern:  /bookmark/add
+    defaults: { _controller: EspaceMembersMainBundle:Bookmark:add }
+    requirements:
+        _method: POST
+
+espace_members_bookmark_remove:
+    pattern:  /bookmark/remove
+    defaults: { _controller: EspaceMembersMainBundle:Bookmark:remove }
+    requirements:
+        _method: POST
+
+_sonata_admin:
+    resource: .
+    type: sonata_admin
+    prefix: /admin

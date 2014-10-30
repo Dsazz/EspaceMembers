@@ -1,0 +1,18 @@
+EspaceMembers\MainBundle\Entity\Chronology:
+  type: entity
+  repositoryClass: EspaceMembers\MainBundle\Entity\Repository\ChronologyRepository
+  table: chronology
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    year:
+      type: string
+      length: 20
+      unique: true
+  oneToMany:
+    events:
+      targetEntity: EspaceMembers\MainBundle\Entity\Event
+      mappedBy: chronology
+      cascade: ["persist", "remove"]

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<!--[if IE 7 ]><html class="ie7" lang="en"> <![endif]-->
+<!--[if lte IE 8 ]><html class="ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+	<!-- Basic Page Needs
+  ================================================== -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>ESpace Members</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<!-- CSS
+  ================================================== -->
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/espacemembersmain/css/style.css') }}">
+    <!-- Fonts
+    ================================================== -->
+    <link href='http://fonts.googleapis.com/css?family=Economica:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    
+    
+    <link rel="stylesheet" href="js/jquery-ui.css" />
+{% endblock %}
+
+{% block javascript %}
+<script src="js/jquery-1.9.1.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script>
+$(function() {
+$( "#accordion" ).accordion();
+});
+</script>
+{% endblock %}
+</head>
+<body>
+	<div id="top">
+{% block top %}
+		<div class="top clearfix">
+      <div style="height:50px; width:100%; float:left;" class="float-right">
+      <a href="#"><img src="images/hr.png" alt="icon" /></a>
+      <a href="#"><img src="images/gft.png" alt="icon" /></a>
+      <a style="margin:5px 20px 0px 0px;" href="#">Déconnexion</a>
+    </div>
+  </div>
+  {% endblock %}
+  </div>
+  <!-- Start HEADER
+    ========================== -->
+  <div id="header">
+{% block header %}
+    <!-- Start MAIN MENU
+      ========================== -->
+    <div class="main-menu">   
+        
+      <h1><span>E</span>SPACE <span>M</span>EMBRES</h1>  
+     
+      <nav id="main-nav">
+        <ul>
+          <li class="first"><a class="communaute" href="communaute.html">Communauté</a></li>
+          <li><a class="profil" href="#">Profil</a></li>
+          <li class="current"><a class="active enseignements" href="enseignements.html">Enseignements</a></li>
+          <li><a class="etude" href="#">Etude des voies</a></li>
+        </ul>
+        
+      <form class="clearfix" name="search">
+              <input type="text" value="Keywords" class="search" name="search">
+              <input type="submit" class="search-submit" value="" name="submit">
+      </form>
+      </nav>
+
+      
+   	</div>
+   	
+   	<a class="logo" href="#"><img src="images/logo.png" alt="logo" /></a>
+   	{% endblock %}
+	</div>
+	<!-- #End HEADER -->
+
+    <!-- Start CONTENT
+    ========================== -->
+    <div id="content">
+	{% block body %}
+   	{% endblock %}
+	</div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+EspaceMembers\MainBundle\Entity\Media:
+  type: entity
+  table: media__media
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    path:
+        type: string
+        length: 255
+        nullable: true

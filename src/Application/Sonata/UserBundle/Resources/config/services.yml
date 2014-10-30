@@ -1,0 +1,23 @@
+services:
+    espacemembers.user.profile.form:
+        factory-method: createNamed
+        factory-service: form.factory
+        class: Symfony\Component\Form\Form
+        arguments: [ %sonata.user.profile.form.name%, %sonata.user.profile.form.type%, null , { validation_groups: [Default] }]
+            #- { validation_groups: %sonata.user.profile.form.validation_groups%,
+                #translation_domain:SonataUserBundle }
+
+    espacemembers.user.profile.form.type:
+        class: Application\Sonata\UserBundle\Form\Type\ProfileType
+        arguments: [%fos_user.model.user.class%, @security.context, @service_container]
+        tags:
+            - { name: form.type, alias: espacemembers_user_profile }
+
+    #espacemembers.user.profile.form.handler.default:
+        #class: Application\Sonata\UserBundle\Form\Handler\ProfileFormHandler
+        #scope: request
+        #public: false
+        #arguments:
+             #- @espacemembers.user.profile.form
+             #- @request
+             #- @fos_user.user_manager

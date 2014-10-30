@@ -1,0 +1,47 @@
+{% extends 'EspaceMembersMainBundle::layout.html.twig' %}
+
+{% block communate_active %}
+    <li class="first current">
+        <a class="communaute active" href="{{ path ('espace_members_community') }}">Communauté </a>
+    </li>
+{% endblock communate_active %}
+
+{% block body %}
+<div class="content">
+    <div class="full-width2">
+
+        <div class="left-bar">
+        {% for group in groups %}
+            <a href="#" class="link">{{ group.name }}</a>
+        {% else %}
+            <a href="#" class="link">Not found groups</a>
+        {% endfor %}
+        </div>
+
+        <div class="right-bar">
+        {% for letter in 'a'|upper..'z'|upper %}
+            {% for user in users if user.lastName|first|upper == letter %}
+            <div class="box">
+                {% if loop.first %}<span class="right-tag">{{ letter }}</span> {% endif %}
+                {% media user.avatar, 'big' with { 'width': '175px', 'height': '175px', 'alt': 'image', 'title': '' } %}
+
+                <h2>{{ user.lastName }} {{ user.firstName }}</h2>
+
+                <p>{{ user.description|length > 255 ? user.description|slice(0, 255) ~ '...' : user.description }}</p>
+
+                <p>
+                Téléphone:{{ user.phone|length > 0 ? user.phone : "" }}<br />
+                Email:{{ user.email|length > 0 ? user.email : "" }}<br />
+                Adresse:{{ user.address|length > 0 ? user.address : "" }}
+                </p>
+
+            </div>
+            {% endfor %}
+
+        {% endfor %}
+        </div>
+    </div>
+
+</div>
+<div class="clear"><!-- --></div>
+{% endblock %}

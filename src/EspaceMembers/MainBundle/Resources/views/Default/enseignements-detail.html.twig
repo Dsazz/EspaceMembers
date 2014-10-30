@@ -1,0 +1,93 @@
+{% extends 'EspaceMembersMainBundle::layout.html.twig' %}
+
+{% block enseignement_active %}
+<li class="current">
+    <a class="active enseignements" href="{{ path ('espace_members_teaching') }}">Enseignements</a>
+</li>
+{% endblock enseignement_active %}
+
+{% block body %}
+<div class="content">
+
+    <div class="full-width">
+        <span class="year">{{ event.chronology.year }}</span>
+        <h2>{{ event.title|capitalize }}</h2>
+        <span class="sub-heading">
+            <img src="{{ asset('bundles/espacemembersmain/images/flag.png') }}" alt="flag" />
+            {{ event.category.title|capitalize }}
+        </span>
+
+        <div class="image-box">
+            {% media event.frontImage, 'big' with { 'width': '175px', 'height': '175px', 'alt': 'image', 'title': '' } %}
+            <span class="describe">
+                Du {{ event.startDate|localizeddate('none', 'none', 'fr_FR' , null, 'd LLLL')|title }}
+                Au {{ event.completionDate|localizeddate('none', 'none', 'fr_FR' , null, 'd LLLL')|title }}
+            </span>
+
+            <p>{{ event.description|length > 255 ? event.description|slice(0, 255) ~ '...' : event.description }}</p>
+
+            <p>Enseignant(s):<br />
+            {% for teacher in event.users %}
+            <a href="#" class="link">{{ teacher.lastName }} {{ teacher.firstName }}<br /></a>
+            {% else %}
+            <a href="#" class="link">Not found teachers</a>
+            {% endfor %}
+            </p>
+
+            <p>Catégorie:<br />
+            {{ event.category.title|capitalize }}
+            </p>
+
+            <p>Thèmes:<br />
+            {% for tag in event.tags %}
+            <a href="#" class="theme-button">{{ tag.title }}</a>
+            {% else %}
+            <a href="#" class="theme-button">Not found tag</a>
+            {% endfor %}
+            </p>
+
+        </div>
+
+        {% for teacher in event.users %}
+        <div class="detail-box">
+            <span class="sub-heading">
+                {% media teacher.avatar, 'small' with { 'width': '30px', 'height': '30px', 'alt': 'flag', 'title': '' } %}
+                {{ teacher.lastName }} {{ teacher.firstName }}
+            </span>
+            {% for teaching in teacher.teachings %}
+            <div class="item">
+                <div class="hoverclick">
+                    <span class="categorie">Causerie {{ teaching.serial }}</span>
+                    <a href="{{ path('espace_members_playing_teaching', {
+                        'event_id' : event.id,
+                        'teacher_id' : teacher.id,
+                        'teaching_id' : teaching.id
+                        } ) }}" class="tittle">
+                        {{ teaching.title|length > 20 ?  teaching.title|slice(0, 20) ~ '...' : teaching.title }}
+                        <span class="uploaded-time">Jour {{ teaching.dayNumber }},
+                            {{ teaching.date|localizeddate('none', 'none', 'fr_FR' , null, 'd
+                            LLLL Y') }} (env. {{teaching.dayTime}} )
+                        </span>
+                    </a>
+                    {% if teaching.lesson.contentType == 'audio/mpeg' %}
+                    <a href="#" class="play"><img src="{{ asset('bundles/espacemembersmain/images/audio.png') }}" alt="icon" /></a>
+
+                    {% set pathToMedia  %} {% path teaching.lesson, "reference" %} {% endset %}
+                    <span class="time">{{ teaching.lesson.getPlayingTime(pathToMedia) }}</span>
+                    {% else %}
+                    <a href="#" class="play"><img src="{{ asset('bundles/espacemembersmain/images/video.png') }}" alt="icon" /></a>
+                    {% set pathToMedia  %} {% path teaching.lesson, "reference" %} {% endset %}
+                    <span class="time">{{ teaching.lesson.getPlayingTime(pathToMedia) }}</span>
+                    {% endif %}
+                </div>
+
+                <a href="#" class="fav"></a>
+            </div>
+            {% endfor %}
+
+        </div>
+        {% endfor %}
+
+    </div>
+    <div class="clear"><!-- --></div>
+{% endblock %}

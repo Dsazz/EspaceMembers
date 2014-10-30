@@ -1,0 +1,47 @@
+
+#Postformula\MainBundle\Entity\Image:
+    #properties:
+        #image:
+            #- File:
+                #maxSize: 5M
+                #maxSizeMessage: "Превышен максимальный размер изображения в {{ limit }}"
+                #mimeTypes: [ image/jpeg, image/gif, image/pjpeg, image/png ]
+                #mimeTypesMessage: "Не верный формат изображения. Допустимые форматы [ jpeg, gif, png ]"
+                #groups: [ CreateUser ]
+
+#Postformula\MainBundle\Entity\Document:
+    #properties:
+        #name:
+            #- NotBlank: ~
+            #- Length:
+                #max: 255
+                #min: 2
+                #maxMessage: "Название файла не должно быть более {{ limit }} символов"
+                #minMessage: "Название файла не должно быть менее {{ limit }} символов"
+                #groups: [ ProjectFile ]
+        #document:
+            #- File:
+                #maxSize: 200M
+                #mimeTypes: [application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheeti, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation, application/rtf, application/pdf, image/png, image/gif, image/jpeg,  image/pjpeg,  image/photoshop, image/x-photoshop, image/psd, application/photoshop, application/psd, zz-application/zz-winassoc-psd, audio/mpeg]
+                #mimeTypesMessage: Please upload a valid file
+                #groups: [ ProjectFile ]
+
+Postformula\MainBundle\Entity\User:
+    properties:
+        email:
+            - Email:
+                message: "Не корректный емайл {{ value }}. Попробуйте еще раз."
+                checkMX: false
+                #groups: [ CreateUser]
+        phone:
+            - NotBlank: ~
+            - Length:
+                max: 15
+                maxMessage: "Номер телефона не должен превышать {{ limit }} символов"
+                #groups: [ CreateUser ]
+        plainPassword:
+            - Length:
+                min: 8
+                max: 24
+                minMessage: "Пароль должен содержать не менее {{ limit }} символов"
+                #groups: [ CreateUser ]

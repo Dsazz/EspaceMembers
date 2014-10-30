@@ -1,0 +1,64 @@
+{#BEGIN left-column#}
+    {% if chronology.events is defined and chronology.events is empty %}
+    <div class="left-column">
+        <span class="year">{{ chronology.year }}</span>
+        <p>Now found events </p>
+    </div>
+    {% else  %}
+    <div class="left-column">
+        <span class="year">{{ chronology.year }}</span>
+        {% for event in chronology.events %}
+        {#{% for event in chronology.events|myfilter("title", "Quos") %}#}
+            <h2>{{ event.title|capitalize }}</h2>
+            <span class="sub-heading">
+                <img src="{{ asset('bundles/espacemembersmain/images/flag.png') }}" alt="flag" />
+                {{ event.category.title|capitalize }}
+            </span>
+
+            <div class="image-box">
+                {% media event.frontImage, 'big' with { 'width': '175px', 'height': '175px', 'alt': 'image', 'title': '' } %}
+                <span class="describe">
+                    Du {{ event.startDate|localizeddate('none', 'none', 'fr_FR' , null, 'd LLLL')|title }}
+                    Au {{ event.completionDate|localizeddate('none', 'none', 'fr_FR' , null, 'd LLLL')|title }}
+                </span>
+                <a href="{{ path('espace_members_detail_teaching', { 'event_id' : event.id, } ) }}" class="zoom">EN SAVOIR</a>
+            </div>
+
+            {% for teacher in event.users %}
+            <div class="detail-box">
+                <span class="sub-heading">
+                    {% media teacher.avatar, 'small' with { 'width': '30px', 'height': '30px', 'alt': 'flag', 'title': '' } %}
+                    {{ teacher.lastName }} {{ teacher.firstName }}
+                </span>
+                {% set teachings = teacher.teachings|filterLesson( event.title ) %}
+                {% if teachings is iterable and teachings is not empty %}
+                    {% for teaching in teachings %}
+                            {{ include( 'EspaceMembersMainBundle:Default:enseignements-teachings.html.twig', {
+                                    'teaching': teaching,
+                                })
+                            }}
+                    {% else %}
+                        <div class="item">
+                            Not found teaching
+                        </div>
+                    {% endfor %}
+                {% elseif teachings is defined %}
+                    {{ include( 'EspaceMembersMainBundle:Default:enseignements-teachings.html.twig', {
+                            'teaching': teacher.teachings.first(),
+                        })
+                    }}
+                {% else %}
+                    <div class="item">
+                        Not found teaching
+                    </div>
+                {% endif %}
+
+            </div>
+            {% endfor %}
+
+        {% endfor %}
+        {#END detail-box#}
+
+    </div>
+    {% endif %}
+{#END left-column#}

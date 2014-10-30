@@ -1,0 +1,82 @@
+EspaceMembers\MainBundle\Entity\Teaching:
+  type: entity
+  table: teaching
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    title:
+      type: string
+      length: 255
+      #unique: true
+    serial:
+      type: integer
+      unsigned: true
+    date:
+      type: datetime
+      #type: string
+      #length: 255
+      #nullable: true
+    dayNumber:
+      type: smallint
+    dayTime:
+      type: string
+      length: 50
+    resume:
+      type: text
+      nullable: true
+    technical_comment:
+      type: text
+      nullable: true
+    is_show:
+      type: boolean
+      nullable: true
+  oneToOne:
+    lesson:
+      targetEntity: EspaceMembers\MainBundle\Entity\Media
+      cascade: ["persist"]
+      #orphanRemoval: true
+      joinColumn:
+        name: media_id
+        referencedColumnName: id
+        cascade: ["persist"]
+        nullable: true
+        onDelete: SET NULL
+  manyToOne:
+    event:
+      targetEntity: EspaceMembers\MainBundle\Entity\Event
+      inversedBy: teachings
+      cascade: ["persist"]
+      joinColumns:
+        event_id:
+          referencedColumnName: id
+          onDelete: SET NULL
+  manyToMany:
+    #tags:
+        #targetEntity: EspaceMembers\MainBundle\Entity\Tag
+        #cascade: ["persist"]
+        #joinTable:
+            #name: tags_teachings
+            #joinColumns:
+                #tag_id:
+                    #referencedColumnName: id
+            #inverseJoinColumns:
+                #teaching_id:
+                    #referencedColumnName: id
+    voies:
+      targetEntity: EspaceMembers\MainBundle\Entity\Voie
+      mappedBy: teachings
+      cascade: ["persist"]
+    tags:
+      targetEntity: EspaceMembers\MainBundle\Entity\Tag
+      mappedBy: teachings
+      cascade: ["persist"]
+    users:
+      targetEntity: EspaceMembers\MainBundle\Entity\User
+      mappedBy: teachings
+      cascade: ["persist"]
+    bookmarkOwners:
+      targetEntity: EspaceMembers\MainBundle\Entity\User
+      mappedBy: bookmarks
+      cascade: ["persist"]

@@ -1,0 +1,86 @@
+EspaceMembers\MainBundle\Entity\Event:
+  type: entity
+  table: event
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    title:
+      type: string
+      length: 255
+      #unique: true
+    startDate:
+      #type: string
+      #length: 100
+      type: datetime
+    completionDate:
+      #type: string
+      #length: 100
+      type: datetime
+    year:
+      type: string
+      length: 20 
+    description:
+      type: text
+      nullable: true
+    is_show:
+      type: boolean
+  oneToOne:
+    frontImage:
+      targetEntity: EspaceMembers\MainBundle\Entity\Media
+      cascade: ["persist"]
+      #orphanRemoval: true
+      joinColumn:
+        name: front_image_id
+        referencedColumnName: id
+        cascade: ["persist"]
+        nullable: true
+        onDelete: SET NULL
+    flayer:
+      targetEntity: EspaceMembers\MainBundle\Entity\Media
+      cascade: ["persist"]
+      #orphanRemoval: true
+      joinColumn:
+        name: flayer_id
+        referencedColumnName: id
+        cascade: ["persist"]
+        nullable: true
+        onDelete: SET NULL
+  oneToMany:
+    teachings:
+      targetEntity: EspaceMembers\MainBundle\Entity\Teaching
+      mappedBy: event
+      cascade: ["persist", "remove"]
+  manyToOne:
+    category:
+      targetEntity: EspaceMembers\MainBundle\Entity\Category
+      inversedBy: events
+      cascade: ["persist"]
+      joinColumns:
+        category_id:
+          referencedColumnName: id
+          onDelete: SET NULL
+    chronology:
+      targetEntity: EspaceMembers\MainBundle\Entity\Chronology
+      inversedBy: events
+      cascade: ["persist"]
+      joinColumns:
+        chronology_id:
+          referencedColumnName: id
+          onDelete: SET NULL
+  manyToMany:
+    users:
+      targetEntity: EspaceMembers\MainBundle\Entity\User
+      mappedBy: events
+      cascade: ["persist"]
+    groups:
+      targetEntity: EspaceMembers\MainBundle\Entity\Group
+      mappedBy: events
+      cascade: ["persist"]
+    tags:
+      targetEntity: EspaceMembers\MainBundle\Entity\Tag
+      mappedBy: events
+      cascade: ["persist"]
+  #lifecycleCallbacks:
+    #prePersist:  [ setDefaultGroup ]

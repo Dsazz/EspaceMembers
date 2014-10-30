@@ -1,0 +1,19 @@
+{% extends 'SonataAdminBundle::standard_layout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/espacemembersmain/js/ckeditor/ckeditor.js') }}" ></script>
+    <script type="text/javascript">
+        $(function() {
+            $('textarea.ckeditor').ckeditor();
+        });
+    </script>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/espacemembersmain/css/fix_style_sonata.css') }}">
+{% endblock %}
+{% block side_bar_after_nav %}
+{% endblock side_bar_after_nav %}
+
+{% block footer %}{% endblock %}

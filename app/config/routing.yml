@@ -1,0 +1,8 @@
+espace_members_security:
+    resource: "@EspaceMembersSecurityBundle/Resources/config/routing.yml"
+    prefix:   /
+
+espace_members_main:
+    resource: "@EspaceMembersMainBundle/Resources/config/routing.yml"
+    prefix:   /
+

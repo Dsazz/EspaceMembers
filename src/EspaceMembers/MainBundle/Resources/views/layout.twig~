@@ -1,0 +1,9 @@
+{% extends '::base.html.twig' %}
+
+{% block meta %}{% endblock %}
+{% block javascripts %}{% endblock %}
+{% block stylesheets %}{% endblock %}
+
+{% block top %}{% endblock %}
+{% block header %}{% endblock %}
+{% block body %}{% endblock %}

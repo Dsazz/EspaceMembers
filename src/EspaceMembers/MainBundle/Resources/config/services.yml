@@ -1,0 +1,91 @@
+#parameters:
+#    espace_members_main.example.class: EspaceMembers\MainBundle\Example
+
+#services:
+#    espace_members_main.example:
+#        class: %espace_members_main.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+parameters:
+    sonata.user.admin.user.class: EspaceMembers\MainBundle\Admin\UserAdmin
+    sonata.user.admin.user.entity: EspaceMembers\MainBundle\Entity\User
+
+services:
+    sonata.user.admin.group:
+        abstract: true
+        public: false
+
+    app.espacemembers.admin.group:
+        class: EspaceMembers\MainBundle\Admin\GroupAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: EspaceMembers, label: "Group" }
+        arguments:
+            - ~
+            - EspaceMembers\MainBundle\Entity\Group
+            - 'SonataAdminBundle:CRUD'
+
+    app.espacemembers.admin.teaching:
+        class: EspaceMembers\MainBundle\Admin\TeachingAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: EspaceMembers, label: "Teaching" }
+        arguments:
+            - ~
+            - EspaceMembers\MainBundle\Entity\Teaching
+            - 'SonataAdminBundle:CRUD'
+
+    app.espacemembers.admin.voie:
+        class: EspaceMembers\MainBundle\Admin\VoieAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: EspaceMembers, label: "Voie" }
+        arguments:
+            - ~
+            - EspaceMembers\MainBundle\Entity\Voie
+            - 'SonataAdminBundle:CRUD'
+
+    app.espacemembers.admin.tag:
+        class: EspaceMembers\MainBundle\Admin\TagAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: EspaceMembers,  label: "Tag", show_in_dashboard: false}
+        arguments:
+            - ~
+            - EspaceMembers\MainBundle\Entity\Tag
+            - 'SonataAdminBundle:CRUD'
+
+    app.espacemembers.admin.category:
+        class: EspaceMembers\MainBundle\Admin\CategoryAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: EspaceMembers,  label: "Category" }
+        arguments:
+            - ~
+            - EspaceMembers\MainBundle\Entity\Category
+            - 'SonataAdminBundle:CRUD'
+
+    app.espacemembers.admin.event:
+        class: EspaceMembers\MainBundle\Admin\EventAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: EspaceMembers,  label: "Event" }
+        arguments:
+            - ~
+            - EspaceMembers\MainBundle\Entity\Event
+            - 'SonataAdminBundle:CRUD'
+
+    #TWIG INTL
+    twig.extension.intl:
+        class: Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }
+
+    twig.extension.espace_members_extension:
+        class: EspaceMembers\MainBundle\Twig\EspaceMembersFilterExtension
+        arguments: [ @doctrine.orm.entity_manager ]
+        tags:
+            - { name: twig.extension }
+#Custom listeners
+    #espacemembers.user_listener:
+        #class: EspaceMembers\MainBundle\EventListener\UserListener
+        #tags:
+            #- { name: doctrine.event_listener, event: prePersist }
+
+    #espacemembers.event__listener:
+        #class: EspaceMembers\MainBundle\EventListener\EventEspaceMembersListener
+        #tags:
+            #- { name: doctrine.event_listener, event: prePersist }

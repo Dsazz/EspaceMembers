@@ -1,0 +1,8 @@
+div.select2-container {
+    width: 250px !important;
+    margin: 0 25px;
+}
+
+div.sonata-ba-field-standard-natural input {
+    width: 250px;
+}

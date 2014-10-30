@@ -1,0 +1,128 @@
+#Аргумент в функции uploadFile задает конец цикла
+#загрузки файлов в LoadFixtureData.php
+EspaceMembers\MainBundle\Entity\Media:
+    avatarUser{1..31}:
+        providerName: sonata.media.provider.image
+        context: avatar
+        #binaryContent: <randBinaryContent(21, "avatar", ".jpg")>
+        binaryContent: <generateBinaryContext("avatar")>
+    lessonMP3{1..10}:
+        providerName: sonata.media.provider.file
+        context: lesson
+        #binaryContent: <randBinaryContent(10, "mp3", ".mp3")>
+        binaryContent: <generateBinaryContext("mp3")>
+    lessonVideo{1..10}:
+        providerName: sonata.media.provider.file
+        context: lesson
+        #binaryContent: <randBinaryContent(10, "video", ".mp4")>
+        binaryContent: <generateBinaryContext("video")>
+    flayer{1..10}:
+        providerName: sonata.media.provider.file
+        context: flayer
+        #binaryContent: <randBinaryContent(10, "flayer", ".pdf")>
+        binaryContent: <generateBinaryContext("flayer")>
+    cover{1..10}:
+        providerName: sonata.media.provider.image
+        context: cover
+        #binaryContent: <randBinaryContent(10, "cover", ".jpg")>
+        binaryContent: <generateBinaryContext("cover")>
+
+EspaceMembers\MainBundle\Entity\Group:
+    groupMembers:
+        name: Members
+
+EspaceMembers\MainBundle\Entity\Category:
+    category{1..10}:
+        title(unique): <word()>
+
+EspaceMembers\MainBundle\Entity\Voie:
+    voie{1..10}:
+        title(unique): <word()>
+
+EspaceMembers\MainBundle\Entity\Tag:
+    tag{1..10}:
+        title(unique): <word()>
+
+EspaceMembers\MainBundle\Entity\Chronology:
+    chronology{1..10}:
+        year(unique): <year('+5 years')>
+        #year: <date('Y', 'now')>
+
+EspaceMembers\MainBundle\Entity\Event:
+    event{1..10}:
+        title: <word()>
+        #startDate: <date('Y-m-d', '+200 days')>
+        #startDate: dateTimeThisYear('now')
+        startDate: <dateTime('now')>
+        completionDate: <dateTime('+10 days')>
+        #completionDate: <date('Y-m-d', '+200 days')>
+        year(unique): <year('+5 years')>
+        #year: <date('Y', 'now')>
+        chronology: @chronology<current()>
+        description: <fr_FR:text(200)>
+        is_show: <boolean(50)>
+        frontImage: @cover<current()>
+        flayer: @flayer<current()>
+        category: @category<current()>
+        groups: [@groupMembers]
+        tags(unique): [@tag*]
+
+EspaceMembers\MainBundle\Entity\Teaching:
+    teaching_prototype(template):
+        title: <word()>
+        #date: <fr_FR:date('Y-m-d', 'now')>
+        date: <dateTime('now')>
+        dayNumber: <randomDigitNotNull()>
+        dayTime: <randTimeDay()>
+        resume: <fr_FR:text(200)>
+        technical_comment: <fr_FR:text(200)>
+        is_show: <boolean(50)>
+        voies(unique): [@voie*, @voie*]
+        tags: [@tag*]
+        #users(unique): [@user*, @user*]
+    teachingMP3_{1..10}(extends teaching_prototype):
+        is_show: 1
+        serial: 1
+        lesson: @lessonMP3<current()>
+        event: @event<current()>
+    teachingVideo_{1..10}(extends teaching_prototype):
+        serial: 2
+        lesson: @lessonVideo<current()>
+        event: @event<current()>
+
+EspaceMembers\MainBundle\Entity\User:
+    user_prototype(template):
+        first_name: <fr_FR:firstName('male')>
+        last_name: <fr_FR:lastName()>
+        email: <email()>
+        setPlainPassword: [ting09]
+        birthday: <dateTimeBetween('-30 years', '-20 year')>
+        phone: <fr_FR:phoneNumber()>
+        address: <fr_FR:address()>
+        description: <fr_FR:text(255)>
+        enabled: true
+        avatar(unique): @avatarUser*
+        sex: MALE
+        addGroup: [@groupMembers]
+        is_teacher: 0
+    superadmin(extends user_prototype):
+        first_name: Dsazz
+        last_name: Tazz
+        email: ting09@mail.ru
+        addRole: [ROLE_SUPER_ADMIN]
+    admin{1..10}(extends user_prototype):
+        addRole: [ROLE_ADMIN]
+    user_male{1..10}(extends user_prototype):
+        addRole: [ROLE_USER]
+        addEvent: [@event<current()>, @event*]
+        teachings: [@teachingMP3_<current()>, @teachingVideo_<current()>]
+        #addBookmark: [@teachingMP3_<current()>]
+        is_teacher: 1
+    user_female{1..10}(extends user_prototype):
+        first_name: <fr_FR:firstName('female')>
+        sex: FEMALE
+        addRole: [ROLE_USER]
+        addEvent: [@event<current()>]
+        teachings: [@teachingMP3_<current()>, @teachingVideo_<current()>]
+        #addBookmark: [@teachingMP3_<current()>]
+        is_teacher: 1

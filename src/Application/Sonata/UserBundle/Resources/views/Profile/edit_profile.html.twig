@@ -1,0 +1,55 @@
+{% extends 'EspaceMembersMainBundle::layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+{% endblock %}
+
+{% block profil_active %}
+    <li class="current">
+        <a class="profil active" href="{{ path ('sonata_user_profile_show') }}">Profil </a>
+    </li>
+{% endblock profil_active %}
+
+{% block body %}
+<div class="content">
+    <div class="full-width2">
+
+        <div class="left-bar">
+            <a href="{{ path('sonata_user_profile_show') }}" class="link">Show profile</a>
+        </div>
+
+        <div class="right-bar">
+            <h1>Edit profile:</h1>
+                {% if app.user %}
+                    {% set user = app.security.getToken().getUser() %}
+                {% endif %}
+                <form action="{{ path('sonata_user_profile_edit') }}" method="POST" class="pure-form
+                    pure-form-stacked">
+                    {#{{ form_widget(form) }}#}
+                    {#<div class="form-actions">#}
+                        {#<button type="submit" name="submit"  class="btn btn-primary pull-right">#}
+                            {#{{ 'sonata_user_submit'|trans({}, 'SonataUserBundle') }}</button>#}
+
+                    {{ form_errors(form) }}
+                    <fieldset>
+                            {#{{ form_label(form.first_name) }}#}
+                            {#{{ form_errors(form.first_name) }}#}
+                            {#{{ form_widget(form.first_name) }}#}
+
+                            {#{{ form_label(form.last_name) }}#}
+                            {#{{ form_errors(form.last_name) }}#}
+                            {#{{ form_widget(form.last_name) }}#}
+
+                            {{ form_widget(form) }}
+                        <button type="submit" name="submit"  class="pure-button pure-button-primary">
+                            {{ 'sonata_user_submit'|trans({}, 'SonataUserBundle') }}</button>
+                    </fieldset>
+                </form>
+        </div>
+    </div>
+
+</div>
+<div class="clear"><!-- --></div>
+{% endblock %}
