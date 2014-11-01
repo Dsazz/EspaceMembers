@@ -4,7 +4,8 @@ namespace EspaceMembers\MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-class Category {
+class Category
+{
 
     /**
      * @var integer

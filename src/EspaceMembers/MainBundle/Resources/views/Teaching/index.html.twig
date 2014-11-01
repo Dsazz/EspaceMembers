@@ -1,0 +1,43 @@
+{% extends 'EspaceMembersMainBundle::layout.html.twig' %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script>$(function() {
+        {% if filtered_accordion is defined %}
+            $( "#accordion" ).accordion({active: {{ filtered_accordion }} });
+        {% else %}
+            $( "#accordion" ).accordion({ collapsible: true, active: false });
+        {% endif %}
+    });
+    </script>
+    <script src="{{ asset('bundles/espacemembersmain/js/teaching/index.js') }}"></script>
+{% endblock javascript %}
+
+{% block enseignement_active %}
+    <li class="current">
+        <a class="active enseignements" href="{{ path ('espace_members_teaching') }}">Enseignements</a>
+    </li>
+{% endblock enseignement_active %}
+
+{% block body %}
+<div class="content">
+    {#BEGIN right-column#}
+    {% block right_column %}
+        {{ render(controller('EspaceMembersMainBundle:Render:rightBlock')) }}
+    {% endblock right_column %}
+
+    {% block left_column %}
+        {% for chronology in chronologies %}
+            {{ include( 'EspaceMembersMainBundle:Teaching:left-block.html.twig', {
+                'chronology' : chronology, })
+            }}
+        {% else %}
+            <div class="left-column">
+                <p>Not found entries</p>
+            </div>
+        {% endfor %}
+    {% endblock left_column %}
+
+</div>
+<div class="clear"><!-- --></div>
+{% endblock %}

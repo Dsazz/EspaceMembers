@@ -1,0 +1,35 @@
+{% extends 'EspaceMembersMainBundle:Template:left-block.html.twig' %}
+
+    {% block detail %}
+        <div class="detail-box">
+            <span class="sub-heading">
+                {% media teacher.avatar, 'small' with
+                    { 'width': '30px', 'height': '30px', 'alt': 'flag', 'title': '' }
+                %}
+                {{ teacher.lastName }} {{ teacher.firstName }}
+            </span>
+            {% set teachings = teacher.teachings %}
+            {% if teachings is iterable and teachings is not empty %}
+                {% for teaching in teachings %}
+                    {{ include( 'EspaceMembersMainBundle:Teaching:teachings.html.twig', {
+                            'teaching': teaching,
+                        })
+                    }}
+                {% else %}
+                    <div class="item">
+                        Not found teaching
+                    </div>
+                {% endfor %}
+            {% elseif teachings is defined %}
+                {{ include( 'EspaceMembersMainBundle:Teaching:teachings.html.twig', {
+                        'teaching': teacher.teachings.first(),
+                    })
+                }}
+            {% else %}
+                <div class="item">
+                    Not found teaching
+                </div>
+            {% endif %}
+
+        </div>
+    {% endblock %}

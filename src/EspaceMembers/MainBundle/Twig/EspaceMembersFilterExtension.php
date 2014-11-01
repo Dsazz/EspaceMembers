@@ -17,16 +17,16 @@ class EspaceMembersFilterExtension extends Twig_Extension
     public function getFilters()
     {
         return array(
-            'filterLesson' => new Twig_Filter_Method($this, 'filterLesson'),
+            'filterLesson'     => new Twig_Filter_Method($this, 'filterLesson'),
             'filterIsBookmark' => new Twig_Filter_Method($this, 'filterIsBookmark'),
         );
     }
 
-    public function filterLesson($entityCollection, $filter_id)
+    public function filterLesson($entityCollection, $filterId)
     {
         $entityCollection = $entityCollection->filter(
-            function($element) use ($filter_id) {
-                return $element->getEvent()->getTitle() === $filter_id && $element->getIsShow();
+            function($element) use ($filterId) {
+                return $element->getEvent()->getTitle() === $filterId && $element->getIsShow();
             });
 
         return $entityCollection;
@@ -38,8 +38,6 @@ class EspaceMembersFilterExtension extends Twig_Extension
             function($element) use ($teaching_id) {
                 return $element->getId() === $teaching_id;
             });
-
-
         return $bookmarkCollection->isEmpty() ? false : true;
     }
 

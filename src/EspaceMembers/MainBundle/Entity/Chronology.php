@@ -4,8 +4,8 @@ namespace EspaceMembers\MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-class Chronology {
-
+class Chronology
+{
     /**
      * @var integer
      */

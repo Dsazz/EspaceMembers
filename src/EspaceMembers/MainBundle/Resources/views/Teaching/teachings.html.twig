@@ -1,0 +1,33 @@
+<div class="item">
+    <div class="hoverclick">
+        <span class="categorie">Causerie {{ teaching.serial }}</span>
+        {% set pathToPlayingTeaching %}
+            {{ path('espace_members_playing_teaching', {
+                'event_id' : event.id,
+                'teacher_id' : teacher.id,
+                'teaching_id' : teaching.id })
+            }}
+        {% endset %}
+        <a href="{{ pathToPlayingTeaching }}" class="tittle">
+            {{ teaching.title|length > 20 ?  teaching.title|slice(0, 20) ~ '...' : teaching.title }}
+            <span class="uploaded-time">Jour {{ teaching.dayNumber }},
+                {{ teaching.date|localizeddate('none', 'none', 'fr_FR' , null, 'd
+                LLLL Y') }} (env. {{teaching.dayTime}} )
+            </span>
+        </a>
+        <a href="{{ pathToPlayingTeaching }}" class="play">
+            {% if teaching.lesson.contentType == 'audio/mpeg' %}
+            <img src="{{ asset('bundles/espacemembersmain/images/audio.png') }}" alt="icon" />
+            {% else %}
+            <img src="{{ asset('bundles/espacemembersmain/images/video.png') }}" alt="icon" />
+            {% endif %}
+        </a>
+        {% set pathToMedia  %} {% path teaching.lesson, "reference" %} {% endset %}
+        <span class="time">{{ teaching.lesson.getPlayingTime(pathToMedia) }}</span>
+    </div>
+    {% set bookmarks = app.security.getToken().getUser().getBookmarks() %}
+    <a href="#" class="follow fav
+        {% if bookmarks is defined and bookmarks|filterIsBookmark(teaching.id) %}active{% endif %}"
+        data-id="{{ teaching.id }}">
+    </a>
+</div>

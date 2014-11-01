@@ -8,8 +8,10 @@ espace_members_playing_teaching:
     requirements:
         _method: GET
         teaching_id: \d+
-        teacher_id: \d+
-        event_id: \d+
+        teacher_id:  \d+
+        event_id:    \d+
+    options:
+        expose: true
 
 espace_members_detail_teaching:
     pattern:  /event/{event_id}
@@ -17,6 +19,8 @@ espace_members_detail_teaching:
     requirements:
         _method: GET
         event_id: \d+
+    options:
+        expose: true
 
 espace_members_filter_teaching_chronology:
     pattern:  /filter/chronology/{chronology_id}
@@ -24,6 +28,8 @@ espace_members_filter_teaching_chronology:
     requirements:
         _method: GET
         chronology_id: \d+
+    options:
+        expose: true
 
 espace_members_filter_teaching_category:
     pattern:  /filter/category/{category_id}
@@ -31,6 +37,8 @@ espace_members_filter_teaching_category:
     requirements:
         _method: GET
         category_id: \d+
+    options:
+        expose: true
 
 espace_members_filter_teaching_voie:
     pattern:  /filter/voie/{voie_id}
@@ -38,6 +46,8 @@ espace_members_filter_teaching_voie:
     requirements:
         _method: GET
         voie_id: \d+
+    options:
+        expose: true
 
 espace_members_filter_teaching_teacher:
     pattern:  /filter/teacher/{teacher_id}
@@ -45,6 +55,8 @@ espace_members_filter_teaching_teacher:
     requirements:
         _method: GET
         teacher_id: \d+
+    options:
+        expose: true
 
 espace_members_filter_teaching_tag:
     pattern:  /filter/tag/{tag_id}
@@ -52,6 +64,8 @@ espace_members_filter_teaching_tag:
     requirements:
         _method: GET
         tag_id: \d+
+    options:
+        expose: true
 
 espace_members_community:
     path:     /communaute
@@ -62,16 +76,22 @@ espace_members_bookmark_show:
     defaults: { _controller: EspaceMembersMainBundle:Bookmark:index }
 
 espace_members_bookmark_add:
-    pattern:  /bookmark/add
-    defaults: { _controller: EspaceMembersMainBundle:Bookmark:add }
+    pattern:  /bookmark/add/{id}
+    defaults: { _controller: EspaceMembersMainBundle:Bookmark:add, _format: json }
     requirements:
-        _method: POST
+        _method: GET
+        tag_id: \d+
+    options:
+        expose: true
 
 espace_members_bookmark_remove:
-    pattern:  /bookmark/remove
-    defaults: { _controller: EspaceMembersMainBundle:Bookmark:remove }
+    pattern:  /bookmark/remove/{id}
+    defaults: { _controller: EspaceMembersMainBundle:Bookmark:remove, _format: json }
     requirements:
-        _method: POST
+        _method: GET
+        tag_id: \d+
+    options:
+        expose: true
 
 _sonata_admin:
     resource: .

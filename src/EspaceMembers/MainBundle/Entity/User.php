@@ -13,10 +13,10 @@ use Symfony\Component\HttpFoundation\Image\UploadedFile;
  */
 class User extends BaseUser
 {
-
-    static $ROLE_DEFAULT = 'ROLE_USER';
-    static $ROLE_ADMIN = 'ROLE_ADMIN';
+    static $ROLE_DEFAULT     = 'ROLE_USER';
+    static $ROLE_ADMIN       = 'ROLE_ADMIN';
     static $ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
+
     /**
      * @var integer
      */
@@ -88,15 +88,20 @@ class User extends BaseUser
     private $address;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $bookmarks;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         parent::__construct();
-        $this->events = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->events    = new \Doctrine\Common\Collections\ArrayCollection();
         $this->teachings = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->roles = array();
+        $this->groups    = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->roles     = array();
     }
 
     /**
@@ -296,7 +301,7 @@ class User extends BaseUser
      */
     public function addTeaching(\EspaceMembers\MainBundle\Entity\Teaching $teaching)
     {
-        if ( false === $this->getTeachings()->contains($teaching) ) {
+        if (false === $this->getTeachings()->contains($teaching) ) {
             $this->teachings[] = $teaching;
             $teaching->addUser($this);
         }
@@ -427,15 +432,6 @@ class User extends BaseUser
         return $this->phone;
     }
 
-    //public function getSortedTeachingsByDayNumber() {
-        //$iterator = $this->getTeachings()->getIterator();
-        //$iterator->uasort(function ($a, $b) {
-            //return ($a->getDayNumber() < $b->getDayNumber()) ? -1 : 1;
-        //});
-
-        //return new ArrayCollection(iterator_to_array($iterator));
-    //}
-
     /**
      * Set address
      *
@@ -460,12 +456,6 @@ class User extends BaseUser
     }
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $bookmarks;
-
-
-    /**
      * Add bookmarks
      *
      * @param \EspaceMembers\MainBundle\Entity\Teaching $bookmarks
@@ -473,7 +463,7 @@ class User extends BaseUser
      */
     public function addBookmark(\EspaceMembers\MainBundle\Entity\Teaching $bookmark)
     {
-        if ( false === $this->getBookmarks()->contains($bookmark) ) {
+        if (false === $this->getBookmarks()->contains($bookmark) ) {
             $this->bookmarks[] = $bookmark;
             $bookmark->addBookmarkOwner($this);
         }

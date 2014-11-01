@@ -4,7 +4,8 @@ namespace EspaceMembers\MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-class Voie {
+class Voie
+{
 
     /**
      * @var integer
@@ -32,7 +33,7 @@ class Voie {
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -55,7 +56,7 @@ class Voie {
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {

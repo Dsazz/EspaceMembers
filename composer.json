@@ -6,7 +6,6 @@
     "autoload": {
         "psr-0": { "": "src/", "SymfonyStandard": "app/" }
     },
-    "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
         "php": ">=5.3.3",
@@ -20,10 +19,10 @@
         "sensio/distribution-bundle": "~3.0",
         "sensio/framework-extra-bundle": "~3.0",
         "incenteev/composer-parameter-handler": "~2.0",
-        "sonata-project/admin-bundle": "dev-master",
+
+        "sonata-project/media-bundle": "~2.3",
+        "sonata-project/datagrid-bundle": "~2.2@dev",
         "sonata-project/doctrine-orm-admin-bundle": "dev-master",
-        "sonata-project/media-bundle": "dev-master",
-        "sonata-project/intl-bundle": "dev-master",
 
         "jms/serializer-bundle": "*",
         "sonata-project/user-bundle": "dev-master",
@@ -34,7 +33,9 @@
         "hautelook/alice-bundle": "dev-master",
         "fresh/doctrine-enum-bundle": "v2.5",
 
-        "phansys/getid3": "2.1.*@dev"
+        "phansys/getid3": "2.1.*@dev",
+        "friendsofsymfony/jsrouting-bundle": "@stable",
+        "liil/kint": "~1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

@@ -1,5 +1,6 @@
 EspaceMembers\MainBundle\Entity\Event:
   type: entity
+  repositoryClass: EspaceMembers\MainBundle\Entity\Repository\EventRepository
   table: event
   id:
     id:

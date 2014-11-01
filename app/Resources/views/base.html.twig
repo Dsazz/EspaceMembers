@@ -30,6 +30,8 @@
 {% block javascript %}
     <script src="{{ asset('bundles/espacemembersmain/js/jquery-1.9.1.js') }}"></script>
     <script src="{{ asset('bundles/espacemembersmain/js/jquery-ui.js') }}"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 {% endblock %}
 </head>
 <body>

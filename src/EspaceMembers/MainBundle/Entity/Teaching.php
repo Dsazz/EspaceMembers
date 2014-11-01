@@ -5,7 +5,7 @@ namespace EspaceMembers\MainBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
-class Teaching 
+class Teaching
 {
     /**
      * @var integer
@@ -76,6 +76,11 @@ class Teaching
      * @var \Doctrine\Common\Collections\Collection
      */
     private $users;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $bookmarkOwners;
 
     /**
      * Constructor
@@ -251,7 +256,7 @@ class Teaching
     /**
      * Get technical_comment
      *
-     * @return string 
+     * @return string
      */
     public function getTechnicalComment()
     {
@@ -274,7 +279,7 @@ class Teaching
     /**
      * Get is_show
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsShow()
     {
@@ -343,7 +348,7 @@ class Teaching
      */
     public function addTag(\EspaceMembers\MainBundle\Entity\Tag $tag)
     {
-        if ( false === $this->getTags()->contains($tag) ) {
+        if (false === $this->getTags()->contains($tag) ) {
             $this->tags[] = $tag;
             $tag->addTeaching($this);
         }
@@ -386,7 +391,7 @@ class Teaching
      */
     public function addVoie(\EspaceMembers\MainBundle\Entity\Voie $voie)
     {
-        if ( false === $this->getVoies()->contains($voie) ) {
+        if (false === $this->getVoies()->contains($voie) ) {
             $this->voies[] = $voie;
             $voie->addTeaching($this);
         }
@@ -430,9 +435,8 @@ class Teaching
      */
     public function addUser(\EspaceMembers\MainBundle\Entity\User $user)
     {
-        if ( false === $this->getUsers()->contains($user) ) {
+        if (false === $this->getUsers()->contains($user) ) {
             $this->users[] = $user;
-            //$user->addTeaching($this);
         }
 
         return $this;
@@ -462,11 +466,6 @@ class Teaching
     {
         return $this->getTitle() ?: '';
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $bookmarkOwners;
-
 
     /**
      * Add bookmarkOwners

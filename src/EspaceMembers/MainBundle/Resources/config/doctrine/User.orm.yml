@@ -30,15 +30,10 @@ EspaceMembers\MainBundle\Entity\User:
       type: string
       length: 255
       nullable: true
-    #phone:
-      #type: string
-      #length: 50
-      #nullable: true
   oneToOne:
     avatar:
       targetEntity: EspaceMembers\MainBundle\Entity\Media
       cascade: ["persist"]
-      #orphanRemoval: true
       joinColumn:
         name: 
         referencedColumnName: id
@@ -84,5 +79,3 @@ EspaceMembers\MainBundle\Entity\User:
         inverseJoinColumns:
           teaching_id:
             referencedColumnName: id
-  #lifecycleCallbacks:
-    #prePersist:  [ setDefaultRole ]

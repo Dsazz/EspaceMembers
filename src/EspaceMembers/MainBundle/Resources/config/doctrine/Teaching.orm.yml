@@ -1,5 +1,6 @@
 EspaceMembers\MainBundle\Entity\Teaching:
   type: entity
+  repositoryClass: EspaceMembers\MainBundle\Entity\Repository\TeachingRepository
   table: teaching
   id:
     id:
@@ -9,15 +10,11 @@ EspaceMembers\MainBundle\Entity\Teaching:
     title:
       type: string
       length: 255
-      #unique: true
     serial:
       type: integer
       unsigned: true
     date:
       type: datetime
-      #type: string
-      #length: 255
-      #nullable: true
     dayNumber:
       type: smallint
     dayTime:
@@ -53,17 +50,6 @@ EspaceMembers\MainBundle\Entity\Teaching:
           referencedColumnName: id
           onDelete: SET NULL
   manyToMany:
-    #tags:
-        #targetEntity: EspaceMembers\MainBundle\Entity\Tag
-        #cascade: ["persist"]
-        #joinTable:
-            #name: tags_teachings
-            #joinColumns:
-                #tag_id:
-                    #referencedColumnName: id
-            #inverseJoinColumns:
-                #teaching_id:
-                    #referencedColumnName: id
     voies:
       targetEntity: EspaceMembers\MainBundle\Entity\Voie
       mappedBy: teachings

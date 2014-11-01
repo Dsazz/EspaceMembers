@@ -10,4 +10,13 @@ class GroupRepository extends EntityRepository
         return $this->findBy(array(), array('name' => 'ASC'));
     }
 
+    public function findName()
+    {
+        return $qb = $this->createQueryBuilder('g')
+            ->select('partial g.{id, name}')
+            ->orderBy('g.name', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
 }

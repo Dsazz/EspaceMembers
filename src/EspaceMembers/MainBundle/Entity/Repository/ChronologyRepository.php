@@ -2,11 +2,217 @@
 
 namespace EspaceMembers\MainBundle\Entity\Repository;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 
 class ChronologyRepository extends EntityRepository
 {
-    public function findAll()
+    public function findAllWithBookmarks($userId)
     {
-        return $this->findBy(array(), array('year' => 'ASC'));
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->addSelect('partial ev.{id, title, category, frontImage, startDate, completionDate }')
+            ->addSelect('partial u.{id, last_name, first_name, avatar}')
+            ->addSelect('partial tch.{id, title, serial, lesson, dayNumber, dayTime, date}')
+            ->addSelect('partial bk.{id}')
+            ->innerJoin('c.events','ev')
+            ->innerJoin('ev.users','u', 'WITH', 'u.is_teacher = 1')
+            ->innerJoin('u.teachings','tch', 'WITH', 'tch.is_show = 1')
+            ->leftJoin('u.bookmarks','bk', 'WITH', 'u.id = :user_id')
+            ->orderBy('c.year', 'DESC')
+            ->setParameter('user_id', $userId)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function filterById($chronologyId, $userId)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->addSelect('partial ev.{
+                id, title, category,
+                frontImage, startDate, completionDate
+            }')
+            ->addSelect('partial u.{id, last_name, first_name, avatar}')
+            ->addSelect('partial tch.{
+                id, title, serial,
+                lesson, dayNumber, dayTime, date
+            }')
+            ->addSelect('partial bk.{id}')
+            ->innerJoin('c.events','ev')
+            ->innerJoin('ev.users','u', 'WITH', 'u.is_teacher = 1')
+            ->innerJoin('u.teachings','tch', 'WITH', 'tch.is_show = 1')
+            ->leftJoin('u.bookmarks','bk', 'WITH', 'u.id = :user_id')
+            ->where('c.id = :chronology_id')
+            ->orderBy('c.year', 'DESC')
+            ->setParameter('chronology_id', $chronologyId)
+            ->setParameter('user_id', $userId)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function filterByCategory($categoryId, $userId)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->addSelect('partial ev.{
+                id, title, category,
+                frontImage, startDate, completionDate
+            }')
+            ->addSelect('partial u.{id, last_name, first_name, avatar}')
+            ->addSelect('partial tch.{
+                id, title, serial,
+                lesson, dayNumber, dayTime, date
+            }')
+            ->addSelect('partial bk.{id}')
+            ->innerJoin('c.events','ev')
+            ->innerJoin('ev.users','u', 'WITH', 'u.is_teacher = 1')
+            ->innerJoin('ev.category','ct', 'WITH', 'ct.id = :category_id')
+            ->innerJoin('u.teachings','tch', 'WITH', 'tch.is_show = 1')
+            ->leftJoin('u.bookmarks','bk', 'WITH', 'u.id = :user_id')
+            ->orderBy('c.year', 'DESC')
+            ->setParameter('category_id', $categoryId)
+            ->setParameter('user_id', $userId)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function filterByTeacher($userId)
+    {
+        $qb = $this->createQueryBuilder('c');
+        return $qb
+            ->select('c')
+            ->addSelect('partial ev.{
+                id, title, category,
+                frontImage, startDate, completionDate
+            }')
+            ->addSelect('partial u.{id, last_name, first_name, avatar}')
+            ->addSelect('partial tch.{
+                id, title, serial,
+                lesson, dayNumber, dayTime, date
+            }')
+            ->addSelect('partial bk.{id}')
+            ->innerJoin('c.events','ev')
+            ->innerJoin('ev.users','u', Join::WITH,
+                $qb->expr()->andX(
+                    $qb->expr()->eq('u.id', ':user_id'),
+                    $qb->expr()->eq('u.is_teacher', '1')
+                ))
+            ->innerJoin('u.teachings','tch', 'WITH', 'tch.is_show = 1')
+            ->leftJoin('u.bookmarks','bk', 'WITH', 'u.id = :user_id')
+            ->setParameter('user_id', $userId)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function filterByVoie($voieId, $userId)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->addSelect('partial ev.{
+                id, title, category,
+                frontImage, startDate, completionDate
+            }')
+            ->addSelect('partial u.{id, last_name, first_name, avatar}')
+            ->addSelect('partial tch.{
+                id, title, serial,
+                lesson, dayNumber, dayTime, date
+            }')
+            ->addSelect('partial bk.{id}')
+            ->innerJoin('c.events','ev')
+            ->innerJoin('ev.users','u', 'WITH', 'u.is_teacher = 1')
+            ->innerJoin('u.teachings','tch', 'WITH', 'tch.is_show = 1')
+            ->leftJoin('u.bookmarks','bk', 'WITH', 'u.id = :user_id')
+            ->innerJoin('tch.voies', 'v', 'WITH', 'v.id = :voie_id')
+            ->setParameter('voie_id', $voieId)
+            ->setParameter('user_id', $userId)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function filterByTagEvent($tagId, $userId)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->addSelect('partial ev.{
+                id, title, category,
+                frontImage, startDate, completionDate
+            }')
+            ->addSelect('partial u.{id, last_name, first_name, avatar}')
+            ->addSelect('partial tch.{
+                id, title, serial,
+                lesson, dayNumber, dayTime, date
+            }')
+            ->addSelect('partial bk.{id}')
+            ->innerJoin('c.events','ev')
+            ->innerJoin('ev.users','u', 'WITH', 'u.is_teacher = 1')
+            ->innerJoin('ev.tags','etg', 'WITH', 'etg.id = :tag_id')
+            ->innerJoin('u.teachings','tch', 'WITH', 'tch.is_show = 1')
+            ->leftJoin('u.bookmarks','bk', 'WITH', 'u.id = :user_id')
+            ->setParameter('tag_id', $tagId)
+            ->setParameter('user_id', $userId)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function filterByTagTeaching($tagId, $userId)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->addSelect('partial ev.{
+                id, title, category,
+                frontImage, startDate, completionDate
+            }')
+            ->addSelect('partial u.{id, last_name, first_name, avatar}')
+            ->addSelect('partial tch.{
+                id, title, serial,
+                lesson, dayNumber, dayTime, date
+            }')
+            ->addSelect('partial bk.{id}')
+            ->innerJoin('c.events','ev')
+            ->innerJoin('ev.users','u', 'WITH', 'u.is_teacher = 1')
+            ->innerJoin('u.teachings','tch', 'WITH', 'tch.is_show = 1')
+            ->leftJoin('u.bookmarks','bk', 'WITH', 'u.id = :user_id')
+            ->innerJoin('tch.tags', 'etch', 'WITH', 'etch.id = :tag_id')
+            ->setParameter('tag_id', $tagId)
+            ->setParameter('user_id', $userId)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findUserBookmark($userId)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->addSelect('partial ev.{
+                id, title, category,
+                frontImage, startDate, completionDate
+            }')
+            ->addSelect('partial u.{id, last_name, first_name, avatar}')
+            ->addSelect('partial u_curr.{id}')
+            ->addSelect('partial tch.{
+                id, title, serial,
+                lesson, dayNumber, dayTime, date
+            }')
+            ->addSelect('partial bk.{id}')
+            ->addSelect('partial ev2.{id}')
+            ->innerJoin('c.events','ev')
+            ->leftJoin('ev.users','u_curr', 'WITH', 'u_curr.id = :user_id')
+            ->leftJoin('u_curr.bookmarks','bk')
+            ->leftJoin('bk.event','ev2')
+            ->leftJoin('ev.users','u')
+            ->leftJoin('u.teachings','tch', 'WITH', 'tch.id = bk.id')
+            ->where('ev.id = ev2.id')
+            ->setParameter('user_id', $userId)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getYears()
+    {
+        return $qb = $this->createQueryBuilder('c')
+            ->select('partial c.{id, year}')
+            ->orderBy('c.year', 'DESC')
+            ->getQuery()
+            ->getResult();
     }
 }

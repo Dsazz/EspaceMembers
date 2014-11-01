@@ -6,3 +6,6 @@ espace_members_main:
     resource: "@EspaceMembersMainBundle/Resources/config/routing.yml"
     prefix:   /
 
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
