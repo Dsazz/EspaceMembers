@@ -17,8 +17,6 @@ class BookmarkController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        \Kint::dump($em->getRepository('EspaceMembersMainBundle:Chronology')
-                ->findUserBookmark($this->getUser()->getId()));die;
         return $this->render('EspaceMembersMainBundle:Bookmark:index.html.twig', array(
             'chronologies' => $em->getRepository('EspaceMembersMainBundle:Chronology')
                 ->findUserBookmark($this->getUser()->getId()),
