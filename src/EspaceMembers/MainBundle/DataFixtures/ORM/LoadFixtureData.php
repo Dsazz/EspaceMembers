@@ -8,12 +8,8 @@ use Nelmio\Alice\Fixtures;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 
 class LoadFixtureData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface
@@ -39,7 +35,6 @@ class LoadFixtureData extends AbstractFixture implements FixtureInterface, Conta
         Fixtures::load(__DIR__.'/EspaceMembers.yml', $om, array('providers' => array($this)));
     }
 
-
     protected $path = "/../../../../../web/uploads/fixtures/";
 
     /**
@@ -57,7 +52,6 @@ class LoadFixtureData extends AbstractFixture implements FixtureInterface, Conta
         return $binaryContents[array_rand($binaryContents)];
     }
 
-
     //
     //Циклическая загрузка файлов с использованием
     //наращиваемой переменной $counter предназначеной для обеспецения
@@ -67,7 +61,7 @@ class LoadFixtureData extends AbstractFixture implements FixtureInterface, Conta
         static $COUNTER = 0;
         $flaq = false;
 
-        if($COUNTER >= $finish) {
+        if ($COUNTER >= $finish) {
             $COUNTER++;
             $flaq = true;
         } else $COUNTER++;
@@ -75,7 +69,6 @@ class LoadFixtureData extends AbstractFixture implements FixtureInterface, Conta
         if($flaq) $COUNTER = 1;
 
         $fileName = $COUNTER.$extension;
-
 
         return $binaryContent = __DIR__."/../../../../../web/uploads/fixtures/".$mediaType."/".$fileName;
     }

@@ -2,8 +2,6 @@
 
 namespace EspaceMembers\MainBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 class Chronology
 {
     /**
@@ -32,7 +30,7 @@ class Chronology
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -42,7 +40,7 @@ class Chronology
     /**
      * Set year
      *
-     * @param string $year
+     * @param  string     $year
      * @return Chronology
      */
     public function setYear($year)
@@ -55,7 +53,7 @@ class Chronology
     /**
      * Get year
      *
-     * @return string 
+     * @return string
      */
     public function getYear()
     {
@@ -65,7 +63,7 @@ class Chronology
     /**
      * Add events
      *
-     * @param \EspaceMembers\MainBundle\Entity\Event $events
+     * @param  \EspaceMembers\MainBundle\Entity\Event $events
      * @return Chronology
      */
     public function addEvent(\EspaceMembers\MainBundle\Entity\Event $events)
@@ -88,14 +86,15 @@ class Chronology
     /**
      * Get events
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getEvents()
     {
         return $this->events;
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getYear();
     }
 }

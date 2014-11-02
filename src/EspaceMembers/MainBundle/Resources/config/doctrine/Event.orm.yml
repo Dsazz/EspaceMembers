@@ -21,7 +21,7 @@ EspaceMembers\MainBundle\Entity\Event:
       type: datetime
     year:
       type: string
-      length: 20 
+      length: 20
     description:
       type: text
       nullable: true

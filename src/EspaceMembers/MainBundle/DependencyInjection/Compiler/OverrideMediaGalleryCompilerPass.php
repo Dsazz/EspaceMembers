@@ -6,10 +6,10 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class OverrideMediaGalleryCompilerPass implements CompilerPassInterface
 {
-    public function process( ContainerBuilder $container )
+    public function process(ContainerBuilder $container)
     {
         $definition = $container->getDefinition( 'sonata.media.admin.gallery' );
-        if ( $definition ) {
+        if ($definition) {
             if ( $definition->hasTag( 'sonata.admin' ) ) {
                 $tags                             = $definition->getTag( 'sonata.admin' );
                 $tags[ 0 ][ 'show_in_dashboard' ] = false;

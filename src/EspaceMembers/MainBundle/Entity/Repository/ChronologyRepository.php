@@ -79,6 +79,7 @@ class ChronologyRepository extends EntityRepository
     public function filterByTeacher($userId)
     {
         $qb = $this->createQueryBuilder('c');
+
         return $qb
             ->select('c')
             ->addSelect('partial ev.{
@@ -174,34 +175,6 @@ class ChronologyRepository extends EntityRepository
             ->leftJoin('u.bookmarks','bk', 'WITH', 'u.id = :user_id')
             ->innerJoin('tch.tags', 'etch', 'WITH', 'etch.id = :tag_id')
             ->setParameter('tag_id', $tagId)
-            ->setParameter('user_id', $userId)
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function findUserBookmark($userId)
-    {
-        return $this->createQueryBuilder('c')
-            ->select('c')
-            ->addSelect('partial ev.{
-                id, title, category,
-                frontImage, startDate, completionDate
-            }')
-            ->addSelect('partial u.{id, last_name, first_name, avatar}')
-            ->addSelect('partial u_curr.{id}')
-            ->addSelect('partial tch.{
-                id, title, serial,
-                lesson, dayNumber, dayTime, date
-            }')
-            ->addSelect('partial bk.{id}')
-            ->addSelect('partial ev2.{id}')
-            ->innerJoin('c.events','ev')
-            ->leftJoin('ev.users','u_curr', 'WITH', 'u_curr.id = :user_id')
-            ->leftJoin('u_curr.bookmarks','bk')
-            ->leftJoin('bk.event','ev2')
-            ->leftJoin('ev.users','u')
-            ->leftJoin('u.teachings','tch', 'WITH', 'tch.id = bk.id')
-            ->where('ev.id = ev2.id')
             ->setParameter('user_id', $userId)
             ->getQuery()
             ->getResult();

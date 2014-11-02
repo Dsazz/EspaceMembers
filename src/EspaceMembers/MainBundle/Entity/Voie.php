@@ -2,8 +2,6 @@
 
 namespace EspaceMembers\MainBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 class Voie
 {
 
@@ -43,7 +41,7 @@ class Voie
     /**
      * Set title
      *
-     * @param string $title
+     * @param  string $title
      * @return Voie
      */
     public function setTitle($title)
@@ -66,7 +64,7 @@ class Voie
     /**
      * Add teachings
      *
-     * @param \EspaceMembers\MainBundle\Entity\Teaching $teachings
+     * @param  \EspaceMembers\MainBundle\Entity\Teaching $teachings
      * @return Voie
      */
     public function addTeaching(\EspaceMembers\MainBundle\Entity\Teaching $teachings)
@@ -89,14 +87,15 @@ class Voie
     /**
      * Get teachings
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getTeachings()
     {
         return $this->teachings;
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getTitle();
     }
 }

@@ -3,8 +3,8 @@
 {% block javascript %}
     {{ parent() }}
     <script>$(function() {
-        {% if filtered_accordion is defined %}
-            $( "#accordion" ).accordion({active: {{ filtered_accordion }} });
+        {% if accordion is defined %}
+            $( "#accordion" ).accordion({active: {{ accordion }} });
         {% else %}
             $( "#accordion" ).accordion({ collapsible: true, active: false });
         {% endif %}
@@ -21,23 +21,36 @@
 
 {% block body %}
 <div class="content">
-    {#BEGIN right-column#}
     {% block right_column %}
-        {{ render(controller('EspaceMembersMainBundle:Render:rightBlock')) }}
+        {% set accordion = accordion is defined ? accordion : -1 %}
+        {{ render(controller('EspaceMembersMainBundle:Render:rightBlock', {
+            'accordion': accordion
+        })) }}
     {% endblock right_column %}
 
     {% block left_column %}
-        {% for chronology in chronologies %}
-            {{ include( 'EspaceMembersMainBundle:Teaching:left-block.html.twig', {
-                'chronology' : chronology, })
-            }}
+        {% if chronologies is defined %}
+            {% if chronologies is iterable %}
+                {% for chronology in chronologies %}
+                    {{ include( 'EspaceMembersMainBundle:Teaching:left-block.html.twig', {
+                        'chronology' : chronology,
+                    }) }}
+                {% else %}
+                    <div class="left-column">
+                        <p>Not found entries</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                {{ include( 'EspaceMembersMainBundle:Teaching:left-block.html.twig', {
+                    'chronology' : chronologies,
+                }) }}
+            {% endif %}
         {% else %}
             <div class="left-column">
                 <p>Not found entries</p>
             </div>
-        {% endfor %}
+        {% endif %}
     {% endblock left_column %}
-
 </div>
 <div class="clear"><!-- --></div>
 {% endblock %}

@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\RouterInterface;
 
-
 class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
 {
     protected $router;
@@ -24,14 +23,12 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
 
-        if ($this->security->isGranted('ROLE_SUPER_ADMIN'))
-        {
+        if ($this->security->isGranted('ROLE_SUPER_ADMIN')) {
             $response = new RedirectResponse($this->router->generate('sonata_admin_dashboard'));
-        } elseif ($this->security->isGranted('ROLE_ADMIN'))
-        {
+        } elseif ($this->security->isGranted('ROLE_ADMIN')) {
             $response = new RedirectResponse($this->router->generate('sonata_admin_dashboard'));
         } elseif ($this->security->isGranted('ROLE_USER')) {
-            // redirect the user to where they were 
+            // redirect the user to where they were
             // before the login process begun.
             $referer_url = $request->headers->get('referer');
 

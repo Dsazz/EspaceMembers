@@ -1,36 +1,28 @@
-{% extends 'EspaceMembersMainBundle:Template:left-block.html.twig' %}
+<div class="left-column">
+    <span class="year">{{ bookmark.event.chronology.year }}</span>
+    <h2>{{ bookmark.event.title|capitalize }}</h2>
+    <span class="sub-heading">
+        <img src="{{ asset('bundles/espacemembersmain/images/flag.png') }}" alt="flag" />
+        {{ bookmark.event.category.title|capitalize }}
+    </span>
 
-{% set bookmarks = app.security.getToken().getUser().getBookmarks() %}
-{% block detail %}
-    <div class="detail-box">
-        <span class="sub-heading">
-            {% media teacher.avatar, 'small' with
-                { 'width': '30px', 'height': '30px', 'alt': 'flag', 'title': '' }
-            %}
-            {{ teacher.lastName }} {{ teacher.firstName }}
+    <div class="image-box">
+        {% media bookmark.event.frontImage, 'big' with
+            { 'width': '175px', 'height': '175px', 'alt': 'image', 'title': '' }
+        %}
+        <span class="describe">
+            Du {{ bookmark.event.startDate|localizeddate('none', 'none', 'fr_FR' , null, 'd LLLL')|title }}
+            Au {{ bookmark.event.completionDate|localizeddate('none', 'none', 'fr_FR' , null, 'd LLLL')|title }}
         </span>
-        {% set teachings = bookmarks %}
-        {% if teachings is iterable and teachings is not empty %}
-            {% for teaching in teachings %}
-                {{ include( 'EspaceMembersMainBundle:Bookmark:teachings.html.twig', {
-                        'teaching': teaching,
-                    })
-                }}
-            {% else %}
-                <div class="item">
-                    Not found teaching
-                </div>
-            {% endfor %}
-        {% elseif teachings is defined %}
-            {{ include( 'EspaceMembersMainBundle:Bookmark:teachings.html.twig', {
-                    'teaching': teacher.bookmarks.first(),
-                })
-            }}
-        {% else %}
-            <div class="item">
-                Not found teaching
-            </div>
-        {% endif %}
-
+        <a href="{{ path('espace_members_detail_teaching',
+            { 'event_id' : bookmark.event.id, } ) }}"
+            class="zoom">EN SAVOIR
+        </a>
     </div>
-{% endblock %}
+    {% for teacher in bookmark.event.users %}
+        {{ include( 'EspaceMembersMainBundle:Bookmark:detail-box.html.twig', {
+            'teacher' : teacher,
+            'bookmark': bookmark,
+        }) }}
+    {% endfor %}
+</div>

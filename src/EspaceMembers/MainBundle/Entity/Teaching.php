@@ -3,7 +3,6 @@
 namespace EspaceMembers\MainBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 
 class Teaching
 {
@@ -95,7 +94,7 @@ class Teaching
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -105,7 +104,7 @@ class Teaching
     /**
      * Set title
      *
-     * @param string $title
+     * @param  string   $title
      * @return Teaching
      */
     public function setTitle($title)
@@ -118,7 +117,7 @@ class Teaching
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -128,7 +127,7 @@ class Teaching
     /**
      * Set serial
      *
-     * @param integer $serial
+     * @param  integer  $serial
      * @return Teaching
      */
     public function setSerial($serial)
@@ -141,7 +140,7 @@ class Teaching
     /**
      * Get serial
      *
-     * @return integer 
+     * @return integer
      */
     public function getSerial()
     {
@@ -151,7 +150,7 @@ class Teaching
     /**
      * Set date
      *
-     * @param \DateTime $date
+     * @param  \DateTime $date
      * @return Teaching
      */
     public function setDate($date)
@@ -164,7 +163,7 @@ class Teaching
     /**
      * Get date
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDate()
     {
@@ -174,7 +173,7 @@ class Teaching
     /**
      * Set dayNumber
      *
-     * @param integer $dayNumber
+     * @param  integer  $dayNumber
      * @return Teaching
      */
     public function setDayNumber($dayNumber)
@@ -187,7 +186,7 @@ class Teaching
     /**
      * Get dayNumber
      *
-     * @return integer 
+     * @return integer
      */
     public function getDayNumber()
     {
@@ -197,7 +196,7 @@ class Teaching
     /**
      * Set dayTime
      *
-     * @param string $dayTime
+     * @param  string   $dayTime
      * @return Teaching
      */
     public function setDayTime($dayTime)
@@ -210,7 +209,7 @@ class Teaching
     /**
      * Get dayTime
      *
-     * @return string 
+     * @return string
      */
     public function getDayTime()
     {
@@ -220,7 +219,7 @@ class Teaching
     /**
      * Set resume
      *
-     * @param string $resume
+     * @param  string   $resume
      * @return Teaching
      */
     public function setResume($resume)
@@ -233,7 +232,7 @@ class Teaching
     /**
      * Get resume
      *
-     * @return string 
+     * @return string
      */
     public function getResume()
     {
@@ -243,7 +242,7 @@ class Teaching
     /**
      * Set technical_comment
      *
-     * @param string $technicalComment
+     * @param  string   $technicalComment
      * @return Teaching
      */
     public function setTechnicalComment($technicalComment)
@@ -266,7 +265,7 @@ class Teaching
     /**
      * Set is_show
      *
-     * @param boolean $isShow
+     * @param  boolean  $isShow
      * @return Teaching
      */
     public function setIsShow($isShow)
@@ -289,7 +288,7 @@ class Teaching
     /**
      * Set lesson
      *
-     * @param \EspaceMembers\MainBundle\Entity\Media $lesson
+     * @param  \EspaceMembers\MainBundle\Entity\Media $lesson
      * @return Teaching
      */
     public function setLesson(\EspaceMembers\MainBundle\Entity\Media $lesson = null)
@@ -302,7 +301,7 @@ class Teaching
     /**
      * Get lesson
      *
-     * @return \EspaceMembers\MainBundle\Entity\Media 
+     * @return \EspaceMembers\MainBundle\Entity\Media
      */
     public function getLesson()
     {
@@ -312,21 +311,20 @@ class Teaching
     /**
      * Set event
      *
-     * @param \EspaceMembers\MainBundle\Entity\Event $event
+     * @param  \EspaceMembers\MainBundle\Entity\Event $event
      * @return Teaching
      */
     public function setEvent(\EspaceMembers\MainBundle\Entity\Event $event = null)
     {
         $this->event = $event;
         //$event->addTeaching($this);
-
         return $this;
     }
 
     /**
      * Get event
      *
-     * @return \EspaceMembers\MainBundle\Entity\Event 
+     * @return \EspaceMembers\MainBundle\Entity\Event
      */
     public function getEvent()
     {
@@ -343,7 +341,7 @@ class Teaching
     /**
      * Add tags
      *
-     * @param \EspaceMembers\MainBundle\Entity\Tag $tags
+     * @param  \EspaceMembers\MainBundle\Entity\Tag $tags
      * @return Teaching
      */
     public function addTag(\EspaceMembers\MainBundle\Entity\Tag $tag)
@@ -369,7 +367,7 @@ class Teaching
     /**
      * Get tags
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getTags()
     {
@@ -386,7 +384,7 @@ class Teaching
     /**
      * Add voies
      *
-     * @param \EspaceMembers\MainBundle\Entity\Voie $voies
+     * @param  \EspaceMembers\MainBundle\Entity\Voie $voies
      * @return Teaching
      */
     public function addVoie(\EspaceMembers\MainBundle\Entity\Voie $voie)
@@ -412,13 +410,12 @@ class Teaching
     /**
      * Get voies
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getVoies()
     {
         return $this->voies;
     }
-
 
     public function setUsers(ArrayCollection $users)
     {
@@ -430,7 +427,7 @@ class Teaching
     /**
      * Add users
      *
-     * @param \EspaceMembers\MainBundle\Entity\User $users
+     * @param  \EspaceMembers\MainBundle\Entity\User $users
      * @return Teaching
      */
     public function addUser(\EspaceMembers\MainBundle\Entity\User $user)
@@ -455,7 +452,7 @@ class Teaching
     /**
      * Get users
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getUsers()
     {
@@ -470,7 +467,7 @@ class Teaching
     /**
      * Add bookmarkOwners
      *
-     * @param \EspaceMembers\MainBundle\Entity\User $bookmarkOwners
+     * @param  \EspaceMembers\MainBundle\Entity\User $bookmarkOwners
      * @return Teaching
      */
     public function addBookmarkOwner(\EspaceMembers\MainBundle\Entity\User $bookmarkOwners)
@@ -493,7 +490,7 @@ class Teaching
     /**
      * Get bookmarkOwners
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getBookmarkOwners()
     {

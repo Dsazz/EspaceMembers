@@ -28,21 +28,21 @@
 
             <p>Enseignant(s):<br />
             {% for teacher in event.users %}
-            <a href="#" class="link">{{ teacher.lastName }} {{ teacher.firstName }}<br /></a>
+                <a href="#" class="link">{{ teacher.lastName }} {{ teacher.firstName }}<br /></a>
             {% else %}
-            <a href="#" class="link">Not found teachers</a>
+                <a href="#" class="link">Not found teachers</a>
             {% endfor %}
             </p>
 
             <p>Catégorie:<br />
-            {{ event.category.title|capitalize }}
+                {{ event.category.title|capitalize }}
             </p>
 
             <p>Thèmes:<br />
             {% for tag in event.tags %}
-            <a href="#" class="theme-button">{{ tag.title }}</a>
+                <a href="#" class="theme-button">{{ tag.title }}</a>
             {% else %}
-            <a href="#" class="theme-button">Not found tag</a>
+                <a href="#" class="theme-button">Not found tag</a>
             {% endfor %}
             </p>
 

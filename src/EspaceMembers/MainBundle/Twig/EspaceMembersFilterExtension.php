@@ -1,7 +1,6 @@
 <?php
 namespace EspaceMembers\MainBundle\Twig;
 
-use Doctrine\Common\Collections\Criteria;
 use Twig_Extension;
 use Twig_Filter_Method;
 
@@ -25,7 +24,7 @@ class EspaceMembersFilterExtension extends Twig_Extension
     public function filterLesson($entityCollection, $filterId)
     {
         $entityCollection = $entityCollection->filter(
-            function($element) use ($filterId) {
+            function ($element) use ($filterId) {
                 return $element->getEvent()->getTitle() === $filterId && $element->getIsShow();
             });
 
@@ -35,9 +34,10 @@ class EspaceMembersFilterExtension extends Twig_Extension
     public function filterIsBookmark($bookmarkCollection, $teaching_id)
     {
         $bookmarkCollection = $bookmarkCollection->filter(
-            function($element) use ($teaching_id) {
+            function ($element) use ($teaching_id) {
                 return $element->getId() === $teaching_id;
             });
+
         return $bookmarkCollection->isEmpty() ? false : true;
     }
 

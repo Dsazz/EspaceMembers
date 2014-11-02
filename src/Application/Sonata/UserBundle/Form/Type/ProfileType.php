@@ -17,7 +17,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Sonata\UserBundle\Model\UserInterface;
 use EspaceMembers\MainBundle\DBAL\Types\SexType;
 
 class ProfileType extends AbstractType
@@ -120,13 +119,15 @@ class ProfileType extends AbstractType
         }
     }
 
-    public function getExistingRoles() {
+    public function getExistingRoles()
+    {
         $roleHierarchy = $this->container->getParameter('security.role_hierarchy.roles');
-        $roles = array_keys($roleHierarchy); 
+        $roles = array_keys($roleHierarchy);
 
         foreach ($roles as $role) {
             $theRoles[$role] = $role;
         }
+
         return $theRoles;
     }
 

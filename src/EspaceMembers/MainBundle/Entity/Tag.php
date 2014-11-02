@@ -2,10 +2,8 @@
 
 namespace EspaceMembers\MainBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
-class Tag {
-
+class Tag
+{
     /**
      * @var integer
      */
@@ -39,7 +37,7 @@ class Tag {
     /**
      * Set title
      *
-     * @param string $title
+     * @param  string $title
      * @return Tag
      */
     public function setTitle($title)
@@ -71,7 +69,7 @@ class Tag {
     /**
      * Add teachings
      *
-     * @param \EspaceMembers\MainBundle\Entity\Teaching $teachings
+     * @param  \EspaceMembers\MainBundle\Entity\Teaching $teachings
      * @return Tag
      */
     public function addTeaching(\EspaceMembers\MainBundle\Entity\Teaching $teachings)
@@ -94,22 +92,22 @@ class Tag {
     /**
      * Get teachings
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getTeachings()
     {
         return $this->teachings;
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getTitle();
     }
-
 
     /**
      * Add events
      *
-     * @param \EspaceMembers\MainBundle\Entity\Event $events
+     * @param  \EspaceMembers\MainBundle\Entity\Event $events
      * @return Tag
      */
     public function addEvent(\EspaceMembers\MainBundle\Entity\Event $events)
@@ -132,7 +130,7 @@ class Tag {
     /**
      * Get events
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getEvents()
     {

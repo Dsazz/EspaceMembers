@@ -7,15 +7,14 @@ use Doctrine\ORM\Mapping as ORM;
 
 //use Sonata\UserBundle\Model\User as BaseUser;
 use Sonata\UserBundle\Entity\BaseUser as BaseUser;
-use Symfony\Component\HttpFoundation\Image\UploadedFile;
 /**
  * User
  */
 class User extends BaseUser
 {
-    static $ROLE_DEFAULT     = 'ROLE_USER';
-    static $ROLE_ADMIN       = 'ROLE_ADMIN';
-    static $ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
+    public static $ROLE_DEFAULT     = 'ROLE_USER';
+    public static $ROLE_ADMIN       = 'ROLE_ADMIN';
+    public static $ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
 
     /**
      * @var integer
@@ -107,7 +106,7 @@ class User extends BaseUser
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -117,7 +116,7 @@ class User extends BaseUser
     /**
      * Set first_name
      *
-     * @param string $firstName
+     * @param  string $firstName
      * @return User
      */
     public function setFirstName($firstName)
@@ -130,7 +129,7 @@ class User extends BaseUser
     /**
      * Get first_name
      *
-     * @return string 
+     * @return string
      */
     public function getFirstName()
     {
@@ -140,7 +139,7 @@ class User extends BaseUser
     /**
      * Set last_name
      *
-     * @param string $lastName
+     * @param  string $lastName
      * @return User
      */
     public function setLastName($lastName)
@@ -153,7 +152,7 @@ class User extends BaseUser
     /**
      * Get last_name
      *
-     * @return string 
+     * @return string
      */
     public function getLastName()
     {
@@ -163,7 +162,7 @@ class User extends BaseUser
     /**
      * Set birthday
      *
-     * @param \DateTime $birthday
+     * @param  \DateTime $birthday
      * @return User
      */
     public function setBirthday($birthday)
@@ -176,7 +175,7 @@ class User extends BaseUser
     /**
      * Get birthday
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getBirthday()
     {
@@ -186,7 +185,7 @@ class User extends BaseUser
     /**
      * Set description
      *
-     * @param string $description
+     * @param  string $description
      * @return User
      */
     public function setDescription($description)
@@ -199,7 +198,7 @@ class User extends BaseUser
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -209,7 +208,7 @@ class User extends BaseUser
     /**
      * Set sex
      *
-     * @param SexType $sex
+     * @param  SexType $sex
      * @return User
      */
     public function setSex($sex)
@@ -222,7 +221,7 @@ class User extends BaseUser
     /**
      * Get sex
      *
-     * @return SexType 
+     * @return SexType
      */
     public function getSex()
     {
@@ -232,7 +231,7 @@ class User extends BaseUser
     /**
      * Set avatar
      *
-     * @param \EspaceMembers\MainBundle\Entity\Media $avatar
+     * @param  \EspaceMembers\MainBundle\Entity\Media $avatar
      * @return User
      */
     public function setAvatar(\EspaceMembers\MainBundle\Entity\Media $avatar = null)
@@ -245,7 +244,7 @@ class User extends BaseUser
     /**
      * Get avatar
      *
-     * @return \EspaceMembers\MainBundle\Entity\Media 
+     * @return \EspaceMembers\MainBundle\Entity\Media
      */
     public function getAvatar()
     {
@@ -255,7 +254,7 @@ class User extends BaseUser
     /**
      * Add events
      *
-     * @param \EspaceMembers\MainBundle\Entity\Event $events
+     * @param  \EspaceMembers\MainBundle\Entity\Event $events
      * @return User
      */
     public function addEvent(\EspaceMembers\MainBundle\Entity\Event $event)
@@ -279,7 +278,7 @@ class User extends BaseUser
     /**
      * Get events
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getEvents()
     {
@@ -296,7 +295,7 @@ class User extends BaseUser
     /**
      * Add teachings
      *
-     * @param \EspaceMembers\MainBundle\Entity\Teaching $teachings
+     * @param  \EspaceMembers\MainBundle\Entity\Teaching $teachings
      * @return User
      */
     public function addTeaching(\EspaceMembers\MainBundle\Entity\Teaching $teaching)
@@ -322,7 +321,7 @@ class User extends BaseUser
     /**
      * Get teachings
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getTeachings()
     {
@@ -332,7 +331,7 @@ class User extends BaseUser
     /**
      * Add groups
      *
-     * @param \EspaceMembers\MainBundle\Entity\Group $groups
+     * @param  \EspaceMembers\MainBundle\Entity\Group $groups
      * @return User
      */
     public function addGroup(\FOS\UserBundle\Model\GroupInterface $groups)
@@ -389,7 +388,7 @@ class User extends BaseUser
     /**
      * Set is_teacher
      *
-     * @param boolean $isTeacher
+     * @param  boolean $isTeacher
      * @return User
      */
     public function setIsTeacher($isTeacher)
@@ -402,7 +401,7 @@ class User extends BaseUser
     /**
      * Get is_teacher
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsTeacher()
     {
@@ -412,7 +411,7 @@ class User extends BaseUser
     /**
      * Set phone
      *
-     * @param string $phone
+     * @param  string $phone
      * @return User
      */
     public function setPhone($phone)
@@ -425,7 +424,7 @@ class User extends BaseUser
     /**
      * Get phone
      *
-     * @return string 
+     * @return string
      */
     public function getPhone()
     {
@@ -435,7 +434,7 @@ class User extends BaseUser
     /**
      * Set address
      *
-     * @param string $address
+     * @param  string $address
      * @return User
      */
     public function setAddress($address)
@@ -448,7 +447,7 @@ class User extends BaseUser
     /**
      * Get address
      *
-     * @return string 
+     * @return string
      */
     public function getAddress()
     {
@@ -458,7 +457,7 @@ class User extends BaseUser
     /**
      * Add bookmarks
      *
-     * @param \EspaceMembers\MainBundle\Entity\Teaching $bookmarks
+     * @param  \EspaceMembers\MainBundle\Entity\Teaching $bookmarks
      * @return User
      */
     public function addBookmark(\EspaceMembers\MainBundle\Entity\Teaching $bookmark)
@@ -484,7 +483,7 @@ class User extends BaseUser
     /**
      * Get bookmarks
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getBookmarks()
     {

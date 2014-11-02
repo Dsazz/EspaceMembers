@@ -4,7 +4,6 @@ namespace EspaceMembers\MainBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use EspaceMembers\MainBundle\Entity\Event;
 use EspaceMembers\MainBundle\Entity\User;
@@ -15,6 +14,7 @@ class TeachingController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'chronologies' => $em->getRepository('EspaceMembersMainBundle:Chronology')
                 ->findAllWithBookmarks($this->getUser()->getId()),
@@ -24,11 +24,12 @@ class TeachingController extends Controller
     public function filterChronologyAction($chronology_id)
     {
         $em = $this->getDoctrine()->getManager();
+
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'chronologies'  => $em->getRepository('EspaceMembersMainBundle:Chronology')
                 ->filterById($chronology_id, $this->getUser()->getId()),
             'filtered_chronology_id' => $chronology_id,
-            'filtered_accordion'    => '0',
+            'accordion'    => '0',
         ));
     }
 
@@ -40,7 +41,7 @@ class TeachingController extends Controller
             'chronologies'  => $em->getRepository('EspaceMembersMainBundle:Chronology')
                 ->filterByCategory($category_id, $this->getUser()->getId()),
             'filtered_category_id'  => $category_id,
-            'filtered_accordion'    => '1',
+            'accordion'    => '1',
 
         ));
     }
@@ -53,18 +54,19 @@ class TeachingController extends Controller
             'chronologies' => $em->getRepository('EspaceMembersMainBundle:Chronology')
                 ->filterByVoie($voie_id, $this->getUser()->getId()),
             'filtered_voie_id'      => $voie_id,
-            'filtered_accordion'    => '2',
+            'accordion'    => '2',
         ));
     }
 
     public function filterTeacherAction($teacher_id)
     {
         $em = $this->getDoctrine()->getManager();
+
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'chronologies' => $em->getRepository('EspaceMembersMainBundle:Chronology')
                 ->filterByTeacher($teacher_id),
             'filtered_teacher_id'   => $teacher_id,
-            'filtered_accordion'    => '3',
+            'accordion'    => '3',
         ));
     }
 
@@ -81,19 +83,22 @@ class TeachingController extends Controller
                     ? $filteredByTagEvent : array()
             )
         );
+
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'chronologies' => $filteredChronologies,
             'filtered_tag_id'       => $tag_id,
-            'filtered_accordion'    => '4',
+            'accordion'    => '4',
         ));
     }
 
     /**
      * @ParamConverter(name="teaching", class="EspaceMembersMainBundle:Teaching", options={"id" = "teaching_id"})
      */
-    public function playAction($event_id, $teacher_id, Teaching $teaching) {
+    public function playAction($event_id, $teacher_id, Teaching $teaching)
+    {
         $em = $this->getDoctrine()->getManager();
         $event = $em->getRepository('EspaceMembersMainBundle:Event')->findEventWithTeachers($event_id);
+
         return $this->render('EspaceMembersMainBundle:Teaching:play.html.twig', array(
             'event'        => $event,
             'teacherCurr'  => $em->getRepository('EspaceMembersMainBundle:User')
@@ -107,7 +112,8 @@ class TeachingController extends Controller
     /**
      * @ParamConverter(name="event", class="EspaceMembersMainBundle:Event", options={"id" = "event_id"})
      */
-    public function viewDetailAction(Event $event) {
+    public function viewDetailAction(Event $event)
+    {
         $em = $this->getDoctrine()->getManager();
 
         return $this->render('EspaceMembersMainBundle:Teaching:detail.html.twig', array(

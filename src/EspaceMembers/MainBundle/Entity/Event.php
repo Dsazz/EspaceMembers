@@ -96,7 +96,7 @@ class Event
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -106,7 +106,7 @@ class Event
     /**
      * Set title
      *
-     * @param string $title
+     * @param  string $title
      * @return Event
      */
     public function setTitle($title)
@@ -119,7 +119,7 @@ class Event
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -129,7 +129,7 @@ class Event
     /**
      * Set startDate
      *
-     * @param \DateTime $startDate
+     * @param  \DateTime $startDate
      * @return Event
      */
     public function setStartDate($startDate)
@@ -142,7 +142,7 @@ class Event
     /**
      * Get startDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getStartDate()
     {
@@ -152,7 +152,7 @@ class Event
     /**
      * Set completionDate
      *
-     * @param \DateTime $completionDate
+     * @param  \DateTime $completionDate
      * @return Event
      */
     public function setCompletionDate($completionDate)
@@ -165,7 +165,7 @@ class Event
     /**
      * Get completionDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCompletionDate()
     {
@@ -175,7 +175,7 @@ class Event
     /**
      * Set year
      *
-     * @param string $year
+     * @param  string $year
      * @return Event
      */
     public function setYear($year)
@@ -198,7 +198,7 @@ class Event
     /**
      * Set description
      *
-     * @param string $description
+     * @param  string $description
      * @return Event
      */
     public function setDescription($description)
@@ -211,7 +211,7 @@ class Event
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -221,7 +221,7 @@ class Event
     /**
      * Set is_show
      *
-     * @param boolean $isShow
+     * @param  boolean $isShow
      * @return Event
      */
     public function setIsShow($isShow)
@@ -234,7 +234,7 @@ class Event
     /**
      * Get is_show
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsShow()
     {
@@ -244,7 +244,7 @@ class Event
     /**
      * Set frontImage
      *
-     * @param \EspaceMembers\MainBundle\Entity\Media $frontImage
+     * @param  \EspaceMembers\MainBundle\Entity\Media $frontImage
      * @return Event
      */
     public function setFrontImage(\EspaceMembers\MainBundle\Entity\Media $frontImage = null)
@@ -257,7 +257,7 @@ class Event
     /**
      * Get frontImage
      *
-     * @return \EspaceMembers\MainBundle\Entity\Media 
+     * @return \EspaceMembers\MainBundle\Entity\Media
      */
     public function getFrontImage()
     {
@@ -267,7 +267,7 @@ class Event
     /**
      * Set flayer
      *
-     * @param \EspaceMembers\MainBundle\Entity\Media $flayer
+     * @param  \EspaceMembers\MainBundle\Entity\Media $flayer
      * @return Event
      */
     public function setFlayer(\EspaceMembers\MainBundle\Entity\Media $flayer = null)
@@ -280,7 +280,7 @@ class Event
     /**
      * Get flayer
      *
-     * @return \EspaceMembers\MainBundle\Entity\Media 
+     * @return \EspaceMembers\MainBundle\Entity\Media
      */
     public function getFlayer()
     {
@@ -290,7 +290,7 @@ class Event
     /**
      * Add teachings
      *
-     * @param \EspaceMembers\MainBundle\Entity\Teaching $teachings
+     * @param  \EspaceMembers\MainBundle\Entity\Teaching $teachings
      * @return Event
      */
     public function addTeaching(\EspaceMembers\MainBundle\Entity\Teaching $teaching)
@@ -314,7 +314,7 @@ class Event
     /**
      * Get teachings
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getTeachings()
     {
@@ -324,7 +324,7 @@ class Event
     /**
      * Set category
      *
-     * @param \EspaceMembers\MainBundle\Entity\Category $category
+     * @param  \EspaceMembers\MainBundle\Entity\Category $category
      * @return Event
      */
     public function setCategory(\EspaceMembers\MainBundle\Entity\Category $category = null)
@@ -337,7 +337,7 @@ class Event
     /**
      * Get category
      *
-     * @return \EspaceMembers\MainBundle\Entity\Category 
+     * @return \EspaceMembers\MainBundle\Entity\Category
      */
     public function getCategory()
     {
@@ -353,7 +353,7 @@ class Event
     /**
      * Add users
      *
-     * @param \EspaceMembers\MainBundle\Entity\User $users
+     * @param  \EspaceMembers\MainBundle\Entity\User $users
      * @return Event
      */
     public function addUser(\EspaceMembers\MainBundle\Entity\User $user)
@@ -378,7 +378,7 @@ class Event
     /**
      * Get users
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getUsers()
     {
@@ -395,7 +395,7 @@ class Event
     /**
      * Add groups
      *
-     * @param \EspaceMembers\MainBundle\Entity\Group $groups
+     * @param  \EspaceMembers\MainBundle\Entity\Group $groups
      * @return Event
      */
     public function addGroup(\EspaceMembers\MainBundle\Entity\Group $group)
@@ -421,7 +421,7 @@ class Event
     /**
      * Get groups
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getGroups()
     {
@@ -438,7 +438,7 @@ class Event
     /**
      * Add tags
      *
-     * @param \EspaceMembers\MainBundle\Entity\Tag $tags
+     * @param  \EspaceMembers\MainBundle\Entity\Tag $tags
      * @return Event
      */
     public function addTag(\EspaceMembers\MainBundle\Entity\Tag $tag)
@@ -464,7 +464,7 @@ class Event
     /**
      * Get tags
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getTags()
     {
@@ -477,14 +477,15 @@ class Event
     {
         // Add your code here
     }
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getTitle();
     }
 
     /**
      * Set chronology
      *
-     * @param \EspaceMembers\MainBundle\Entity\Chronology $chronology
+     * @param  \EspaceMembers\MainBundle\Entity\Chronology $chronology
      * @return Event
      */
     public function setChronology(\EspaceMembers\MainBundle\Entity\Chronology $chronology = null)
@@ -498,7 +499,7 @@ class Event
     /**
      * Get chronology
      *
-     * @return \EspaceMembers\MainBundle\Entity\Chronology 
+     * @return \EspaceMembers\MainBundle\Entity\Chronology
      */
     public function getChronology()
     {

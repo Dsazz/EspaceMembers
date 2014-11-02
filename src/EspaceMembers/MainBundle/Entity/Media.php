@@ -3,7 +3,6 @@
 namespace EspaceMembers\MainBundle\Entity;
 
 use Sonata\MediaBundle\Entity\BaseMedia as BaseMedia;
-use Doctrine\ORM\Mapping as ORM;
 use GetId3\GetId3Core as GetId3;
 
 class Media extends BaseMedia
@@ -27,7 +26,7 @@ class Media extends BaseMedia
     /**
      * Set path
      *
-     * @param string $path
+     * @param  string $path
      * @return Media
      */
     public function setPath($path)

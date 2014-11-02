@@ -10,10 +10,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
 
-use FOS\UserBundle\Model\UserManagerInterface;
-use Sonata\AdminBundle\Route\RouteCollection;
 use EspaceMembers\MainBundle\DBAL\Types\SexType;
-
 
 class UserAdmin extends BaseUserAdmin
 {
@@ -56,11 +53,11 @@ class UserAdmin extends BaseUserAdmin
                 ->with('General')
                     ->add('first_name', null, array('label' => 'First name', 'required' => true))
                     ->add('last_name', null, array('label' => 'Last name', 'required' => true))
-                    ->add('avatar', 'sonata_type_model_list', 
+                    ->add('avatar', 'sonata_type_model_list',
                         array(
-                            'label' => 'Avatar', 
+                            'label' => 'Avatar',
                             'btn_list' => false
-                        ), 
+                        ),
                         array(
                             'link_parameters' => array('context' => 'avatar')
                         )
@@ -71,7 +68,7 @@ class UserAdmin extends BaseUserAdmin
                     ->add('phone', null, array('label' => 'Phone'))
                     ->add('address', null, array('label' => 'Address'))
                     ->add('description', 'textarea', array(
-                        'label' => 'Description', 
+                        'label' => 'Description',
                         'attr' => array('class' => 'ckeditor'),
                         'required' => false,
                     ))
@@ -185,13 +182,15 @@ class UserAdmin extends BaseUserAdmin
         }
     }
 
-    public function getExistingRoles() {
+    public function getExistingRoles()
+    {
         $roleHierarchy = $this->getConfigurationPool()->getContainer()->getParameter('security.role_hierarchy.roles');
-        $roles = array_keys($roleHierarchy); 
+        $roles = array_keys($roleHierarchy);
 
         foreach ($roles as $role) {
             $theRoles[$role] = $role;
         }
+
         return $theRoles;
     }
 }

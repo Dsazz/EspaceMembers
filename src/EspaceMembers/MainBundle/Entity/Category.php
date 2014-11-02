@@ -2,8 +2,6 @@
 
 namespace EspaceMembers\MainBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 class Category
 {
 
@@ -33,7 +31,7 @@ class Category
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -43,7 +41,7 @@ class Category
     /**
      * Set title
      *
-     * @param string $title
+     * @param  string   $title
      * @return Category
      */
     public function setTitle($title)
@@ -56,7 +54,7 @@ class Category
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -66,7 +64,7 @@ class Category
     /**
      * Add events
      *
-     * @param \EspaceMembers\MainBundle\Entity\Event $events
+     * @param  \EspaceMembers\MainBundle\Entity\Event $events
      * @return Category
      */
     public function addEvent(\EspaceMembers\MainBundle\Entity\Event $events)
@@ -89,14 +87,15 @@ class Category
     /**
      * Get events
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getEvents()
     {
         return $this->events;
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getTitle();
     }
 }

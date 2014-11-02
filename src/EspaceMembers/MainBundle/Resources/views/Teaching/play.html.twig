@@ -19,8 +19,8 @@
 {% block body %}
 <div class="content">
     <div class="topbar">
-        {% media event.frontImage, 'small' with { 
-            'width': '50px', 'height': '50px', 'class': 'leftimg', 'alt': 'image', 'title': '' 
+        {% media event.frontImage, 'small' with {
+            'width': '50px', 'height': '50px', 'class': 'leftimg', 'alt': 'image', 'title': ''
         } %}
 
         <h2>{{ event.title|capitalize }}</h2>
@@ -32,7 +32,7 @@
                         <option value="{{ path('espace_members_playing_teaching', {
                                 'event_id' : event.id,
                                 'teacher_id' : teacher.id,
-                                'teaching_id' : teachingCurr.id }) 
+                                'teaching_id' : teachingCurr.id })
                             }}"
                             {% if teacher.id == teacherCurr.id %}
                                 selected="selected" title="{% path teacher.avatar, 'very_small' %}"
@@ -80,7 +80,7 @@
                                 {% set pathToMedia  %} {% path teaching.lesson, "reference" %} {% endset %}
                                 <span class="time">{{ teaching.lesson.getPlayingTime(pathToMedia) }}</span>
 
-                                <a href="#" class="follow fav {% if isBookmark %}active{% endif %}" 
+                                <a href="#" class="follow fav {% if isBookmark %}active{% endif %}"
                                     data-id='{{ teaching.id }}' >
                                 </a>
                             </li>
@@ -95,7 +95,7 @@
     <video controls>
         <source src="{% path teachingCurr.lesson, 'reference' %}" type="{{ teachingCurr.lesson.contentType }}">
         Your browser does not support the video tag.
-    </video> 
+    </video>
 
     <div class="full-width2">
 

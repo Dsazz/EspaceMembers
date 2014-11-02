@@ -1,7 +1,6 @@
 <?php
 namespace EspaceMembers\MainBundle\DBAL\Types;
 
-use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Fresh\Bundle\DoctrineEnumBundle\DBAL\Types\AbstractEnumType;
 
 class SexType extends AbstractEnumType

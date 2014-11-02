@@ -3,7 +3,7 @@
         <span class="categorie">Causerie {{ teaching.serial }}</span>
         {% set pathToPlayingTeaching %}
             {{ path('espace_members_playing_teaching', {
-                'event_id' : event.id,
+                'event_id' : bookmark.event.id,
                 'teacher_id' : teacher.id,
                 'teaching_id' : teaching.id })
             }}

@@ -7,7 +7,7 @@ services:
         class:  %user_security.login_success_handler.class%
         arguments:  [@router, @security.context]
         tags:
-            - { name: 'monolog.logger', channel: 'security' } 
+            - { name: 'monolog.logger', channel: 'security' }
 
     user_security.logout_success:
         class:  %user_security.logout_success_handler.class%

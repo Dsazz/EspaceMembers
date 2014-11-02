@@ -28,8 +28,8 @@ class UserRepository extends EntityRepository
     public function findTeachingsByEvent($userId, $eventTitle)
     {
         return $qb = $this->createQueryBuilder('u')
-            ->select('u')
-            ->innerJoin('u.teachings', 't')
+            ->select('u, t')
+            ->innerJoin('u.teachings', 't', 'WITH', 't.is_show = 1')
             ->innerJoin('t.event', 'e', 'WITH', 'e.title = :event_title')
             ->where('u.is_teacher = 1')
             ->andWhere('u.id = :user_id')
@@ -42,7 +42,7 @@ class UserRepository extends EntityRepository
 
     public function isBookmark($userId, $teachingId)
     {
-        return (bool)$qb = $this->createQueryBuilder('u')
+        return (bool) $qb = $this->createQueryBuilder('u')
             ->select('u')
             ->innerJoin('u.teachings', 't', 'WITH', 't.id = :teaching_id')
             ->where("u.id = :user_id")
@@ -55,22 +55,28 @@ class UserRepository extends EntityRepository
 
     public function findUserBookmark($userId)
     {
-        return $this->createQueryBuilder('u')
-            ->select('u')
+        return $qb = $this->createQueryBuilder('u')
+            ->select('partial u.{id}')
+            ->addSelect('partial tu.{id, last_name, first_name, avatar}')
             ->addSelect('partial ev.{
-                id, title, category, frontImage,
-                startDate, completionDate, chronology
+                id, title, category,
+                frontImage, startDate, completionDate
             }')
-            ->addSelect('partial u.{id, last_name, first_name, avatar}')
             ->addSelect('partial bk.{
                 id, title, serial,
                 lesson, dayNumber, dayTime, date
             }')
-            ->innerJoin('u.bookmarks', 'bk', 'WITH', 'u.id = :user_id')
+            ->addSelect('partial tch2.{id}')
+            ->addSelect('partial c.{id, year}')
+            ->innerJoin('u.bookmarks', 'bk')
             ->innerJoin('bk.event', 'ev')
+            ->innerJoin('ev.users', 'tu')
+            ->innerJoin('tu.teachings', 'tch2', 'WITH', 'tch2.id = bk.id')
+            ->innerJoin('ev.chronology', 'c')
             ->where('u.id = :user_id')
-            ->setParameter('user_id', $userId)
+            ->setParameter("user_id", $userId)
+            ->orderBy('c.year', 'DESC')
             ->getQuery()
-            ->getResult();
+            ->getSingleResult();
     }
 }

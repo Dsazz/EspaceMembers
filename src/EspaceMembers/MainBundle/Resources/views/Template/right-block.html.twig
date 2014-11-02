@@ -1,6 +1,6 @@
 <div class="right-column">
    <div id="accordion">
-       <h3 class="{% if filtered_chronology_id is defined %} ui-active-accordion {% endif %}" >
+       <h3 class="{% if accordion is defined and  accordion == 0 %} ui-active-accordion {% endif %}" >
             <img src="{{ asset('bundles/espacemembersmain/js/images/calendar.png') }}" alt="icon" />
             Chronologique
         </h3>
@@ -22,7 +22,7 @@
                 {% endfor %}
             </ul>
         </div>
-        <h3 class="{% if filtered_category_id is defined %} ui-active-accordion {% endif %}" >
+        <h3 class="{% if accordion is defined and  accordion == 1 %} ui-active-accordion {% endif %}" >
             <img src="{{ asset('bundles/espacemembersmain/js/images/folder.png') }}" alt="icon" />
             Catégories
         </h3>
@@ -45,7 +45,7 @@
                 {% endfor %}
             </ul>
         </div>
-        <h3 class="{% if filtered_voie_id is defined %} ui-active-accordion {% endif %}" >
+        <h3 class="{% if accordion is defined and  accordion == 2 %} ui-active-accordion {% endif %}" >
             <img src="{{ asset('bundles/espacemembersmain/js/images/notes.png') }}" alt="icon" />Par voie</h3>
         <div style="{% if filtered_voie_id is defined %}background:#fff9e4;{% endif %}">
             <ul>
@@ -54,7 +54,7 @@
                     Tout </a></li>
                 {% for voie in voies %}
                     <li>
-                        <a 
+                        <a
                         href="{{ path('espace_members_filter_teaching_voie', { 'voie_id': voie.id}) }}"
                         {% if filtered_voie_id is defined  %}
                             {% if filtered_voie_id == voie.id %}class='droplink2 active'
@@ -66,7 +66,7 @@
                 {% endfor %}
             </ul>
         </div>
-        <h3 class="{% if filtered_teacher_id is defined %} ui-active-accordion {% endif %}" >
+        <h3 class="{% if accordion is defined and  accordion == 3 %} ui-active-accordion {% endif %}" >
             <img src="{{ asset('bundles/espacemembersmain/js/images/mic.png') }}" alt="icon" />Par enseignant</h3>
         <div style="{% if filtered_teacher_id is defined %}background:#fff9e4;{% endif %}">
             <ul>
@@ -75,19 +75,19 @@
                     Tout </a></li>
                 {% for teacher in teachers %}
                     <li>
-                        <a 
+                        <a
                         href="{{ path('espace_members_filter_teaching_teacher', { 'teacher_id': teacher.id}) }}"
                         {% if filtered_teacher_id is defined  %}
                             {% if filtered_teacher_id == teacher.id %}class='droplink2 active'
                             {% else %} class=droplink2 {% endif %}
                         {% else %} class="droplink" {% endif %}>
-                        {{ teacher.lastName }}  {{ teacher.firstName }} 
+                        {{ teacher.lastName }}  {{ teacher.firstName }}
                         </a>
                     </li>
                 {% endfor %}
             </ul>
         </div>
-        <h3 class="{% if filtered_tag_id is defined %} ui-active-accordion {% endif %}" >
+        <h3 class="{% if accordion is defined and  accordion == 4 %} ui-active-accordion {% endif %}" >
             <img src="{{ asset('bundles/espacemembersmain/js/images/comment.png') }}" alt="icon" />Par thème</h3>
         <div style="{% if filtered_tag_id is defined %}background:#fff9e4;{% endif %}">
             <ul>
@@ -96,7 +96,7 @@
                     Tout </a></li>
                 {% for tag in tags %}
                     <li>
-                        <a href="{{ path('espace_members_filter_teaching_tag', { 'tag_id': tag.id}) }}" 
+                        <a href="{{ path('espace_members_filter_teaching_tag', { 'tag_id': tag.id}) }}"
                         {% if filtered_tag_id is defined  %}
                             {% if filtered_tag_id == tag.id %}class='droplink2 active'
                             {% else %} class=droplink2 {% endif %}

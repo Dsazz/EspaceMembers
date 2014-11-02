@@ -2,7 +2,6 @@
 
 namespace EspaceMembers\MainBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Entity\Group as BaseGroup;
 
@@ -24,7 +23,7 @@ class Group extends BaseGroup
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -43,14 +42,13 @@ class Group extends BaseGroup
     /**
      * Add events
      *
-     * @param \EspaceMembers\MainBundle\Entity\Event $events
+     * @param  \EspaceMembers\MainBundle\Entity\Event $events
      * @return Group
      */
     public function addEvent(\EspaceMembers\MainBundle\Entity\Event $event)
     {
         $this->events[] = $event;
         //$event->addGroup($this);
-
         return $this;
     }
 
@@ -67,7 +65,7 @@ class Group extends BaseGroup
     /**
      * Get events
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getEvents()
     {

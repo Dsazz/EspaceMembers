@@ -3,17 +3,12 @@
 namespace EspaceMembers\MainBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
-use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\AdminBundle\Form\DataTransformer\ModelToIdPropertyTransformer;
 
-use Knp\Menu\ItemInterface as MenuItemInterface;
-use EspaceMembers\MainBundle\Entity\Teaching;
-use EspaceMembers\MainBundle\Form\Type\TagType;
 use EspaceMembers\MainBundle\Entity\Chronology;
 
 class EventAdmin extends Admin
@@ -22,7 +17,7 @@ class EventAdmin extends Admin
     /*
      * Конфигурация отображения записи
      *
-     * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
+     * @param  \Sonata\AdminBundle\Show\ShowMapper $showMapper
      * @return void
     */
     protected function configureShowField(ShowMapper $showMapper)
@@ -73,16 +68,18 @@ class EventAdmin extends Admin
             //;
     //}
 
-    public function buildYearChoices() {
+    public function buildYearChoices()
+    {
         $distance = 5;
         $yearsBefore = date('Y', mktime(0, 0, 0, date("m"), date("d"), date("Y") ));
         $yearsAfter = date('Y', mktime(0, 0, 0, date("m"), date("d"), date("Y") + $distance));
+
         return array_combine(range($yearsBefore, $yearsAfter), range($yearsBefore, $yearsAfter));
     }
 
     /**
      * Конфигурация формы редактирования записи
-     * @param \Sonata\AdminBundle\Form\FormMapper $formMapper
+     * @param  \Sonata\AdminBundle\Form\FormMapper $formMapper
      * @return void
      */
     protected function configureFormFields(FormMapper $formMapper)
@@ -102,7 +99,7 @@ class EventAdmin extends Admin
                 'years' => range(date('Y'), date('Y')-70),
             ))
             ->add('year', 'choice', array(
-                    'choices' => $this->buildYearChoices(), 
+                    'choices' => $this->buildYearChoices(),
                 )
             )
             ->add('description', 'textarea', array('attr' => array('class' => 'ckeditor')))
@@ -196,7 +193,7 @@ class EventAdmin extends Admin
     /**
      * Конфигурация списка записей
      *
-     * @param \Sonata\AdminBundle\Datagrid\ListMapper $listMapper
+     * @param  \Sonata\AdminBundle\Datagrid\ListMapper $listMapper
      * @return void
      */
     protected function configureListFields(ListMapper $listMapper)
@@ -223,7 +220,7 @@ class EventAdmin extends Admin
     /**
      * Поля, по которым производится поиск в списке записей
      *
-     * @param \Sonata\AdminBundle\Datagrid\DatagridMapper $datagridMapper
+     * @param  \Sonata\AdminBundle\Datagrid\DatagridMapper $datagridMapper
      * @return void
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)

@@ -6,7 +6,6 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
-use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
@@ -17,7 +16,7 @@ class TagAdmin extends Admin
     /*
      * Конфигурация отображения записи
      *
-     * @param \Sonata\AdminBundle\Show\ShowMapper $showMapper
+     * @param  \Sonata\AdminBundle\Show\ShowMapper $showMapper
      * @return void
     */
     protected function configureShowField(ShowMapper $showMapper)
@@ -30,7 +29,7 @@ class TagAdmin extends Admin
 
     /**
      * Конфигурация формы редактирования записи
-     * @param \Sonata\AdminBundle\Form\FormMapper $formMapper
+     * @param  \Sonata\AdminBundle\Form\FormMapper $formMapper
      * @return void
      */
     protected function configureFormFields(FormMapper $formMapper)
@@ -44,7 +43,7 @@ class TagAdmin extends Admin
     /**
      * Конфигурация списка записей
      *
-     * @param \Sonata\AdminBundle\Datagrid\ListMapper $listMapper
+     * @param  \Sonata\AdminBundle\Datagrid\ListMapper $listMapper
      * @return void
      */
     protected function configureListFields(ListMapper $listMapper)
@@ -58,7 +57,7 @@ class TagAdmin extends Admin
     /**
      * Поля, по которым производится поиск в списке записей
      *
-     * @param \Sonata\AdminBundle\Datagrid\DatagridMapper $datagridMapper
+     * @param  \Sonata\AdminBundle\Datagrid\DatagridMapper $datagridMapper
      * @return void
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
@@ -71,7 +70,7 @@ class TagAdmin extends Admin
     /**
      * Конфигурация левого меню при отображении и редатировании записи
      *
-     * @param \Knp\Menu\ItemInterface $menu
+     * @param \Knp\Menu\ItemInterface              $menu
      * @param $action
      * @param null|\Sonata\AdminBundle\Admin\Admin $childAdmin
      *

@@ -3,21 +3,16 @@
 namespace EspaceMembers\MainBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
-use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
-use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Show\ShowMapper;
-
-use Knp\Menu\ItemInterface as MenuItemInterface;
 
 class ChronologyAdmin extends Admin
 {
 
     /**
      * Конфигурация формы редактирования записи
-     * @param \Sonata\AdminBundle\Form\FormMapper $formMapper
+     * @param  \Sonata\AdminBundle\Form\FormMapper $formMapper
      * @return void
      */
     protected function configureFormFields(FormMapper $formMapper)
@@ -30,7 +25,7 @@ class ChronologyAdmin extends Admin
     /**
      * Конфигурация списка записей
      *
-     * @param \Sonata\AdminBundle\Datagrid\ListMapper $listMapper
+     * @param  \Sonata\AdminBundle\Datagrid\ListMapper $listMapper
      * @return void
      */
     protected function configureListFields(ListMapper $listMapper)
@@ -44,7 +39,7 @@ class ChronologyAdmin extends Admin
     /**
      * Поля, по которым производится поиск в списке записей
      *
-     * @param \Sonata\AdminBundle\Datagrid\DatagridMapper $datagridMapper
+     * @param  \Sonata\AdminBundle\Datagrid\DatagridMapper $datagridMapper
      * @return void
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)

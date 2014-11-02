@@ -79,6 +79,11 @@ services:
         arguments: [ @doctrine.orm.entity_manager ]
         tags:
             - { name: twig.extension }
+
+    twig.extension.espace_members_extension_dump:
+        class: EspaceMembers\MainBundle\Twig\DumpyTwigFilter
+        tags:
+            - { name: twig.extension }
 #Custom listeners
     #espacemembers.user_listener:
         #class: EspaceMembers\MainBundle\EventListener\UserListener
