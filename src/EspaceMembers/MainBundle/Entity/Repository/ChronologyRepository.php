@@ -3,6 +3,7 @@
 namespace EspaceMembers\MainBundle\Entity\Repository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\Common\Cache\ApcCache;
 
 class ChronologyRepository extends EntityRepository
 {
@@ -182,10 +183,20 @@ class ChronologyRepository extends EntityRepository
 
     public function getYears()
     {
-        return $qb = $this->createQueryBuilder('c')
+        $cacheDriver = new ApcCache();
+
+        if ($cacheDriver->contains('_years')) {
+            return $cacheDriver->fetch('_years');
+        }
+
+        $qb = $this->createQueryBuilder('c')
             ->select('partial c.{id, year}')
-            ->orderBy('c.year', 'DESC')
-            ->getQuery()
-            ->getResult();
+            ->orderBy('c.year', 'DESC');
+
+        $years = $qb->getQuery()->getResult();
+
+        $cacheDriver->save('_years', $years, 60);
+
+        return $years;
     }
 }

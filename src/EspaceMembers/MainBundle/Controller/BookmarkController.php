@@ -24,17 +24,15 @@ class BookmarkController extends Controller
     /**
      * @ParamConverter(name="teaching")
      */
-    public function addAction(Request $request, Teaching $teaching)
+    public function addAction(Teaching $teaching)
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
 
-        if ($teaching) {
-            $user->addBookmark($teaching);
-            $em->merge($user);
-            $em->flush();
-            $response["success"] = true;
-        }
+        $user->addBookmark($teaching);
+        $em->merge($user);
+        $em->flush();
+        $response["success"] = true;
 
         return new JsonResponse($response);
     }
@@ -42,17 +40,15 @@ class BookmarkController extends Controller
     /**
      * @ParamConverter(name="teaching")
      */
-    public function removeAction(Request $request, Teaching $teaching)
+    public function removeAction(Teaching $teaching)
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
 
-        if ($teaching) {
-            $user->removeBookmark($teaching);
-            $em->merge($user);
-            $em->flush();
-            $response["success"] = true;
-        }
+        $user->removeBookmark($teaching);
+        $em->merge($user);
+        $em->flush();
+        $response["success"] = true;
 
         return new JsonResponse($response);
     }
