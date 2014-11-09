@@ -48,6 +48,7 @@ class AppKernel extends Kernel
             new EspaceMembers\MainBundle\EspaceMembersMainBundle(),
             new EspaceMembers\SecurityBundle\EspaceMembersSecurityBundle(),
 
+
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
         );
 
@@ -55,6 +56,11 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+            //$bundles[] = new Behat\MinkBundle\MinkBundle();
+        }
+
+        if (in_array($this->getEnvironment(), array('test'))) {
+            $bundles[] = new Behat\MinkBundle\MinkBundle();
         }
 
         return $bundles;

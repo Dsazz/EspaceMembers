@@ -605,9 +605,7 @@ img { border:none;}
 .ui-active-accordion {
     background:url(/bundles/espacemembersmain/js/images/accordianbg2.png) no-repeat !important;
 }
-.ui-state-hover {
-    background:url(/bundles/espacemembersmain/js/images/accordianbg2.png) no-repeat !important;
-}   
+   
    
 .fix-birthday { overflow: hidden; }
 

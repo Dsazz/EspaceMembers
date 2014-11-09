@@ -91,11 +91,11 @@ EspaceMembers\MainBundle\Entity\Teaching:
         event: @event<current()>
 
 EspaceMembers\MainBundle\Entity\User:
-    user_prototype(template):
+    user(template):
         first_name: <fr_FR:firstName('male')>
         last_name: <fr_FR:lastName()>
         email: <email()>
-        setPlainPassword: [ting09]
+        setPlainPassword: [fixture]
         birthday: <dateTimeBetween('-30 years', '-20 year')>
         phone: <fr_FR:phoneNumber()>
         address: <fr_FR:address()>
@@ -105,24 +105,31 @@ EspaceMembers\MainBundle\Entity\User:
         sex: MALE
         addGroup: [@groupMembers]
         is_teacher: 0
-    superadmin(extends user_prototype):
+    superadmin(extends user):
         first_name: Dsazz
         last_name: Tazz
         email: ting09@mail.ru
+        setPlainPassword: [ting09]
         addRole: [ROLE_SUPER_ADMIN]
-    admin{1..10}(extends user_prototype):
+    teacher(template, extends user):
         addRole: [ROLE_ADMIN]
-    user_male{1..10}(extends user_prototype):
-        addRole: [ROLE_USER]
-        addEvent: [@event<current()>, @event*]
-        teachings: [@teachingMP3_<current()>, @teachingVideo_<current()>]
-        #addBookmark: [@teachingMP3_<current()>]
+        setPlainPassword: [teacher]
+        addEvent(unique): [@event*, @event*]
+        teachings(unique): [@teachingMP3_*, @teachingVideo_*]
         is_teacher: 1
-    user_female{1..10}(extends user_prototype):
+    teacher_male{1..3}(extends teacher):
+        email: teachermale<current()>@test.com
+    teacher_female{1..3}(extends teacher):
         first_name: <fr_FR:firstName('female')>
+        email: teacherfemale<current()>@test.com
         sex: FEMALE
+    test_teacher(extends teacher):
+        first_name: admin_first
+        last_name: admin_last
+        email: admin@test.com
+    test_student(extends user):
+        first_name: student_first
+        last_name: student_last
+        email: student@test.com
+        setPlainPassword: [student]
         addRole: [ROLE_USER]
-        addEvent: [@event<current()>]
-        teachings: [@teachingMP3_<current()>, @teachingVideo_<current()>]
-        #addBookmark: [@teachingMP3_<current()>]
-        is_teacher: 1
