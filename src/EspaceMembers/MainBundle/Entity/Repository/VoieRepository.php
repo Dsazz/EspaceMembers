@@ -8,20 +8,11 @@ class VoieRepository extends EntityRepository
 {
     public function getTitles()
     {
-        $cacheDriver = new ApcCache();
-
-        if ($cacheDriver->contains('_voies')) {
-            return $cacheDriver->fetch('_voies');
-        }
-
-        $qb = $this->createQueryBuilder('v')
+        return $qb = $this->createQueryBuilder('v')
             ->select('partial v.{id, title}')
-            ->orderBy('v.title', 'ASC');
-
-        $voies = $qb->getQuery()->getResult();
-
-        $cacheDriver->save('_voies', $voies, 60);
-
-        return $voies;
+            ->orderBy('v.title', 'ASC')
+            ->getQuery()
+            ->useResultCache(true, 3600)
+            ->getResult();
     }
 }

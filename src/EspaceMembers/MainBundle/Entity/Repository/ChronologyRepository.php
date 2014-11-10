@@ -183,20 +183,11 @@ class ChronologyRepository extends EntityRepository
 
     public function getYears()
     {
-        $cacheDriver = new ApcCache();
-
-        if ($cacheDriver->contains('_years')) {
-            return $cacheDriver->fetch('_years');
-        }
-
-        $qb = $this->createQueryBuilder('c')
+        return $qb = $this->createQueryBuilder('c')
             ->select('partial c.{id, year}')
-            ->orderBy('c.year', 'DESC');
-
-        $years = $qb->getQuery()->getResult();
-
-        $cacheDriver->save('_years', $years, 60);
-
-        return $years;
+            ->orderBy('c.year', 'DESC')
+            ->getQuery()
+            ->useResultCache(true, 3600)
+            ->getResult();
     }
 }

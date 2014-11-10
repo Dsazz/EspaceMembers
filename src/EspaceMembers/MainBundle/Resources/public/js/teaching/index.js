@@ -29,4 +29,11 @@ $(document).ready(function() {
         triggerBookmark.call(this, $(this).attr('data-id'));
         return false;
     });
+
+    $('#accordion h3').on('click', function() {
+        $('#accordion').accordion({ collapsible: true });
+        $('#accordion h3').removeClass('ui-active-accordion');
+        $(this).toggleClass('ui-active-accordion');
+        return false;
+    });
 });

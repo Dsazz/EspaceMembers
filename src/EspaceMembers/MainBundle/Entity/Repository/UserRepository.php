@@ -13,12 +13,6 @@ class UserRepository extends EntityRepository
 
     public function findTeachers()
     {
-        $cacheDriver = new ApcCache();
-
-        if ($cacheDriver->contains('_teachers')) {
-            return $cacheDriver->fetch('_teachers');
-        }
-
         $qb = $this->createQueryBuilder('u')
             ->select('partial u.{
                 id, first_name,
@@ -27,13 +21,9 @@ class UserRepository extends EntityRepository
                 avatar,  is_teacher
             }')
             ->where('u.is_teacher = 1')
-            ->orderBy('u.last_name', 'ASC');
-
-        $teachers = $qb->getQuery()->getResult();
-
-        $cacheDriver->save('_teachers', $teachers, 60);
-
-        return $teachers;
+            ->orderBy('u.last_name', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 
     public function findTeachingsByEvent($userId, $eventTitle)
