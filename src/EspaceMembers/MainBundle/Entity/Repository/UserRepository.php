@@ -13,7 +13,7 @@ class UserRepository extends EntityRepository
 
     public function findTeachers()
     {
-        $qb = $this->createQueryBuilder('u')
+        return $qb = $this->createQueryBuilder('u')
             ->select('partial u.{
                 id, first_name,
                 last_name, address,
@@ -23,6 +23,7 @@ class UserRepository extends EntityRepository
             ->where('u.is_teacher = 1')
             ->orderBy('u.last_name', 'ASC')
             ->getQuery()
+            ->useResultCache(true, 3600)
             ->getResult();
     }
 
