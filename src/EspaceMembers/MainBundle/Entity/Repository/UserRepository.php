@@ -32,21 +32,20 @@ class UserRepository extends EntityRepository
             ->getResult();
     }
 
-    public function findTeachingsByEvent($userId, $eventTitle)
+    public function findTeachingsByEvent($userId, $eventId)
     {
         return $qb = $this->createQueryBuilder('u')
             ->select('u, t')
             ->innerJoin('u.teachings', 't', 'WITH', 't.is_show = 1')
-            ->innerJoin('t.event', 'e', 'WITH', 'e.id = :event_title')
+            ->innerJoin('t.event', 'e', 'WITH', 'e.id = :eventId')
             ->where('u.is_teacher = 1')
             ->andWhere('u.id = :user_id')
-            ->setParameter("event_title", $eventTitle)
+            ->setParameter("eventId", $eventId)
             ->setParameter("user_id", $userId)
             ->orderBy('u.last_name', 'ASC')
             ->getQuery()
             ->getOneOrNullResult();
             //->getSingleResult();
-            //->getResult();
     }
 
     public function isBookmark($userId, $teachingId)
@@ -57,9 +56,7 @@ class UserRepository extends EntityRepository
             ->where("u.id = :user_id")
             ->setParameter("teaching_id", $teachingId)
             ->setParameter("user_id", $userId)
-            //->setMaxResults(1)
             ->getQuery()
-            //->getResult();
             //->getSingleResult();
             ->getOneOrNullResult();
     }
