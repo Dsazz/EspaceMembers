@@ -28,7 +28,7 @@ class TeachingController extends Controller
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'chronologies'  => $em->getRepository('EspaceMembersMainBundle:Chronology')
                 ->filterById($chronology_id, $this->getUser()->getId()),
-            'filtered_chronology_id' => $chronology_id,
+            'filteredId'   => $chronology_id,
             'accordion'    => '0',
         ));
     }
@@ -40,9 +40,8 @@ class TeachingController extends Controller
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'chronologies'  => $em->getRepository('EspaceMembersMainBundle:Chronology')
                 ->filterByCategory($category_id, $this->getUser()->getId()),
-            'filtered_category_id'  => $category_id,
+            'filteredId'   => $category_id,
             'accordion'    => '1',
-
         ));
     }
 
@@ -53,7 +52,7 @@ class TeachingController extends Controller
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'chronologies' => $em->getRepository('EspaceMembersMainBundle:Chronology')
                 ->filterByVoie($voie_id, $this->getUser()->getId()),
-            'filtered_voie_id'      => $voie_id,
+            'filteredId'   => $voie_id,
             'accordion'    => '2',
         ));
     }
@@ -65,7 +64,7 @@ class TeachingController extends Controller
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'chronologies' => $em->getRepository('EspaceMembersMainBundle:Chronology')
                 ->filterByTeacher($teacher_id),
-            'filtered_teacher_id'   => $teacher_id,
+            'filteredId'   => $teacher_id,
             'accordion'    => '3',
         ));
     }
@@ -86,7 +85,7 @@ class TeachingController extends Controller
 
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'chronologies' => $filteredChronologies,
-            'filtered_tag_id'       => $tag_id,
+            'filteredId'   => $tag_id,
             'accordion'    => '4',
         ));
     }

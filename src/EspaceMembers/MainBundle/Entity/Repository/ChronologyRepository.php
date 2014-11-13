@@ -185,6 +185,9 @@ class ChronologyRepository extends EntityRepository
     {
         return $qb = $this->createQueryBuilder('c')
             ->select('partial c.{id, year}')
+            ->innerJoin('c.events','ev')
+            ->innerJoin('ev.users','u', 'WITH', 'u.is_teacher = 1')
+            ->innerJoin('u.teachings','tch', 'WITH', 'tch.is_show = 1')
             ->orderBy('c.year', 'DESC')
             ->getQuery()
             ->useResultCache(true, 3600)

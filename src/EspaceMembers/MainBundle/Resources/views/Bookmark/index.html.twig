@@ -22,9 +22,11 @@
 {% block body %}
 <div class="content">
     {% block right_column %}
-        {% set accordion = accordion is defined ? accordion : -1 %}
+        {% set accordion  = accordion  is defined ? accordion  : -1 %}
+        {% set filteredId = filteredId is defined ? filteredId : -1 %}
         {{ render(controller('EspaceMembersMainBundle:Render:rightBlock', {
-            'accordion': accordion
+            'accordion' : accordion,
+            'filteredId': filteredId
         })) }}
     {% endblock right_column %}
 

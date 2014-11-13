@@ -1,106 +1,98 @@
 <div class="right-column">
    <div id="accordion">
-       <h3 class="{% if accordion is defined and  accordion == 0 %} ui-active-accordion {% endif %}" >
+       <h3>
             <img src="{{ asset('bundles/espacemembersmain/js/images/calendar.png') }}" alt="icon" />
             Chronologique
         </h3>
-        <div style="{% if filtered_chronology_id is defined %}background:#fff9e4;{% endif %}">
+        <div>
             <ul>
-                <li><a href="{{ path('espace_members_teaching') }}"
-                    class="{% if filtered_chronology_id is defined %}droplink2{% else %}droplink{% endif %}">
-                    Tout </a></li>
+                <li>
+                    <a href="{{ path('espace_members_teaching') }}"
+                        link-id="-1" class="droplink">Tout</a>
+                </li>
                 {% for chronology in chronologies %}
                 <li>
-                    <a href="{{ path('espace_members_filter_teaching_chronology', { 'chronology_id': chronology.id}) }}"
-                    {% if filtered_chronology_id is defined  %}
-                        {% if filtered_chronology_id == chronology.id %}class='droplink2 active'
-                        {% else %} class=droplink2 {% endif %}
-                    {% else %} class="droplink" {% endif %}>
+                    <a href="{{ path('espace_members_filter_teaching_chronology', 
+                        { 'chronology_id': chronology.id}) }}"
+                        link-id="{{ chronology.id }}" class="droplink">
                     {{ chronology.year }}
                     </a>
                 </li>
                 {% endfor %}
             </ul>
         </div>
-        <h3 class="{% if accordion is defined and  accordion == 1 %} ui-active-accordion {% endif %}" >
+        <h3>
             <img src="{{ asset('bundles/espacemembersmain/js/images/folder.png') }}" alt="icon" />
             Catégories
         </h3>
-        <div style="{% if filtered_category_id is defined %}background:#fff9e4;{% endif %}">
+        <div>
             <ul>
-                <li><a href="{{ path('espace_members_teaching') }}"
-                    class="{% if filtered_category_id is defined %}droplink2{% else %}droplink{% endif %}">
-                    Tout </a></li>
+                <li>
+                    <a href="{{ path('espace_members_teaching') }}"
+                        link-id="-1" class="droplink">Tout</a>
+                </li>
                 {% for category in categories %}
-                    <li>
-                        <a
-                        href="{{ path('espace_members_filter_teaching_category', { 'category_id': category.id}) }}"
-                        {% if filtered_category_id is defined  %}
-                            {% if filtered_category_id == category.id %}class='droplink2 active'
-                            {% else %} class=droplink2 {% endif %}
-                        {% else %} class="droplink" {% endif %}>
+                <li>
+                    <a href="{{ path('espace_members_filter_teaching_category',
+                        { 'category_id': category.id}) }}"
+                        link-id="{{ category.id }}" class="droplink">
                         {{ category.title|capitalize }}
-                        </a>
-                    </li>
+                    </a>
+                </li>
                 {% endfor %}
             </ul>
         </div>
-        <h3 class="{% if accordion is defined and  accordion == 2 %} ui-active-accordion {% endif %}" >
+        <h3>
             <img src="{{ asset('bundles/espacemembersmain/js/images/notes.png') }}" alt="icon" />Par voie</h3>
-        <div style="{% if filtered_voie_id is defined %}background:#fff9e4;{% endif %}">
+        <div>
             <ul>
-                <li><a href="{{ path('espace_members_teaching') }}"
-                    class="{% if filtered_voie_id is defined %}droplink2{% else %}droplink{% endif %}">
-                    Tout </a></li>
+                <li>
+                    <a href="{{ path('espace_members_teaching') }}"
+                        link-id="-1" class="droplink">Tout</a>
+                </li>
                 {% for voie in voies %}
-                    <li>
-                        <a
-                        href="{{ path('espace_members_filter_teaching_voie', { 'voie_id': voie.id}) }}"
-                        {% if filtered_voie_id is defined  %}
-                            {% if filtered_voie_id == voie.id %}class='droplink2 active'
-                            {% else %} class=droplink2 {% endif %}
-                        {% else %} class="droplink" {% endif %}>
+                <li>
+                    <a href="{{ path('espace_members_filter_teaching_voie',
+                        { 'voie_id': voie.id}) }}"
+                        link-id="{{ voie.id }}" class="droplink">
                         {{ voie.title|capitalize }}
-                        </a>
-                    </li>
+                    </a>
+                </li>
                 {% endfor %}
             </ul>
         </div>
-        <h3 class="{% if accordion is defined and  accordion == 3 %} ui-active-accordion {% endif %}" >
+        <h3>
             <img src="{{ asset('bundles/espacemembersmain/js/images/mic.png') }}" alt="icon" />Par enseignant</h3>
-        <div style="{% if filtered_teacher_id is defined %}background:#fff9e4;{% endif %}">
+        <div>
             <ul>
-                <li><a href="{{ path('espace_members_teaching') }}"
-                    class="{% if filtered_teacher_id is defined %}droplink2{% else %}droplink{% endif %}">
-                    Tout </a></li>
+                <li>
+                    <a href="{{ path('espace_members_teaching') }}"
+                        link-id="-1" class="droplink">Tout</a>
+                </li>
                 {% for teacher in teachers %}
-                    <li>
-                        <a
-                        href="{{ path('espace_members_filter_teaching_teacher', { 'teacher_id': teacher.id}) }}"
-                        {% if filtered_teacher_id is defined  %}
-                            {% if filtered_teacher_id == teacher.id %}class='droplink2 active'
-                            {% else %} class=droplink2 {% endif %}
-                        {% else %} class="droplink" {% endif %}>
+                <li>
+                    <a href="{{ path('espace_members_filter_teaching_teacher',
+                        { 'teacher_id': teacher.id}) }}"
+                        link-id="{{ teacher.id }}" class="droplink">
                         {{ teacher.lastName }}  {{ teacher.firstName }}
-                        </a>
-                    </li>
+                    </a>
+                </li>
                 {% endfor %}
             </ul>
         </div>
-        <h3 class="{% if accordion is defined and  accordion == 4 %} ui-active-accordion {% endif %}" >
+        <h3>
             <img src="{{ asset('bundles/espacemembersmain/js/images/comment.png') }}" alt="icon" />Par thème</h3>
-        <div style="{% if filtered_tag_id is defined %}background:#fff9e4;{% endif %}">
+        <div>
             <ul>
-                <li><a href="{{ path('espace_members_teaching') }}"
-                    class="{% if filtered_tag_id is defined %}droplink2{% else %}droplink{% endif %}">
-                    Tout </a></li>
+                <li>
+                    <a href="{{ path('espace_members_teaching') }}"
+                        link-id="-1" class="droplink">Tout</a>
+                </li>
                 {% for tag in tags %}
                     <li>
-                        <a href="{{ path('espace_members_filter_teaching_tag', { 'tag_id': tag.id}) }}"
-                        {% if filtered_tag_id is defined  %}
-                            {% if filtered_tag_id == tag.id %}class='droplink2 active'
-                            {% else %} class=droplink2 {% endif %}
-                        {% else %} class="droplink" {% endif %}>
+                        <a href="{{ path('espace_members_filter_teaching_tag',
+                            { 'tag_id': tag.id}) }}"
+                            link-id="{{ tag.id }}" class="droplink">
                         {{ tag.title|capitalize }}
                         </a>
                     </li>

@@ -601,14 +601,16 @@ img { border:none;}
 #content .content .topbar .rightside .num-list ul.menu li ul.sub-menu li a.fav.active{
   background:url(../images/fav2-hover.png) no-repeat; border:none;
 }
-   
 .ui-active-accordion {
     background:url(/bundles/espacemembersmain/js/images/accordianbg2.png) no-repeat !important;
 }
 .ui-state-hover {
     background:url(/bundles/espacemembersmain/js/images/accordianbg2.png) no-repeat !important;
 }   
-   
+.accordion-filter-list {
+    background-color: #fff9e4 !important;
+    /*background: red;*/
+}
 .fix-birthday { overflow: hidden; }
 
 .fix-birthday select {

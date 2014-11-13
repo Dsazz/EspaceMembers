@@ -2,12 +2,21 @@
 
 {% block javascript %}
     {{ parent() }}
+    {% set accordion  = accordion  is defined ? accordion  : 'false' %}
+    {% set filteredId = filteredId is defined ? filteredId : -1 %}
     <script>$(function() {
-        {% if accordion is defined %}
-            $( "#accordion" ).accordion({active: {{ accordion }} });
-        {% else %}
-            $( "#accordion" ).accordion({ collapsible: true, active: false });
-        {% endif %}
+        var accordion  = {{ accordion }};
+        var filteredId = {{ filteredId }};
+        $("#accordion").accordion({ active: accordion,  collapsible: true });
+        if (false !== accordion) {
+            var currentPanel  = $('#accordion').find('div').eq(accordion);
+            var currentHeader = $('#accordion').find('h3').eq(accordion);
+            currentHeader.addClass('ui-active-accordion');
+            currentPanel.addClass('accordion-filter-list');
+            currentPanel.find("ul li a[link-id]").removeClass('droplink');
+            currentPanel.find("ul li a[link-id]").removeClass('droplink').addClass('droplink2');
+            currentPanel.find("ul li a[link-id='" + filteredId + "']").addClass('droplink2 active');
+        }
     });
     </script>
     <script src="{{ asset('bundles/espacemembersmain/js/teaching/index.js') }}"></script>
@@ -22,9 +31,11 @@
 {% block body %}
 <div class="content">
     {% block right_column %}
-        {% set accordion = accordion is defined ? accordion : -1 %}
+        {% set accordion  = accordion  is defined ? accordion  : -1 %}
+        {% set filteredId = filteredId is defined ? filteredId : -1 %}
         {{ render(controller('EspaceMembersMainBundle:Render:rightBlock', {
-            'accordion': accordion
+            'accordion' : accordion,
+            'filteredId': filteredId
         })) }}
     {% endblock right_column %}
 

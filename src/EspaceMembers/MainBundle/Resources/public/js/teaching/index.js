@@ -31,9 +31,13 @@ $(document).ready(function() {
     });
 
     $('#accordion h3').on('click', function() {
-        $('#accordion').accordion({ collapsible: true });
-        $('#accordion h3').removeClass('ui-active-accordion');
-        $(this).toggleClass('ui-active-accordion');
+        if ($(this).hasClass('ui-active-accordion')) {
+            $(this).removeClass('ui-active-accordion');
+            $('#accordion').accordion({ collapsible: true, active: false });
+        } else {
+            $('#accordion h3').removeClass('ui-active-accordion');
+            $(this).addClass('ui-active-accordion');
+        }
         return false;
     });
 });

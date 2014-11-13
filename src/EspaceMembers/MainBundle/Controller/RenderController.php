@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class RenderController extends Controller
 {
-    public function rightBlockAction($accordion)
+    public function rightBlockAction($accordion, $filteredId)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -17,6 +17,7 @@ class RenderController extends Controller
             'teachers'     => $em->getRepository('EspaceMembersMainBundle:User')->findTeachers(),
             'tags'         => $em->getRepository('EspaceMembersMainBundle:Tag')->getTitles(),
             'accordion'    => $accordion,
+            'filteredId'   => $filteredId,
         ));
     }
 

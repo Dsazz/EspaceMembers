@@ -20,7 +20,11 @@ class UserRepository extends EntityRepository
                 phone, email,
                 avatar,  is_teacher
             }')
+
+            ->innerJoin('u.teachings', 'tch', 'WITH', 'tch.is_show = 1')
             ->where('u.is_teacher = 1')
+            ->groupBy('u.id')
+            ->having('COUNT(tch.id) > 0')
             ->orderBy('u.last_name', 'ASC')
             ->getQuery()
             ->useResultCache(true, 3600)
