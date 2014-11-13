@@ -360,6 +360,7 @@ class Event
     {
         if ( false === $this->getUsers()->contains($user) ) {
             $this->users[] = $user;
+            $user->addEvent($this);
         }
 
         return $this;

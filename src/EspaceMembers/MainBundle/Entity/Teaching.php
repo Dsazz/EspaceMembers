@@ -317,7 +317,6 @@ class Teaching
     public function setEvent(\EspaceMembers\MainBundle\Entity\Event $event = null)
     {
         $this->event = $event;
-        //$event->addTeaching($this);
         return $this;
     }
 

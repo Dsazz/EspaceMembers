@@ -13,9 +13,9 @@
             var currentHeader = $('#accordion').find('h3').eq(accordion);
             currentHeader.addClass('ui-active-accordion');
             currentPanel.addClass('accordion-filter-list');
-            currentPanel.find("ul li a[link-id]").removeClass('droplink');
-            currentPanel.find("ul li a[link-id]").removeClass('droplink').addClass('droplink2');
-            currentPanel.find("ul li a[link-id='" + filteredId + "']").addClass('droplink2 active');
+            currentPanel.find("a[link-id]").removeClass('droplink');
+            currentPanel.find("a[link-id]").removeClass('droplink').addClass('droplink2');
+            currentPanel.find("a[link-id='" + filteredId + "']").addClass('droplink2 active');
         }
     });
     </script>

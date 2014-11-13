@@ -259,8 +259,10 @@ class User extends BaseUser
      */
     public function addEvent(\EspaceMembers\MainBundle\Entity\Event $event)
     {
-        $this->events[] = $event;
-        $event->addUser($this);
+        if ( false === $this->getEvents()->contains($event) ) {
+            $this->events[] = $event;
+            $event->addUser($this);
+        }
 
         return $this;
     }

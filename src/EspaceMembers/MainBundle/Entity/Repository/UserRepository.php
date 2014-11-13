@@ -22,9 +22,10 @@ class UserRepository extends EntityRepository
             }')
 
             ->innerJoin('u.teachings', 'tch', 'WITH', 'tch.is_show = 1')
+            ->innerJoin('tch.event','ev')
             ->where('u.is_teacher = 1')
             ->groupBy('u.id')
-            ->having('COUNT(tch.id) > 0')
+            ->having('COUNT(tch.id) > 0 AND COUNT(ev.id) > 0')
             ->orderBy('u.last_name', 'ASC')
             ->getQuery()
             ->useResultCache(true, 3600)
@@ -36,14 +37,16 @@ class UserRepository extends EntityRepository
         return $qb = $this->createQueryBuilder('u')
             ->select('u, t')
             ->innerJoin('u.teachings', 't', 'WITH', 't.is_show = 1')
-            ->innerJoin('t.event', 'e', 'WITH', 'e.title = :event_title')
+            ->innerJoin('t.event', 'e', 'WITH', 'e.id = :event_title')
             ->where('u.is_teacher = 1')
             ->andWhere('u.id = :user_id')
             ->setParameter("event_title", $eventTitle)
             ->setParameter("user_id", $userId)
             ->orderBy('u.last_name', 'ASC')
             ->getQuery()
-            ->getSingleResult();
+            ->getOneOrNullResult();
+            //->getSingleResult();
+            //->getResult();
     }
 
     public function isBookmark($userId, $teachingId)
@@ -54,9 +57,11 @@ class UserRepository extends EntityRepository
             ->where("u.id = :user_id")
             ->setParameter("teaching_id", $teachingId)
             ->setParameter("user_id", $userId)
-            ->setMaxResults(1)
+            //->setMaxResults(1)
             ->getQuery()
-            ->getResult();
+            //->getResult();
+            //->getSingleResult();
+            ->getOneOrNullResult();
     }
 
     public function findUserBookmark($userId)
@@ -84,5 +89,6 @@ class UserRepository extends EntityRepository
             ->orderBy('c.year', 'DESC')
             ->getQuery()
             ->getSingleResult();
+            //->getResult();
     }
 }

@@ -1,5 +1,5 @@
 {% set year = 0 %}
-{% for bookmark in user.bookmarks if year != bookmark.event.chronology.year %}
+{% for bookmark in bookmarks if year != bookmark.event.chronology.year %}
 <div class="left-column">
     <span class="year">{{ bookmark.event.chronology.year }}</span>
     <h2>{{ bookmark.event.title|capitalize }}</h2>

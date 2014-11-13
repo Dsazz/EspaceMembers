@@ -73,14 +73,14 @@ class TeachingController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $filteredChronologies = new ArrayCollection(
-            array_merge(
+            array_unique(array_merge(
                 ($filteredByTeaching = $em->getRepository('EspaceMembersMainBundle:Chronology')
                     ->filterByTagTeaching($tag_id, $this->getUser()->getId()))
                     ? $filteredByTeaching : array(),
                 ($filteredByTagEvent = $em->getRepository('EspaceMembersMainBundle:Chronology')
                     ->filterByTagEvent($tag_id, $this->getUser()->getId()))
                     ? $filteredByTagEvent : array()
-            )
+            ))
         );
 
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
@@ -101,7 +101,7 @@ class TeachingController extends Controller
         return $this->render('EspaceMembersMainBundle:Teaching:play.html.twig', array(
             'event'        => $event,
             'teacherCurr'  => $em->getRepository('EspaceMembersMainBundle:User')
-                    ->findTeachingsByEvent($teacher_id, $event->getTitle()),
+                    ->findTeachingsByEvent($teacher_id, $event->getId()),
             'teachingCurr' => $teaching,
             'isBookmark'   => $em->getRepository('EspaceMembersMainBundle:User')
                     ->isBookmark($this->getUser()->getId(), $teaching->getId()),
