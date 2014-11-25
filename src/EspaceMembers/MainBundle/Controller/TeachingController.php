@@ -113,8 +113,6 @@ class TeachingController extends Controller
      */
     public function viewDetailAction(Event $event)
     {
-        $em = $this->getDoctrine()->getManager();
-
         return $this->render('EspaceMembersMainBundle:Teaching:detail.html.twig', array(
             'event' => $event,
         ));
