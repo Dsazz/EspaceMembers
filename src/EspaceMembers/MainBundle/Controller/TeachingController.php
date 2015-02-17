@@ -1,5 +1,4 @@
 <?php
-
 namespace EspaceMembers\MainBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
