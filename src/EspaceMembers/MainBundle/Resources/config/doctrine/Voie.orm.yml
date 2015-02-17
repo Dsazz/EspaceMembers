@@ -24,3 +24,4 @@ EspaceMembers\MainBundle\Entity\Voie:
         inverseJoinColumns:
           teaching_id:
             referencedColumnName: id
+            onDelete: CASCADE

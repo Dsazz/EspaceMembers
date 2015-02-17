@@ -21,9 +21,11 @@ EspaceMembers\MainBundle\Entity\Tag:
         joinColumns:
           tag_id:
             referencedColumnName: id
+            onDelete: CASCADE
         inverseJoinColumns:
           teaching_id:
             referencedColumnName: id
+            onDelete: CASCADE
     events:
       targetEntity: EspaceMembers\MainBundle\Entity\Event
       inversedBy: tags
@@ -36,3 +38,4 @@ EspaceMembers\MainBundle\Entity\Tag:
         inverseJoinColumns:
           event_id:
             referencedColumnName: id
+            onDelete: CASCADE

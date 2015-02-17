@@ -17,7 +17,7 @@ EspaceMembers\MainBundle\Entity\Group:
             joinColumns:
               group_id:
                 referencedColumnName: id
+                onDelete: CASCADE
             inverseJoinColumns:
               event_id:
                 referencedColumnName: id
-                onDelete: CASCADE

@@ -25,12 +25,11 @@ class BookmarkController extends Controller
      */
     public function addAction(Teaching $teaching)
     {
-        $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
-
         $user->addBookmark($teaching);
-        $em->merge($user);
-        $em->flush();
+
+        $this->getDoctrine()->getManager()->flush();
+
         $response["success"] = true;
 
         return new JsonResponse($response);
@@ -41,12 +40,11 @@ class BookmarkController extends Controller
      */
     public function removeAction(Teaching $teaching)
     {
-        $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
-
         $user->removeBookmark($teaching);
-        $em->merge($user);
-        $em->flush();
+
+        $this->getDoctrine()->getManager()->flush();
+
         $response["success"] = true;
 
         return new JsonResponse($response);

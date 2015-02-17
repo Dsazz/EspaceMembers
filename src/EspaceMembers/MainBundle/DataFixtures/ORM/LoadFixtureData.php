@@ -11,6 +11,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\DataFixtures\AbstractFixture;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
 class LoadFixtureData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface
 {
@@ -18,6 +20,10 @@ class LoadFixtureData extends AbstractFixture implements FixtureInterface, Conta
      * @var ContainerInterface
      */
     private $container;
+
+    protected $fixturesPath = "/../../../../../web/uploads/fixtures/";
+    protected $uploadedPath = "/../../../../../web/uploads/media/";
+
 
     /**
      * {@inheritDoc}
@@ -35,43 +41,39 @@ class LoadFixtureData extends AbstractFixture implements FixtureInterface, Conta
         Fixtures::load(__DIR__.'/EspaceMembers.yml', $om, array('providers' => array($this)));
     }
 
-    protected $path = "/../../../../../web/uploads/fixtures/";
+    private function removeOldMedia($path, $mediaType)
+    {
+        $fs = new Filesystem();
+
+        $mediaType == 'mp3' || $mediaType == 'video' ? $mediaType = 'lesson' : '';
+        $mediaFiles = $this->findFilesByMediaType($path, $mediaType);
+
+        $fs->remove($mediaFiles);
+    }
+
+    private function findFilesByMediaType($path, $mediaType)
+    {
+        $finder = new Finder();
+        $binaryContents = array();
+
+        foreach ($finder->files()->in(sprintf('%s%s%s', __DIR__, $path, $mediaType)) as $key => $file) {
+            $binaryContents[] = $file->getRealPath();
+        }
+
+        return $binaryContents;
+    }
 
     /**
      * {@inheritdoc}
      */
     public function generateBinaryContext($mediaType)
     {
-        $finder = new Finder();
-        $binaryContents = array();
-
-        foreach ($finder->files()->in(__DIR__.$this->path.$mediaType) as $key => $file) {
-            $binaryContents[] = $file->getRealPath();
-        }
+        $this->removeOldMedia($this->uploadedPath, $mediaType);
+        $binaryContents = $this->findFilesByMediaType($this->fixturesPath, $mediaType);
 
         return $binaryContents[array_rand($binaryContents)];
     }
 
-    //
-    //Циклическая загрузка файлов с использованием
-    //наращиваемой переменной $counter предназначеной для обеспецения
-    //последовательного перехода по загружаемым файлам
-    public function randBinaryContent($finish, $mediaType, $extension)
-    {
-        static $COUNTER = 0;
-        $flaq = false;
-
-        if ($COUNTER >= $finish) {
-            $COUNTER++;
-            $flaq = true;
-        } else $COUNTER++;
-
-        if($flaq) $COUNTER = 1;
-
-        $fileName = $COUNTER.$extension;
-
-        return $binaryContent = __DIR__."/../../../../../web/uploads/fixtures/".$mediaType."/".$fileName;
-    }
     //For random sex of user
     public function randTimeDay()
     {

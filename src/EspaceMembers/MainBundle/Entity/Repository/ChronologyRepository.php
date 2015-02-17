@@ -7,20 +7,23 @@ use Doctrine\Common\Cache\ApcCache;
 
 class ChronologyRepository extends EntityRepository
 {
-    public function findAllWithBookmarks($userId)
+    public function findAllForEnseignements()
     {
         return $this->createQueryBuilder('c')
             ->select('c')
             ->addSelect('partial ev.{id, title, category, frontImage, startDate, completionDate }')
             ->addSelect('partial u.{id, last_name, first_name, avatar}')
             ->addSelect('partial tch.{id, title, serial, lesson, dayNumber, dayTime, date}')
-            ->addSelect('partial bk.{id}')
+            ->addSelect('partial lsn.{id, contentType, path}')
+            ->addSelect('partial frntImg.{id, providerName, providerStatus, providerReference, width, height, contentType, context}')
+            ->addSelect('partial avatar.{id, providerName, providerStatus, providerReference, width, height, contentType, context}')
             ->innerJoin('c.events','ev')
             ->innerJoin('ev.users','u', 'WITH', 'u.is_teacher = 1')
+            ->innerJoin('ev.frontImage','frntImg')
             ->innerJoin('u.teachings','tch', 'WITH', 'tch.is_show = 1')
-            ->leftJoin('u.bookmarks','bk', 'WITH', 'u.id = :user_id')
+            ->innerJoin('u.avatar','avatar')
+            ->innerJoin('tch.lesson','lsn')
             ->orderBy('c.year', 'DESC')
-            ->setParameter('user_id', $userId)
             ->getQuery()
             ->getResult();
     }

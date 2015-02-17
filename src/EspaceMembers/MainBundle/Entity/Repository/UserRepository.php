@@ -17,15 +17,18 @@ class UserRepository extends EntityRepository
             ->select('partial u.{
                 id, first_name,
                 last_name, address,
-                phone, email,
-                avatar,  is_teacher
+                phone, email, is_teacher
+            }')
+            ->addSelect('partial avatar.{
+                id, providerName, providerStatus,
+                providerReference, width, height,
+                contentType, context
             }')
 
             ->innerJoin('u.teachings', 'tch', 'WITH', 'tch.is_show = 1')
+            ->innerJoin('u.avatar','avatar')
             ->innerJoin('tch.event','ev')
             ->where('u.is_teacher = 1')
-            ->groupBy('u.id')
-            ->having('COUNT(tch.id) > 0 AND COUNT(ev.id) > 0')
             ->orderBy('u.last_name', 'ASC')
             ->getQuery()
             ->useResultCache(true, 3600)
@@ -45,7 +48,6 @@ class UserRepository extends EntityRepository
             ->orderBy('u.last_name', 'ASC')
             ->getQuery()
             ->getOneOrNullResult();
-            //->getSingleResult();
     }
 
     public function isBookmark($userId, $teachingId)
@@ -57,7 +59,6 @@ class UserRepository extends EntityRepository
             ->setParameter("teaching_id", $teachingId)
             ->setParameter("user_id", $userId)
             ->getQuery()
-            //->getSingleResult();
             ->getOneOrNullResult();
     }
 
@@ -65,7 +66,7 @@ class UserRepository extends EntityRepository
     {
         return $qb = $this->createQueryBuilder('u')
             ->select('partial u.{id}')
-            ->addSelect('partial tu.{id, last_name, first_name, avatar}')
+            ->addSelect('partial tu.{id, last_name, first_name}')
             ->addSelect('partial ev.{
                 id, title, category,
                 frontImage, startDate, completionDate
@@ -74,18 +75,26 @@ class UserRepository extends EntityRepository
                 id, title, serial,
                 lesson, dayNumber, dayTime, date
             }')
-            ->addSelect('partial tch2.{id}')
+            ->addSelect('partial tch.{id}')
             ->addSelect('partial c.{id, year}')
+            ->addSelect('partial lsn.{id, contentType, path}')
+            ->addSelect('partial frntImg.{id, providerName, providerStatus, providerReference, width, height, contentType, context}')
+            ->addSelect('partial avatar.{id, providerName, providerStatus, providerReference, width, height, contentType, context}')
+            ->addSelect('partial tavatar.{id, providerName, providerStatus, providerReference, width, height, contentType, context}')
+
             ->innerJoin('u.bookmarks', 'bk')
+            ->innerJoin('u.avatar','avatar')
             ->innerJoin('bk.event', 'ev')
             ->innerJoin('ev.users', 'tu')
-            ->innerJoin('tu.teachings', 'tch2', 'WITH', 'tch2.id = bk.id')
+            ->innerJoin('tu.teachings', 'tch', 'WITH', 'tch.id = bk.id')
+            ->innerJoin('tu.avatar','tavatar')
+            ->innerJoin('tch.lesson','lsn')
             ->innerJoin('ev.chronology', 'c')
+            ->innerJoin('ev.frontImage','frntImg')
             ->where('u.id = :user_id')
             ->setParameter("user_id", $userId)
             ->orderBy('c.year', 'DESC')
             ->getQuery()
             ->getSingleResult();
-            //->getResult();
     }
 }

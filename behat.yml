@@ -4,13 +4,20 @@
 #for f in `find src/ -path '*/Features'`; do ./bin/behat -c app/config/behat.yml $f; done
 default:
     suites:
-        #default:
-            #path: %paths.base%/features
-            #contexts: [Behat\MinkExtension\Context\MinkContext]
-        bugfix:
+        core:
+            #path: [ %paths.base%/features/core ]
+            paths:
+                features: features/core
             type: symfony_bundle
             bundle: 'EspaceMembersMainBundle'
-            #contexts: ['EspaceMembersMainBundle\Features\Context\WebContext']
+            contexts: ['EspaceMembers\MainBundle\Features\Context\CoreContext']
+        web:
+            #path: [ %paths.base%/features/web ]
+            paths:
+                features: features/web
+            type: symfony_bundle
+            bundle: 'EspaceMembersMainBundle'
+            contexts: ['EspaceMembers\MainBundle\Features\Context\WebContext']
     extensions:
         Behat\Symfony2Extension:
             kernel:
@@ -24,5 +31,3 @@ default:
             javascript_session: selenium2
             goutte: ~
             selenium2: ~
-    #autoload:
-        #'': %paths.base%/src

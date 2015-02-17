@@ -1,30 +1,24 @@
-#Аргумент в функции uploadFile задает конец цикла
 #загрузки файлов в LoadFixtureData.php
 EspaceMembers\MainBundle\Entity\Media:
     avatarUser{1..31}:
         providerName: sonata.media.provider.image
         context: avatar
-        #binaryContent: <randBinaryContent(21, "avatar", ".jpg")>
         binaryContent: <generateBinaryContext("avatar")>
     lessonMP3{1..10}:
         providerName: sonata.media.provider.file
         context: lesson
-        #binaryContent: <randBinaryContent(10, "mp3", ".mp3")>
         binaryContent: <generateBinaryContext("mp3")>
     lessonVideo{1..10}:
         providerName: sonata.media.provider.file
         context: lesson
-        #binaryContent: <randBinaryContent(10, "video", ".mp4")>
         binaryContent: <generateBinaryContext("video")>
     flayer{1..10}:
         providerName: sonata.media.provider.file
         context: flayer
-        #binaryContent: <randBinaryContent(10, "flayer", ".pdf")>
         binaryContent: <generateBinaryContext("flayer")>
     cover{1..10}:
         providerName: sonata.media.provider.image
         context: cover
-        #binaryContent: <randBinaryContent(10, "cover", ".jpg")>
         binaryContent: <generateBinaryContext("cover")>
 
 EspaceMembers\MainBundle\Entity\Group:
@@ -46,22 +40,6 @@ EspaceMembers\MainBundle\Entity\Tag:
 EspaceMembers\MainBundle\Entity\Chronology:
     chronology{1..10}:
         year(unique): <year('+5 years')>
-
-#EspaceMembers\MainBundle\Entity\Event:
-    #event{1..10}:
-        #title: <word()>
-        #startDate: <dateTime('now')>
-        #completionDate: <dateTime('+10 days')>
-        #year(unique): <year('+5 years')>
-        #chronology: @chronology<current()>
-        #description: <fr_FR:text(200)>
-        #is_show: <boolean(50)>
-        #frontImage: @cover<current()>
-        #flayer: @flayer<current()>
-        #category: @category<current()>
-        #groups: [@groupMembers]
-        #tags(unique): [@tag*]
-        #teachings: [@teachingMP3_<current()>, @teachingVideo_<current()>]
 
 EspaceMembers\MainBundle\Entity\Teaching:
     teaching_prototype(template):
@@ -148,6 +126,3 @@ EspaceMembers\MainBundle\Entity\Event:
     event_male{1..9}(extends event):
         teachings: [@teachingMP3_<current()>, @teachingVideo_<current()>]
         users: [@teacher_male<current()>]
-    #event_test(extends event):
-        #teachings: [@teachingMP3_1, @teachingVideo_1]
-        #users: [@teacher_test]

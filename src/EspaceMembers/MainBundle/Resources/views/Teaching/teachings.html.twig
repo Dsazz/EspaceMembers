@@ -25,7 +25,6 @@
         {% set pathToMedia  %} {% path teaching.lesson, "reference" %} {% endset %}
         <span class="time">{{ teaching.lesson.getPlayingTime(pathToMedia) }}</span>
     </div>
-    {% set bookmarks = app.security.getToken().getUser().getBookmarks() %}
     <a href="#" class="follow fav
         {% if bookmarks is defined and bookmarks|filterIsBookmark(teaching.id) %}active{% endif %}"
         data-id="{{ teaching.id }}">

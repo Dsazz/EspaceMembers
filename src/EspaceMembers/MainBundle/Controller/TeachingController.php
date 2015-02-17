@@ -17,7 +17,8 @@ class TeachingController extends Controller
 
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'chronologies' => $em->getRepository('EspaceMembersMainBundle:Chronology')
-                ->findAllWithBookmarks($this->getUser()->getId()),
+                ->findAllForEnseignements(),
+            'bookmarks' => $this->getUser()->getBookmarks(),
         ));
     }
 
@@ -101,10 +102,10 @@ class TeachingController extends Controller
         return $this->render('EspaceMembersMainBundle:Teaching:play.html.twig', array(
             'event'        => $event,
             'teacherCurr'  => $em->getRepository('EspaceMembersMainBundle:User')
-                    ->findTeachingsByEvent($teacher_id, $event->getId()),
+                ->findTeachingsByEvent($teacher_id, $event->getId()),
             'teachingCurr' => $teaching,
             'isBookmark'   => $em->getRepository('EspaceMembersMainBundle:User')
-                    ->isBookmark($this->getUser()->getId(), $teaching->getId()),
+                ->isBookmark($this->getUser()->getId(), $teaching->getId()),
         ));
     }
 

@@ -41,7 +41,7 @@
     {% block left_column %}
         {% if user is defined %}
             {{ include('EspaceMembersMainBundle:Bookmark:left-block.html.twig', {
-                'bookmarks' : app.user.bookmarks ? app.user.bookmarks : false,
+                'bookmarks' : user.bookmarks ? user.bookmarks : false,
             }) }}
         {% else %}
             <div class="left-column">
