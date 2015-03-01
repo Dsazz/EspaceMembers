@@ -1,27 +1,5 @@
 {% extends 'EspaceMembersMainBundle::layout.html.twig' %}
 
-{% block javascript %}
-    {{ parent() }}
-    {% set accordion  = accordion  is defined ? accordion  : 'false' %}
-    {% set filteredId = filteredId is defined ? filteredId : -1 %}
-    <script>$(function() {
-        var accordion  = {{ accordion }};
-        var filteredId = {{ filteredId }};
-        $("#accordion").accordion({ active: accordion,  collapsible: true });
-        if (false !== accordion) {
-            var currentPanel  = $('#accordion').find('div').eq(accordion);
-            var currentHeader = $('#accordion').find('h3').eq(accordion);
-            currentHeader.addClass('ui-active-accordion');
-            currentPanel.addClass('accordion-filter-list');
-            currentPanel.find("a[link-id]").removeClass('droplink');
-            currentPanel.find("a[link-id]").removeClass('droplink').addClass('droplink2');
-            currentPanel.find("a[link-id='" + filteredId + "']").addClass('droplink2 active');
-        }
-    });
-    </script>
-    <script src="{{ asset('bundles/espacemembersmain/js/teaching/index.js') }}"></script>
-{% endblock javascript %}
-
 {% block enseignement_active %}
     <li class="current">
         <a class="active enseignements" href="{{ path('espace_members_teaching') }}">Enseignements</a>
@@ -53,3 +31,28 @@
 </div>
 <div class="clear"><!-- --></div>
 {% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    {% set accordion  = accordion  is defined ? accordion  : 'false' %}
+    {% set filteredId = filteredId is defined ? filteredId : -1 %}
+    <script>
+    $(function() {
+        var accordion  = {{ accordion }};
+        var filteredId = {{ filteredId }};
+
+        $("#accordion").accordion({ active: accordion,  collapsible: true });
+        if (accordion) {
+            var currentPanel  = $('#accordion').find('div').eq(accordion);
+            var currentHeader = $('#accordion').find('h3').eq(accordion);
+
+            currentHeader.addClass('ui-active-accordion');
+            currentPanel.addClass('accordion-filter-list');
+            currentPanel.find("a[link-id]").removeClass('droplink');
+            currentPanel.find("a[link-id]").removeClass('droplink').addClass('droplink2');
+            currentPanel.find("a[link-id='" + filteredId + "']").addClass('droplink2 active');
+        }
+    });
+    </script>
+    <script src="{{ asset('bundles/espacemembersmain/js/teaching/index.js') }}"></script>
+{% endblock javascript %}

@@ -8,7 +8,7 @@
         var accordion  = {{ accordion }};
         var filteredId = {{ filteredId }};
         $("#accordion").accordion({ active: accordion,  collapsible: true });
-        if (false !== accordion) {
+        if (accordion) {
             var currentPanel  = $('#accordion').find('div').eq(accordion);
             var currentHeader = $('#accordion').find('h3').eq(accordion);
             currentHeader.addClass('ui-active-accordion');

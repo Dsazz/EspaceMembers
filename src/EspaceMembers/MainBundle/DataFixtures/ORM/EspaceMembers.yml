@@ -37,9 +37,9 @@ EspaceMembers\MainBundle\Entity\Tag:
     tag{1..10}:
         title(unique): <word()>
 
-EspaceMembers\MainBundle\Entity\Chronology:
-    chronology{1..10}:
-        year(unique): <year('+5 years')>
+#EspaceMembers\MainBundle\Entity\Chronology:
+    #chronology{1..10}:
+        #year(unique): <year('+5 years')>
 
 EspaceMembers\MainBundle\Entity\Teaching:
     teaching_prototype(template):
@@ -56,11 +56,9 @@ EspaceMembers\MainBundle\Entity\Teaching:
         is_show: 1
         serial: 1
         lesson: @lessonMP3<current()>
-        #event: @event<current()>
     teachingVideo_{1..10}(extends teaching_prototype):
         serial: 2
         lesson: @lessonVideo<current()>
-        #event: @event<current()>
 
 EspaceMembers\MainBundle\Entity\User:
     user(template):
@@ -97,11 +95,6 @@ EspaceMembers\MainBundle\Entity\User:
         #email: teacherfemale<current()>@test.com
         #teachings: [@teachingMP3_<current()>, @teachingVideo_<current()>]
         #sex: FEMALE
-    #teacher_test(extends teacher):
-        #first_name: admin_first
-        #last_name: admin_last
-        #email: admin@test.com
-        #teachings: [@teachingMP3_1, @teachingVideo_1]
     student_test(extends user):
         first_name: student_first
         last_name: student_last
@@ -114,15 +107,18 @@ EspaceMembers\MainBundle\Entity\Event:
         title: <word()>
         startDate: <dateTime('now')>
         completionDate: <dateTime('+10 days')>
-        year(unique): <year('+5 years')>
+        year: <year('+5 years')>
+
         chronology: @chronology*
         description: <fr_FR:text(200)>
         is_show: <boolean(50)>
         groups: [@groupMembers]
         tags(unique): [@tag*]
         frontImage(unique): @cover*
-        flayer(unique): @flayer*
+        #flayer(unique): @flayer*
         category: @category*
     event_male{1..9}(extends event):
         teachings: [@teachingMP3_<current()>, @teachingVideo_<current()>]
         users: [@teacher_male<current()>]
+    #event_test{1..1000}(extends event):
+        #users: [@teacher_male*]

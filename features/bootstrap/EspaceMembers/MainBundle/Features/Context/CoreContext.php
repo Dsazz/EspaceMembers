@@ -84,4 +84,72 @@ class CoreContext extends MinkContext
 
         $em->flush();
     }
+
+    /*
+     * @Given /^ответ должен быть "([^"]*)" с телом:$/
+     */
+    public function responseShouldBeJsonBody($statusCode, PyStringNode $body)
+    {
+        $response = $this->response;
+
+        if (null === $response) {
+            throw new \LogicException('No request was made');
+        }
+
+        if ((int) $statusCode !== $response->getStatusCode()) {
+            throw new \LogicException(sprintf('Expected %d status code but %d received', $statusCode, $response->getStatusCode()));
+        }
+
+        $body = $this->twig->render($body->__toString(), $this->getData());
+        if (!$this->matcher->match($response->getBody(), $body)) {
+            throw new \LogicException($this->matcher->getError());
+        }
+    }
+
+    /*
+     * @When /^я делаю (GET|DELETE) запрос "([^"]*)"$/
+     */
+    public function iRequest($method, $url)
+    {
+        $data = $this->getData();
+
+        $this->requestUrl = $this->getUrl($url, $data);
+
+        switch ($method) {
+            case 'GET':
+                $response = $this->client->get($this->requestUrl);
+                break;
+
+            case 'DELETE':
+                $response = $this->client->delete($this->requestUrl);
+                break;
+
+            default:
+                throw new \LogicException("Unknow request method: " . $method);
+                break;
+        }
+
+        $this->response = $response;
+    }
+
+    /**
+     * @Given /^I request Google guide for PDF$/
+     */
+    public function iRequestGoogleGuideForPdf()
+    {
+        $this->visit("http://www.googleguide.com/print/adv_op_ref.pdf");
+    }
+
+    /**
+     * @Then /^I should see response headers with content type PDF$/
+     */
+    public function iShouldSeeResponseHeadersWithContentTypePdf()
+    {
+      //print_r(get_class_methods($this->getSession()));
+      $headers = $this->getSession()->getResponseHeaders();
+      echo "I am Printing all response headers here  \n";
+      print_r($headers);
+      $content_type =  $headers['content-type'];
+      assert($content_type == "application/pdf");
+    }
 }

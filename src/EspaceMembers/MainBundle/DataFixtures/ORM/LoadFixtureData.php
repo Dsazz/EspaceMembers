@@ -35,9 +35,6 @@ class LoadFixtureData extends AbstractFixture implements FixtureInterface, Conta
 
     public function load(ObjectManager $om)
     {
-        //$mediaTypes = array('avatar', 'mp3', 'video', 'flayer', 'cover');
-        //foreach ($mediaTypes as $mediaType) { $this->generateBinaryContext($mediaType); }
-
         Fixtures::load(__DIR__.'/EspaceMembers.yml', $om, array('providers' => array($this)));
     }
 

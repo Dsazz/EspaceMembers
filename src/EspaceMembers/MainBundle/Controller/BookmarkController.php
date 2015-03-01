@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use EspaceMembers\MainBundle\Entity\Teaching;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BookmarkController extends Controller
 {
@@ -25,14 +27,17 @@ class BookmarkController extends Controller
      */
     public function addAction(Teaching $teaching)
     {
-        $user = $this->getUser();
-        $user->addBookmark($teaching);
+        try {
+            $user = $this->getUser();
+            $user->addBookmark($teaching);
+            $this->getDoctrine()->getManager()->flush();
 
-        $this->getDoctrine()->getManager()->flush();
-
-        $response["success"] = true;
-
-        return new JsonResponse($response);
+            return new JsonResponse(array('success' => 'Bookmark success added'), Response::HTTP_OK);
+        } catch (AccessDeniedException $e) {
+            return new JsonResponse(array('error' => 'You don`t have access'), Response::HTTP_FORBIDDEN);
+        } catch (NotFoundHttpException $e) {
+            return new JsonResponse(array('error' => 'Bookmark not found'), Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -40,13 +45,16 @@ class BookmarkController extends Controller
      */
     public function removeAction(Teaching $teaching)
     {
-        $user = $this->getUser();
-        $user->removeBookmark($teaching);
+        try {
+            $user = $this->getUser();
+            $user->removeBookmark($teaching);
+            $this->getDoctrine()->getManager()->flush();
 
-        $this->getDoctrine()->getManager()->flush();
-
-        $response["success"] = true;
-
-        return new JsonResponse($response);
+            return new JsonResponse(array('success' => 'Bookmark success added'), Response::HTTP_OK);
+        } catch (AccessDeniedException $e) {
+            return new JsonResponse(array('error' => 'You don`t have access'), Response::HTTP_FORBIDDEN);
+        } catch (NotFoundHttpException $e) {
+            return new JsonResponse(array('error' => 'Bookmark not found'), Response::HTTP_NOT_FOUND);
+        }
     }
 }

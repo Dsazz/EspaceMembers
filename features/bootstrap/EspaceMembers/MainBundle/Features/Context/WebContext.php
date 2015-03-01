@@ -12,6 +12,9 @@ use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
 
+require_once 'PHPUnit/Autoload.php';
+require_once 'PHPUnit/Framework/Assert/Functions.php';
+
 /**
  * Defines application features from the specific context.
  */
@@ -51,5 +54,24 @@ class WebContext extends MinkContext
         $this->fillField('username', $username);
         $this->fillField('password', $password);
         $this->pressButton('Login');
+    }
+
+    /**
+     * @Given /^I request Google guide for PDF$/
+     */
+    public function iRequestGoogleGuideForPdf()
+    {
+        $this->visit("http://www.googleguide.com/print/adv_op_ref.pdf");
+    }
+
+    /**
+     * @Then /^I should see response headers with content type PDF$/
+     */
+    public function iShouldSeeResponseHeadersWithContentTypePdf()
+    {
+      $headers = $this->getSession()->getResponseHeaders();
+      echo "I am Printing all response headers here  \n";
+      print_r($headers['Content-Type']);
+      assertEquals($headers['Content-Type'], array('application/pdf'));
     }
 }

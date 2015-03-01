@@ -6,22 +6,19 @@ EspaceMembers\MainBundle\Entity\Event:
     id:
       type: integer
       generator: { strategy: AUTO }
+  indexes:
+    idx_year:
+      columns: [year]
   fields:
     title:
       type: string
       length: 255
-      #unique: true
     startDate:
-      #type: string
-      #length: 100
       type: datetime
     completionDate:
-      #type: string
-      #length: 100
       type: datetime
     year:
-      type: string
-      length: 20
+      type: smallint
     description:
       type: text
       nullable: true
@@ -83,5 +80,3 @@ EspaceMembers\MainBundle\Entity\Event:
       targetEntity: EspaceMembers\MainBundle\Entity\Tag
       mappedBy: events
       cascade: ["persist"]
-  #lifecycleCallbacks:
-    #prePersist:  [ setDefaultGroup ]

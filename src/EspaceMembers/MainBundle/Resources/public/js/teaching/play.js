@@ -1,5 +1,4 @@
-$(document).ready(function(e)
-{
+$(document).ready(function(e) {
     try {
         $("body select").msDropDown();
         } catch(e) {
@@ -21,39 +20,32 @@ $(document).ready(function() {
 
 function triggerBookmark(teaching_id){
     var self = this;
-    var addBookmark = ($(this).hasClass('fav') == false) ?
-        this : $('div.favbox a[data-id='+teaching_id+']');
+    var addBookmark = ($(this).hasClass('fav') == false) ? this : $('div.favbox a[data-id='+teaching_id+']');
     var pathBookmarkAction;
     if ($(self).hasClass('active')) {
         $(self).removeClass('active');
         $(addBookmark).addClass('unactive');
         $(addBookmark).text('AJOUTER A MES FAVORIS');
-        $.get(Routing.generate('espace_members_bookmark_remove', { id: teaching_id }), {},
-            function(response){
-                if(response.success == false){
-                    $(self).addClass('active');
-                    if ( addBookmark ) {
-                        $(addBookmark).removeClass('unactive');
-                        $(addBookmark).text('ENLEVER DE MES FAVORIS');
-                    }
-                }
-
-            }, "json");
+        $.getJSON(Routing.generate('espace_members_bookmark_remove', { id: teaching_id }))
+        .fail(function(response) {
+            $(self).addClass('active');
+            if (addBookmark) {
+                $(addBookmark).removeClass('unactive');
+                $(addBookmark).text('ENLEVER DE MES FAVORIS');
+            }
+        });
     } else {
         $(self).addClass('active');
         $(addBookmark).removeClass('unactive');
         $(addBookmark).text('ENLEVER DE MES FAVORIS');
-        $.get(Routing.generate('espace_members_bookmark_add', { id: teaching_id }), {},
-            function(response){
-                if(response.success == false){
-                    $(self).removeClass('active');
-                    if ( addBookmark ) {
-                        $(addBookmark).addClass('unactive');
-                        $(addBookmark).text('AJOUTER A MES FAVORIS');
-                    }
-                }
-
-            }, "json");
+        $.getJSON(Routing.generate('espace_members_bookmark_add', { id: teaching_id }))
+        .fail(function(response) {
+            $(self).removeClass('active');
+            if (addBookmark) {
+                $(addBookmark).addClass('unactive');
+                $(addBookmark).text('AJOUTER A MES FAVORIS');
+            }
+        });
     }
 }
 

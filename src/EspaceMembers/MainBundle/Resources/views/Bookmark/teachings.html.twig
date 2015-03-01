@@ -9,7 +9,7 @@
             }) }}
         {% endset %}
         <a href="{{ pathToPlayingTeaching }}" class="tittle">
-            {{ teaching.title|length > 20 ?  teaching.title|slice(0, 20) ~ '...' : teaching.title }}
+            {{ teaching.title|length > 20 ? teaching.title|slice(0, 20) ~ '...' : teaching.title }}
             <span class="uploaded-time">Jour {{ teaching.dayNumber }},
                 {{ teaching.date|localizeddate('none', 'none', 'fr_FR' , null, 'd
                 LLLL Y') }} (env. {{teaching.dayTime}} )
