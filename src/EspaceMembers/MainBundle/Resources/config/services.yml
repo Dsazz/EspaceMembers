@@ -1,10 +1,3 @@
-#parameters:
-#    espace_members_main.example.class: EspaceMembers\MainBundle\Example
-
-#services:
-#    espace_members_main.example:
-#        class: %espace_members_main.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
 parameters:
     sonata.user.admin.user.class: EspaceMembers\MainBundle\Admin\UserAdmin
     sonata.user.admin.user.entity: EspaceMembers\MainBundle\Entity\User

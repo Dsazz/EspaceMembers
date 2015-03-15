@@ -22,34 +22,18 @@
 
         <div class="right-bar">
             <h1>Edit profile:</h1>
-                {% if app.user %}
-                    {% set user = app.security.getToken().getUser() %}
-                {% endif %}
-                <form action="{{ path('sonata_user_profile_edit') }}" method="POST" class="pure-form
-                    pure-form-stacked">
-                    {#{{ form_widget(form) }}#}
-                    {#<div class="form-actions">#}
-                        {#<button type="submit" name="submit"  class="btn btn-primary pull-right">#}
-                            {#{{ 'sonata_user_submit'|trans({}, 'SonataUserBundle') }}</button>#}
-
-                    {{ form_errors(form) }}
-                    <fieldset>
-                            {#{{ form_label(form.first_name) }}#}
-                            {#{{ form_errors(form.first_name) }}#}
-                            {#{{ form_widget(form.first_name) }}#}
-
-                            {#{{ form_label(form.last_name) }}#}
-                            {#{{ form_errors(form.last_name) }}#}
-                            {#{{ form_widget(form.last_name) }}#}
-
-                            {{ form_widget(form) }}
-                        <button type="submit" name="submit"  class="pure-button pure-button-primary">
-                            {{ 'sonata_user_submit'|trans({}, 'SonataUserBundle') }}</button>
-                    </fieldset>
-                </form>
+            <form action="{{ path('sonata_user_profile_edit') }}" method="POST" class="pure-form
+                pure-form-stacked">
+                {{ form_errors(form) }}
+                <fieldset>
+                    {{ form_widget(form) }}
+                    <button type="submit" name="submit"  class="pure-button pure-button-primary">
+                        {{ 'sonata_user_submit'|trans({}, 'SonataUserBundle') }}
+                    </button>
+                </fieldset>
+            </form>
         </div>
     </div>
-
 </div>
 <div class="clear"><!-- --></div>
 {% endblock %}

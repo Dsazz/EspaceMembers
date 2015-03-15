@@ -6,7 +6,7 @@ use Doctrine\Common\Cache\ApcCache;
 
 class UserRepository extends EntityRepository
 {
-    public function findAll()
+    public function findAllByLastNameASC()
     {
         return $this->findBy(array(), array('last_name' => 'ASC'));
     }
@@ -14,11 +14,7 @@ class UserRepository extends EntityRepository
     public function findTeachers()
     {
         return $qb = $this->createQueryBuilder('u')
-            ->select('partial u.{
-                id, first_name,
-                last_name, address,
-                phone, email, is_teacher
-            }')
+            ->select('partial u.{id, first_name, last_name, address, phone, email, is_teacher}')
             ->addSelect('partial avatar.{
                 id, providerName, providerStatus,
                 providerReference, width, height,
@@ -62,21 +58,14 @@ class UserRepository extends EntityRepository
             ->getOneOrNullResult();
     }
 
-    public function findUserBookmark($userId)
+    public function findBookmarks($userId)
     {
         return $qb = $this->createQueryBuilder('u')
             ->select('partial u.{id}')
             ->addSelect('partial tu.{id, last_name, first_name}')
-            ->addSelect('partial ev.{
-                id, title, category,
-                frontImage, startDate, completionDate
-            }')
-            ->addSelect('partial bk.{
-                id, title, serial,
-                lesson, dayNumber, dayTime, date
-            }')
+            ->addSelect('partial ev.{id, title, year, category, frontImage, startDate, completionDate}')
+            ->addSelect('partial bk.{id, title, serial,lesson, dayNumber, dayTime, date}')
             ->addSelect('partial tch.{id}')
-            ->addSelect('partial c.{id, year}')
             ->addSelect('partial lsn.{id, contentType, path}')
             ->addSelect('partial frntImg.{id, providerName, providerStatus, providerReference, width, height, contentType, context}')
             ->addSelect('partial avatar.{id, providerName, providerStatus, providerReference, width, height, contentType, context}')
@@ -89,11 +78,10 @@ class UserRepository extends EntityRepository
             ->innerJoin('tu.teachings', 'tch', 'WITH', 'tch.id = bk.id')
             ->innerJoin('tu.avatar','tavatar')
             ->innerJoin('tch.lesson','lsn')
-            ->innerJoin('ev.chronology', 'c')
             ->innerJoin('ev.frontImage','frntImg')
             ->where('u.id = :user_id')
             ->setParameter("user_id", $userId)
-            ->orderBy('c.year', 'DESC')
+            ->orderBy('ev.year', 'DESC')
             ->getQuery()
             ->getSingleResult();
     }

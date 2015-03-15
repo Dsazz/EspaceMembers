@@ -1,0 +1,9 @@
+{% if year != eventYear %}
+    {% if year != 0 %}
+        </div>
+        <div class="left-column">
+            <span class="year">{{ eventYear }}</span>
+    {% else %}
+        <span class="year">{{ eventYear }}</span>
+    {% endif %}
+{% endif %}

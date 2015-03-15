@@ -4,9 +4,8 @@ namespace EspaceMembers\MainBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-
-//use Sonata\UserBundle\Model\User as BaseUser;
 use Sonata\UserBundle\Entity\BaseUser as BaseUser;
+
 /**
  * User
  */

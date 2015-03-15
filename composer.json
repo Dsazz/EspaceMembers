@@ -22,7 +22,7 @@
 
         "sonata-project/media-bundle": "~2.3",
         "sonata-project/datagrid-bundle": "~2.2@dev",
-        "sonata-project/doctrine-orm-admin-bundle": "dev-master",
+        "sonata-project/doctrine-orm-admin-bundle": "~2.3",
 
         "jms/serializer-bundle": "*",
         "sonata-project/user-bundle": "dev-master",
@@ -47,7 +47,8 @@
         "behat/mink-bundle": "*",
         "behat/mink-goutte-driver": "*",
         "behat/mink-zombie-driver": "*",
-        "behat/mink-selenium2-driver": "*"
+        "behat/mink-selenium2-driver": "*",
+        "white-october/pagerfanta-bundle": "~1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

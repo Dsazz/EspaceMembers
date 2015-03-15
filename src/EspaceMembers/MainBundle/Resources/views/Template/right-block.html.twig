@@ -7,15 +7,13 @@
         <div>
             <ul>
                 <li>
-                    <a href="{{ path('espace_members_teaching') }}"
-                        link-id="-1" class="droplink">Tout</a>
+                    <a href="{{ path('espace_members_teaching') }}" link-id="-1" class="droplink">Tout</a>
                 </li>
-                {% for chronology in chronologies %}
+                {% for chronologie in chronologies %}
                 <li>
-                    <a href="{{ path('espace_members_filter_teaching_chronology', 
-                        { 'chronology_id': chronology.id}) }}"
-                        link-id="{{ chronology.id }}" class="droplink">
-                    {{ chronology.year }}
+                    <a href="{{ path('espace_members_filter_teaching_chronology', {'year': chronologie.year}) }}"
+                        link-id="{{ chronologie.year }}" class="droplink">
+                        {{ chronologie.year }}
                     </a>
                 </li>
                 {% endfor %}
@@ -28,13 +26,11 @@
         <div>
             <ul>
                 <li>
-                    <a href="{{ path('espace_members_teaching') }}"
-                        link-id="-1" class="droplink">Tout</a>
+                    <a href="{{ path('espace_members_teaching') }}" link-id="-1" class="droplink">Tout</a>
                 </li>
                 {% for category in categories %}
                 <li>
-                    <a href="{{ path('espace_members_filter_teaching_category',
-                        { 'category_id': category.id}) }}"
+                    <a href="{{ path('espace_members_filter_teaching_category', { 'category_id': category.id}) }}"
                         link-id="{{ category.id }}" class="droplink">
                         {{ category.title|capitalize }}
                     </a>
@@ -47,13 +43,11 @@
         <div>
             <ul>
                 <li>
-                    <a href="{{ path('espace_members_teaching') }}"
-                        link-id="-1" class="droplink">Tout</a>
+                    <a href="{{ path('espace_members_teaching') }}" link-id="-1" class="droplink">Tout</a>
                 </li>
                 {% for voie in voies %}
                 <li>
-                    <a href="{{ path('espace_members_filter_teaching_voie',
-                        { 'voie_id': voie.id}) }}"
+                    <a href="{{ path('espace_members_filter_teaching_voie', { 'voie_id': voie.id}) }}"
                         link-id="{{ voie.id }}" class="droplink">
                         {{ voie.title|capitalize }}
                     </a>
@@ -66,13 +60,11 @@
         <div>
             <ul>
                 <li>
-                    <a href="{{ path('espace_members_teaching') }}"
-                        link-id="-1" class="droplink">Tout</a>
+                    <a href="{{ path('espace_members_teaching') }}" link-id="-1" class="droplink">Tout</a>
                 </li>
                 {% for teacher in teachers %}
                 <li>
-                    <a href="{{ path('espace_members_filter_teaching_teacher',
-                        { 'teacher_id': teacher.id}) }}"
+                    <a href="{{ path('espace_members_filter_teaching_teacher', { 'teacher_id': teacher.id}) }}"
                         link-id="{{ teacher.id }}" class="droplink">
                         {{ teacher.lastName }}  {{ teacher.firstName }}
                     </a>
@@ -85,15 +77,13 @@
         <div>
             <ul>
                 <li>
-                    <a href="{{ path('espace_members_teaching') }}"
-                        link-id="-1" class="droplink">Tout</a>
+                    <a href="{{ path('espace_members_teaching') }}" link-id="-1" class="droplink">Tout</a>
                 </li>
                 {% for tag in tags %}
                     <li>
-                        <a href="{{ path('espace_members_filter_teaching_tag',
-                            { 'tag_id': tag.id}) }}"
+                        <a href="{{ path('espace_members_filter_teaching_tag', { 'tag_id': tag.id}) }}"
                             link-id="{{ tag.id }}" class="droplink">
-                        {{ tag.title|capitalize }}
+                            {{ tag.title|capitalize }}
                         </a>
                     </li>
                 {% endfor %}

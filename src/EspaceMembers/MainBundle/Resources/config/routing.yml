@@ -1,6 +1,9 @@
 espace_members_teaching:
-    path:     /
-    defaults: { _controller: EspaceMembersMainBundle:Teaching:index }
+    path:     /{page}
+    defaults: { _controller: EspaceMembersMainBundle:Teaching:index, page: 1 }
+    requirements:
+        _method: GET
+        page: \d+
 
 espace_members_playing_teaching:
     pattern:  /teaching/{teaching_id}/teacher/{teacher_id}/event/{event_id}
@@ -23,17 +26,17 @@ espace_members_detail_teaching:
         expose: true
 
 espace_members_filter_teaching_chronology:
-    pattern:  /filter/chronology/{chronology_id}
-    defaults: { _controller: EspaceMembersMainBundle:Teaching:filterChronology }
+    pattern:  /filter/chronology/{year}/{page}
+    defaults: { _controller: EspaceMembersMainBundle:Teaching:filterChronology, page: 1 }
     requirements:
         _method: GET
-        chronology_id: \d+
+        year: \d+
     options:
         expose: true
 
 espace_members_filter_teaching_category:
-    pattern:  /filter/category/{category_id}
-    defaults: { _controller: EspaceMembersMainBundle:Teaching:filterCategory }
+    pattern:  /filter/category/{category_id}/{page}
+    defaults: { _controller: EspaceMembersMainBundle:Teaching:filterCategory, page: 1 }
     requirements:
         _method: GET
         category_id: \d+
@@ -41,8 +44,8 @@ espace_members_filter_teaching_category:
         expose: true
 
 espace_members_filter_teaching_voie:
-    pattern:  /filter/voie/{voie_id}
-    defaults: { _controller: EspaceMembersMainBundle:Teaching:filterVoie }
+    pattern:  /filter/voie/{voie_id}/{page}
+    defaults: { _controller: EspaceMembersMainBundle:Teaching:filterVoie, page: 1 }
     requirements:
         _method: GET
         voie_id: \d+
@@ -50,8 +53,8 @@ espace_members_filter_teaching_voie:
         expose: true
 
 espace_members_filter_teaching_teacher:
-    pattern:  /filter/teacher/{teacher_id}
-    defaults: { _controller: EspaceMembersMainBundle:Teaching:filterTeacher }
+    pattern:  /filter/teacher/{teacher_id}/{page}
+    defaults: { _controller: EspaceMembersMainBundle:Teaching:filterTeacher, page: 1 }
     requirements:
         _method: GET
         teacher_id: \d+
@@ -59,8 +62,8 @@ espace_members_filter_teaching_teacher:
         expose: true
 
 espace_members_filter_teaching_tag:
-    pattern:  /filter/tag/{tag_id}
-    defaults: { _controller: EspaceMembersMainBundle:Teaching:filterTag }
+    pattern:  /filter/tag/{tag_id}/{page}
+    defaults: { _controller: EspaceMembersMainBundle:Teaching:filterTag, page: 1 }
     requirements:
         _method: GET
         tag_id: \d+
@@ -68,7 +71,7 @@ espace_members_filter_teaching_tag:
         expose: true
 
 espace_members_community:
-    path:     /communaute
+    path:     /community
     defaults: { _controller: EspaceMembersMainBundle:Community:index }
 
 espace_members_bookmark_show:
@@ -78,6 +81,7 @@ espace_members_bookmark_show:
 espace_members_bookmark_add:
     pattern:  /bookmark/add/{id}
     defaults: { _controller: EspaceMembersMainBundle:Bookmark:add, _format: json }
+    condition: "request.headers.get('X-Requested-With') == 'XMLHttpRequest'"
     requirements:
         _method: GET
         tag_id: \d+
@@ -87,6 +91,7 @@ espace_members_bookmark_add:
 espace_members_bookmark_remove:
     pattern:  /bookmark/remove/{id}
     defaults: { _controller: EspaceMembersMainBundle:Bookmark:remove, _format: json }
+    condition: "request.headers.get('X-Requested-With') == 'XMLHttpRequest'"
     requirements:
         _method: GET
         tag_id: \d+

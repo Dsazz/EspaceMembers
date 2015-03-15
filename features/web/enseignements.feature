@@ -10,5 +10,5 @@ Feature: EspaceMembers enseignements
     I need to be sure that authentication works
 
     Scenario: Viewing the google guide PDF
-        Given I request Google guide for PDF
-        Then  I should see response headers with content type PDF
+        #Given I request Google guide for PDF
+        #Then  I should see response headers with content type PDF

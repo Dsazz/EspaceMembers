@@ -4,20 +4,27 @@
 #for f in `find src/ -path '*/Features'`; do ./bin/behat -c app/config/behat.yml $f; done
 default:
     suites:
-        core:
+        controller:
             #path: [ %paths.base%/features/core ]
             paths:
-                features: features/core
+                features: features/controller
             type: symfony_bundle
             bundle: 'EspaceMembersMainBundle'
-            contexts: ['EspaceMembers\MainBundle\Features\Context\CoreContext']
+            contexts:
+                - Behat\MinkExtension\Context\MinkContext
+                - EspaceMembers\MainBundle\Behat\ControllerContext
+                - EspaceMembers\MainBundle\Behat\CommunityContext
+                - EspaceMembers\MainBundle\Behat\WebContext
         web:
             #path: [ %paths.base%/features/web ]
             paths:
                 features: features/web
             type: symfony_bundle
             bundle: 'EspaceMembersMainBundle'
-            contexts: ['EspaceMembers\MainBundle\Features\Context\WebContext']
+            contexts:
+                - Behat\MinkExtension\Context\MinkContext
+                - EspaceMembers\MainBundle\Behat\ControllerContext
+                - EspaceMembers\MainBundle\Behat\WebContext
     extensions:
         Behat\Symfony2Extension:
             kernel:

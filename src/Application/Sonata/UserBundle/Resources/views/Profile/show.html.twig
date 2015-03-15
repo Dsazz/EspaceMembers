@@ -9,37 +9,30 @@
 {% block body %}
 <div class="content">
     <div class="full-width2">
-
         <div class="left-bar">
             <a href="{{ path('sonata_user_profile_edit') }}" class="link">Edit profile</a>
         </div>
-
         <div class="right-bar">
-            <div class="box">
-                {% if app.user %}
-                    {% set user = app.security.getToken().getUser() %}
-                    <span class="right-tag"></span>
-                    {% media user.avatar, 'big' with { 'width': '175px', 'height': '175px', 'alt': 'image', 'title': '' } %}
-
-                    <h2>{{ user.lastName }} {{ user.firstName }}</h2>
-
-                    <p>{{ user.description|length > 255 ? user.description|slice(0, 255) ~ '...' : user.description }}</p>
-
-                    <p>
-                    Téléphone:{{ user.phone|length > 0 ? user.phone : "" }}<br />
-                    Email:{{ user.email|length > 0 ? user.email : "" }}<br />
-                    Adresse:{{ user.address|length > 0 ? user.address : "" }}
-                    </p>
-
-                {% else %}
-                    <p>You don't have access</p>
-                {% endif %}
-
+            {% for flashMessage in app.session.flashbag.get('sonata_user_success') %}
+            <div class="flash-notice">
+                {{ flashMessage|trans }}
             </div>
+            {% endfor %}
+            <div class="box">
+                <span class="right-tag"></span>
+                {% media user.avatar, 'big' with { 'width': '175px', 'height': '175px', 'alt': 'image', 'title': '' } %}
 
+                <h2>{{ user.lastName }} {{ user.firstName }}</h2>
+
+                <p>{{ user.description|length > 255 ? user.description|slice(0, 255) ~ '...' : user.description }}</p>
+                <p>
+                Téléphone:{{ user.phone|length > 0 ? user.phone : "" }}<br />
+                Email:{{ user.email|length > 0 ? user.email : "" }}<br />
+                Adresse:{{ user.address|length > 0 ? user.address : "" }}
+                </p>
+            </div>
         </div>
     </div>
-
 </div>
 <div class="clear"><!-- --></div>
 {% endblock %}

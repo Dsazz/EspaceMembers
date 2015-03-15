@@ -50,6 +50,7 @@ class Media extends BaseMedia
     {
         $pathToMedia =  __DIR__.'/../../../../web'.trim($pathToMedia);
         $getId3 = new GetId3();
+
         $audio = $getId3->analyze($pathToMedia);
         $this->setLength(isset($audio['playtime_string']) ? $audio['playtime_string'] : '');
 

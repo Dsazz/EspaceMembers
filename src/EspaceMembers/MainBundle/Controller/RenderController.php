@@ -11,7 +11,7 @@ class RenderController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         return $this->render('EspaceMembersMainBundle:Template:right-block.html.twig', array(
-            'chronologies' => $em->getRepository('EspaceMembersMainBundle:Chronology')->getYears(),
+            'chronologies' => $em->getRepository('EspaceMembersMainBundle:Event')->getYears(),
             'categories'   => $em->getRepository('EspaceMembersMainBundle:Category')->getTitles(),
             'voies'        => $em->getRepository('EspaceMembersMainBundle:Voie')->getTitles(),
             'teachers'     => $em->getRepository('EspaceMembersMainBundle:User')->findTeachers(),
@@ -26,7 +26,7 @@ class RenderController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         return $this->render('EspaceMembersMainBundle:Template:left-block.html.twig', array(
-            'chronologies' =>  $em->getRepository('EspaceMembersMainBundle:Chronology')->getYears(),
+            'events' =>  $em->getRepository('EspaceMembersMainBundle:Event')->findAllForEnseignements(),
         ));
     }
 }

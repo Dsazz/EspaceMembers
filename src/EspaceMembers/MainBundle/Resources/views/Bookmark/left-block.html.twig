@@ -1,7 +1,7 @@
 {% set year = 0 %}
-{% for bookmark in bookmarks if year != bookmark.event.chronology.year %}
+{% for bookmark in bookmarks if year != bookmark.event.year %}
 <div class="left-column">
-    <span class="year">{{ bookmark.event.chronology.year }}</span>
+    <span class="year">{{ bookmark.event.year }}</span>
     <h2>{{ bookmark.event.title|capitalize }}</h2>
     <span class="sub-heading">
         <img src="{{ asset('bundles/espacemembersmain/images/flag.png') }}" alt="flag" />
@@ -28,7 +28,7 @@
             'bookmark': bookmark,
         }) }}
     {% endfor %}
-    {% set year = bookmark.event.chronology.year %}
+    {% set year = bookmark.event.year %}
 </div>
 {% else %}
     <div class="left-column">

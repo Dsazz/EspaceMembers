@@ -7,84 +7,111 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use EspaceMembers\MainBundle\Entity\Event;
 use EspaceMembers\MainBundle\Entity\User;
 use EspaceMembers\MainBundle\Entity\Teaching;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Pagerfanta\Exception\NotValidCurrentPageException;
 
 class TeachingController extends Controller
 {
-    public function indexAction()
+    public function indexAction($page)
     {
         $em = $this->getDoctrine()->getManager();
+        $pagerfanta = $em->getRepository('EspaceMembersMainBundle:Event')->findAllWithPaging($page);
+
+        $this->setCurrentPageOr404($pagerfanta, $page);
 
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
-            'chronologies' => $em->getRepository('EspaceMembersMainBundle:Chronology')
-                ->findAllForEnseignements(),
+            'paginator' => $pagerfanta,
+            'events'  => $pagerfanta->getCurrentPageResults(),
+
+            /* Check this */
             'bookmarks' => $this->getUser()->getBookmarks(),
         ));
     }
 
-    public function filterChronologyAction($chronology_id)
+    private function setCurrentPageOr404($pagerfanta, $page)
+    {
+        try {
+            $pagerfanta->setCurrentPage($page);
+        } catch (NotValidCurrentPageException $e) {
+            throw new NotFoundHttpException();
+        }
+    }
+
+    public function filterChronologyAction($year, $page)
     {
         $em = $this->getDoctrine()->getManager();
+        $pagerfanta = $em->getRepository('EspaceMembersMainBundle:Event')
+            ->filterByYearWithPaging($year, $this->getUser());
+
+        $this->setCurrentPageOr404($pagerfanta, $page);
 
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
-            'chronologies'  => $em->getRepository('EspaceMembersMainBundle:Chronology')
-                ->filterById($chronology_id, $this->getUser()->getId()),
-            'filteredId'   => $chronology_id,
-            'accordion'    => '0',
+            'paginator'  => $pagerfanta,
+            'events'     => $pagerfanta->getCurrentPageResults(),
+            'filteredId' => $year,
+            'accordion'  => '0',
         ));
     }
 
-    public function filterCategoryAction($category_id)
+    public function filterCategoryAction($category_id, $page)
     {
         $em = $this->getDoctrine()->getManager();
+        $pagerfanta = $em->getRepository('EspaceMembersMainBundle:Event')
+            ->filterByCategoryWithPaging($category_id, $this->getUser()->getId());
+
+        $this->setCurrentPageOr404($pagerfanta, $page);
 
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
-            'chronologies'  => $em->getRepository('EspaceMembersMainBundle:Chronology')
-                ->filterByCategory($category_id, $this->getUser()->getId()),
-            'filteredId'   => $category_id,
-            'accordion'    => '1',
+            'paginator'  => $pagerfanta,
+            'events'     => $pagerfanta->getCurrentPageResults(),
+            'filteredId' => $category_id,
+            'accordion'  => '1',
         ));
     }
 
-    public function filterVoieAction($voie_id)
+    public function filterVoieAction($voie_id, $page)
     {
         $em = $this->getDoctrine()->getManager();
+        $pagerfanta = $em->getRepository('EspaceMembersMainBundle:Event')
+            ->filterByVoieWithPaging($voie_id, $this->getUser()->getId());
+
+        $this->setCurrentPageOr404($pagerfanta, $page);
 
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
-            'chronologies' => $em->getRepository('EspaceMembersMainBundle:Chronology')
-                ->filterByVoie($voie_id, $this->getUser()->getId()),
+            'paginator'  => $pagerfanta,
+            'events'     => $pagerfanta->getCurrentPageResults(),
             'filteredId'   => $voie_id,
             'accordion'    => '2',
         ));
     }
 
-    public function filterTeacherAction($teacher_id)
+    public function filterTeacherAction($teacher_id, $page)
     {
         $em = $this->getDoctrine()->getManager();
+        $pagerfanta = $em->getRepository('EspaceMembersMainBundle:Event')
+            ->filterByTeacherWithPaging($teacher_id);
+
+        $this->setCurrentPageOr404($pagerfanta, $page);
 
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
-            'chronologies' => $em->getRepository('EspaceMembersMainBundle:Chronology')
-                ->filterByTeacher($teacher_id),
+            'paginator'  => $pagerfanta,
+            'events'     => $pagerfanta->getCurrentPageResults(),
             'filteredId'   => $teacher_id,
             'accordion'    => '3',
         ));
     }
 
-    public function filterTagAction($tag_id)
+    public function filterTagAction($tag_id, $page)
     {
         $em = $this->getDoctrine()->getManager();
-        $filteredChronologies = new ArrayCollection(
-            array_unique(array_merge(
-                ($filteredByTeaching = $em->getRepository('EspaceMembersMainBundle:Chronology')
-                    ->filterByTagTeaching($tag_id, $this->getUser()->getId()))
-                    ? $filteredByTeaching : array(),
-                ($filteredByTagEvent = $em->getRepository('EspaceMembersMainBundle:Chronology')
-                    ->filterByTagEvent($tag_id, $this->getUser()->getId()))
-                    ? $filteredByTagEvent : array()
-            ))
-        );
+        $pagerfanta = $em->getRepository('EspaceMembersMainBundle:Event')
+            ->filterTeachingsAndEventsByTagWithPaging($tag_id, $this->getUser()->getId());
+
+        $this->setCurrentPageOr404($pagerfanta, $page);
 
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
-            'chronologies' => $filteredChronologies,
+            'paginator'  => $pagerfanta,
+            'events'     => $pagerfanta->getCurrentPageResults(),
             'filteredId'   => $tag_id,
             'accordion'    => '4',
         ));

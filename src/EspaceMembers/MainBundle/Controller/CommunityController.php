@@ -13,7 +13,7 @@ class CommunityController extends Controller
 
         return $this->render('EspaceMembersMainBundle:Community:communaute.html.twig', array(
             'users'  => $em->getRepository('EspaceMembersMainBundle:User')->findTeachers(),
-            'groups' => $em->getRepository('EspaceMembersMainBundle:Group')->findName(),
+            'groups' => $em->getRepository('EspaceMembersMainBundle:Group')->findAllNames(),
         ));
     }
 

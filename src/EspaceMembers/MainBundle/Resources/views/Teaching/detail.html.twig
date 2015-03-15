@@ -8,9 +8,8 @@
 
 {% block body %}
 <div class="content">
-
     <div class="full-width">
-        <span class="year">{{ event.chronology.year }}</span>
+        <span class="year">{{ event.year }}</span>
         <h2>{{ event.title|capitalize }}</h2>
         <span class="sub-heading">
             <img src="{{ asset('bundles/espacemembersmain/images/flag.png') }}" alt="flag" />
@@ -62,7 +61,7 @@
                         'event_id' : event.id,
                         'teacher_id' : teacher.id,
                         'teaching_id' : teaching.id
-                        } ) }}" class="tittle">
+                    } ) }}" class="tittle">
                         {{ teaching.title|length > 20 ?  teaching.title|slice(0, 20) ~ '...' : teaching.title }}
                         <span class="uploaded-time">Jour {{ teaching.dayNumber }},
                             {{ teaching.date|localizeddate('none', 'none', 'fr_FR' , null, 'd

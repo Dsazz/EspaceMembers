@@ -59,14 +59,6 @@ EspaceMembers\MainBundle\Entity\Event:
         category_id:
           referencedColumnName: id
           onDelete: SET NULL
-    chronology:
-      targetEntity: EspaceMembers\MainBundle\Entity\Chronology
-      inversedBy: events
-      cascade: ["persist"]
-      joinColumns:
-        chronology_id:
-          referencedColumnName: id
-          onDelete: SET NULL
   manyToMany:
     users:
       targetEntity: EspaceMembers\MainBundle\Entity\User
