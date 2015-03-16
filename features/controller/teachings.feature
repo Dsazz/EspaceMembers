@@ -3,8 +3,8 @@
     #As ...    // It can be 'an admin' and 'a developer' or other
     #I need to ...      // The feature we want
 @community
-Feature: Community
-    In order to check the Community controller
+Feature: Teachings
+    In order to check the Teaching controller
     As a student
     I need to be sure all actions is fine
 
@@ -13,5 +13,5 @@ Feature: Community
         Then  I should be on "/profile/"
 
     Scenario: Index action responds with 200
-        Given I am on "/community"
+        Given I am on "/"
         Then  the response status code should be 200

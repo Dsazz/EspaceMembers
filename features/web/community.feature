@@ -4,14 +4,14 @@
     #I need to ...      // The feature we want
 @community
 Feature: Community
-    In order to check the Community controller
+    In order to check the community page
     As a student
-    I need to be sure all actions is fine
+    I need to be sure that page has no errors
 
     Background:
         Given I am logged in as "student@test.com" with password "student"
         Then  I should be on "/profile/"
 
-    Scenario: Index action responds with 200
+    Scenario: Index action return the correct number teachers
         Given I am on "/community"
-        Then  the response status code should be 200
+        Then  I should see the correct number teachers in the ".box" element
