@@ -3,22 +3,20 @@
 namespace EspaceMembers\MainBundle\Behat;
 
 use Behat\Behat\Context\Context;
+use Behat\Mink\Driver\BrowserKitDriver;
+use Behat\Mink\Exception\UnsupportedDriverActionException;
 use Behat\MinkExtension\Context\RawMinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
+
+use Faker\Factory as FakerFactory;
+use Faker\Generator;
+
+use EspaceMembers\MainBundle\Entity\Media;
+
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Faker\Factory as FakerFactory;
-use Faker\Generator;
-
-use EspaceMembers\MainBundle\Entity\Category;
-use EspaceMembers\MainBundle\Entity\Group;
-use EspaceMembers\MainBundle\Entity\Media;
-use EspaceMembers\MainBundle\Entity\Tag;
-use EspaceMembers\MainBundle\Entity\Teaching;
-use EspaceMembers\MainBundle\Entity\User;
-use EspaceMembers\MainBundle\Entity\Event;
 
 require_once 'PHPUnit/Autoload.php';
 require_once 'PHPUnit/Framework/Assert/Functions.php';

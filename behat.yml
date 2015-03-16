@@ -25,6 +25,8 @@ default:
                 - Behat\MinkExtension\Context\MinkContext
                 - EspaceMembers\MainBundle\Behat\ControllerContext
                 - EspaceMembers\MainBundle\Behat\WebContext
+                - EspaceMembers\MainBundle\Behat\CommunityContext
+                - EspaceMembers\MainBundle\Behat\TeachingContext
     extensions:
         Behat\Symfony2Extension:
             kernel:

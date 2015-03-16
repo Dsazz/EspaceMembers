@@ -2,11 +2,11 @@
     #In order to ...    // Why this feature is useful
     #As ...    // It can be 'an admin' and 'a developer' or other
     #I need to ...      // The feature we want
-@community
+@teachings
 Feature: Teachings
     In order to check the Teaching controller
     As a student
-    I need to be sure all actions is fine
+    I need to be sure that all actions is fine
 
     Background:
         Given I am logged in as "student@test.com" with password "student"

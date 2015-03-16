@@ -51,7 +51,7 @@ class WebContext extends DefaultContext
     }
 
     /**
-     * @When /^wait (\d+) seconds?$/
+     * @When /^(?:|I )wait (\d+) seconds?$/
      */
     public function waitSeconds($seconds)
     {

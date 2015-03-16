@@ -6,7 +6,7 @@
 Feature: Community
     In order to check the Community controller
     As a student
-    I need to be sure all actions is fine
+    I need to be sure that all actions is fine
 
     Background:
         Given I am logged in as "student@test.com" with password "student"

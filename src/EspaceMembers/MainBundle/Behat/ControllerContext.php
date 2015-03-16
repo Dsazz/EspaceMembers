@@ -7,9 +7,6 @@ use Behat\Gherkin\Node\TableNode;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
-use Behat\Mink\Exception\UnsupportedDriverActionException;
-use Behat\Mink\Driver\BrowserKitDriver;
-
 class ControllerContext extends DefaultContext
 {
     /**
@@ -27,7 +24,7 @@ class ControllerContext extends DefaultContext
     }
 
     /**
-     * @param \Behat\Behat\Event\ScenarioEvent|\Behat\Behat\Event\OutlineExampleEvent $event
+     * @param \Behat\Behat\Event\ScenarioEvent|\Behat\Behat\Event\OutlineExampleEvent $event - event
      *
      * @return void
      *
@@ -41,22 +38,60 @@ class ControllerContext extends DefaultContext
     }
 
     /**
-     * @Given /^table "([^"]*)" is empty$/
+     * Drop database process
+     *
+     * @return string - output of the work process
      */
-    public function tableIsEmpty($table)
+    public function processDropDatabase()
     {
-        $manager = $this->getEntityManager();
+        $process = new Process(
+            'php app/console doctrine:database:drop --env=test --force'
+        );
 
-        $manager->createQuery(sprintf('DELETE EspaceMembersMainBundle:%s', $table))->execute();
-        $manager->flush();
+        $process->run();
+
+        return $process->getOutput();
     }
 
     /**
-     * Drop entered tables
+     * Create database and schema tables process
      *
-     * @Given /^(?:|I )drop tables:$/
+     * @return string - output of the work process
      */
-    public function iDropTables(TableNode $tables)
+    public function processCreateDbAndSchemaTables()
+    {
+        $process = new Process(
+            'php app/console doctrine:database:create --env=test && php app/console doctrine:schema:update --env=test --force'
+        );
+
+        $process->run();
+
+        return $process->getOutput();
+    }
+
+    /**
+     * Clear all tables.
+     *
+     * @return void
+     *
+     * @Given /^all tables is empty$/
+     */
+    public function allTableIsEmpty()
+    {
+        echo $this->processDropDatabase();
+        echo $this->processCreateDbAndSchemaTables();
+    }
+
+    /**
+     * Clear entered tables.
+     *
+     * @param Behat\Gherkin\Node\TableNode $tables - a list of names for tables
+     *
+     * @return void
+     *
+     * @Given /^following tables is empty:$/
+     */
+    public function followingTablesIsEmpty(TableNode $tables)
     {
         $manager = $this->getEntityManager();
 
@@ -67,7 +102,7 @@ class ControllerContext extends DefaultContext
         $manager->flush();
     }
 
-    /*
+    /**
      * @Given /^ответ должен быть "([^"]*)" с телом:$/
      */
     public function responseShouldBeJsonBody($statusCode, PyStringNode $body)
@@ -98,17 +133,17 @@ class ControllerContext extends DefaultContext
         $this->requestUrl = $this->getUrl($url, $data);
 
         switch ($method) {
-            case 'GET':
-                $response = $this->client->get($this->requestUrl);
-                break;
+        case 'GET':
+            $response = $this->client->get($this->requestUrl);
+            break;
 
-            case 'DELETE':
-                $response = $this->client->delete($this->requestUrl);
-                break;
+        case 'DELETE':
+            $response = $this->client->delete($this->requestUrl);
+            break;
 
-            default:
-                throw new \LogicException("Unknow request method: " . $method);
-                break;
+        default:
+            throw new \LogicException("Unknow request method: " . $method);
+            break;
         }
 
         $this->response = $response;
@@ -117,7 +152,7 @@ class ControllerContext extends DefaultContext
     /**
      * Prevent following redirects.
      *
-     * @return  void
+     * @return void
      *
      * @When /^I do not follow redirects$/
      */
@@ -129,9 +164,9 @@ class ControllerContext extends DefaultContext
     /**
      * Follow redirect instructions.
      *
-     * @param   string  $page
+     * @param string $page - page for redirection
      *
-     * @return  void
+     * @return void
      *
      * @Then /^I (?:am|should be) redirected(?: to "([^"]*)")?$/
      */
@@ -152,5 +187,4 @@ class ControllerContext extends DefaultContext
         $client->followRedirects(true);
         $client->followRedirect();
     }
-
 }

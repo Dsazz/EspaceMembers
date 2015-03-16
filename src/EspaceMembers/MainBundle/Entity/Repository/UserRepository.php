@@ -15,15 +15,36 @@ class UserRepository extends EntityRepository
     {
         return $qb = $this->createQueryBuilder('u')
             ->select('partial u.{id, first_name, last_name, address, phone, email, is_teacher}')
-            ->addSelect('partial avatar.{
-                id, providerName, providerStatus,
-                providerReference, width, height,
-                contentType, context
-            }')
+            ->addSelect(
+                'partial avatar.{
+                    id, providerName, providerStatus,
+                    providerReference, width, height,
+                    contentType, context
+                }'
+            )
+            ->innerJoin('u.avatar', 'avatar')
+            ->where('u.is_teacher = 1')
+            //->orderBy('u.last_name', 'ASC')
+            ->getQuery()
+            ->useResultCache(true, 3600)
+            ->getResult();
+    }
+
+    public function findTeachersWithLessons()
+    {
+        return $qb = $this->createQueryBuilder('u')
+            ->select('partial u.{id, first_name, last_name, address, phone, email, is_teacher}')
+            ->addSelect(
+                'partial avatar.{
+                    id, providerName, providerStatus,
+                    providerReference, width, height,
+                    contentType, context
+                }'
+            )
 
             ->innerJoin('u.teachings', 'tch', 'WITH', 'tch.is_show = 1')
-            ->innerJoin('u.avatar','avatar')
-            ->innerJoin('tch.event','ev')
+            ->innerJoin('u.avatar', 'avatar')
+            ->innerJoin('tch.event', 'ev')
             ->where('u.is_teacher = 1')
             ->orderBy('u.last_name', 'ASC')
             ->getQuery()
