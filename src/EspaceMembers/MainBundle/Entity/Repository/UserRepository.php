@@ -24,7 +24,6 @@ class UserRepository extends EntityRepository
             )
             ->innerJoin('u.avatar', 'avatar')
             ->where('u.is_teacher = 1')
-            //->orderBy('u.last_name', 'ASC')
             ->getQuery()
             ->useResultCache(true, 3600)
             ->getResult();

@@ -26,4 +26,4 @@ Feature: Community
     @javascript
     Scenario: Index action return the correct number teachers
         Given I am on "/community"
-        Then  I should see 5 ".box" element
+        Then  I should see 4 ".box" element
