@@ -70,7 +70,7 @@ class TeachingContext extends DefaultContext
                     $group = $this->getGroupRepository()
                         ->findOneBy(array('name' => trim($group)));
 
-                    $teacher>addGroup($group);
+                    $teacher->addGroup($group);
                 }
             }
 
@@ -79,7 +79,6 @@ class TeachingContext extends DefaultContext
             $teacher->setAvatar($this->createImageWithContext('avatar'));
 
             $manager->persist($teacher);
-            //teachings: [@teachingMP3_<current()>, @teachingVideo_<current()>]
         }
 
         $manager->flush();
@@ -195,34 +194,136 @@ class TeachingContext extends DefaultContext
                 ? $teaching->setDayNumber(trim($data['number days']))
                 : $teaching->setDayNumber($this->faker->randomDigitNotNull);
 
-            isset($data['number days'])
-                ? $teaching->setDayNumber(trim($data['number days']))
-                : $teaching->setDayNumber($this->faker->randomDigitNotNull);
+            isset($data['resume'])
+                ? $teaching->setResume(trim($data['resume']))
+                : $teaching->setResume($this->faker->text(200));
+
+            isset($data['technical comment'])
+                ? $teaching->setTechnicalComment(trim($data['technical comment']))
+                : $teaching->setTechnicalComment($this->faker->text(200));
+
+            isset($data['is show'])
+                ? $teaching->setIsShow(trim($data['is show']))
+                : $teaching->setIsShow(true);
+
+            isset($data['serial'])
+                ? $teaching->setSerial(trim($data['serial']))
+                : $teaching->setSerial($this->faker->randomDigitNotNull);
+
+            if (isset($data['direction']) && !empty($data['direction'])) {
+                foreach (explode(',', $data['direction']) as $direction) {
+                    $group = $this->getVoieRepository()
+                        ->findOneBy(array('name' => trim($direction)));
+
+                    $teacher->addVoie($direction);
+                }
+            }
+
+            if (isset($data['tag']) && !empty($data['tag'])) {
+                foreach (explode(',', $data['tag']) as $tag) {
+                    $group = $this->getTagRepository()
+                        ->findOneBy(array('title' => trim($tag)));
+
+                    $teacher->addTag($tag);
+                }
+            }
+
+            if (isset($data['username']) && !empty($data['username'])) {
+                foreach (explode(',', $data['username']) as $username) {
+                    $user = $this->getService('fos_user.user_manager')
+                        ->findUserByUsername($username);
+
+                    $event->addUser($user);
+                }
+            }
+
+            if (isset($data['event']) && !empty($data['event'])) {
+                $event = $this->getEventRepository()
+                    ->findOneBy(array('title' => trim($data['event'])));
+
+                $teacher->setEvent($event);
+            }
 
             $teaching->setDate($this->faker->dayTime('now'));
             $teaching->setDateTime($this->faker->randTimeDay);
+            $teaching->setLesson($this->createLessonMp3());
 
             $manager->persist($teaching);
         }
 
         $manager->flush();
     }
-EspaceMembers\MainBundle\Entity\Teaching:
-    teaching_prototype(template):
-        title: <word()>
-        date: <dateTime('now')>
-        dayNumber: <randomDigitNotNull()>
-        dayTime: <randTimeDay()>
-        resume: <fr_FR:text(200)>
-        technical_comment: <fr_FR:text(200)>
-        is_show: <boolean(50)>
-        voies(unique): [@voie*, @voie*]
-        tags: [@tag*]
-    teachingMP3_{1..10}(extends teaching_prototype):
-        is_show: 1
-        serial: 1
-        lesson: @lessonMP3<current()>
-    teachingVideo_{1..10}(extends teaching_prototype):
-        serial: 2
-        lesson: @lessonVideo<current()>
+
+    /**
+     * @Given /^there are events:$/
+     * @Given /^there are following events:$/
+     * @Given /^the following events exist:$/
+     */
+    public function thereAreEvents(TableNode $table)
+    {
+        $manager = $this->getEntityManager();
+
+        foreach ($table->getHash() as $data) {
+            $event = new Event();
+
+            isset($data['title'])
+                ? $event->setTitle(trim($data['title']))
+                : $event->setTitle($this->faker->sentence(10));
+
+            isset($data['year'])
+                ? $event->setYear(trim($data['year']))
+                : $event->setYear($this->faker->year('+5 years'));
+
+            isset($data['description'])
+                ? $event->setResume(trim($data['resume']))
+                : $event->setResume($this->faker->text(200));
+
+            isset($data['is show'])
+                ? $event->setIsShow(trim($data['is show']))
+                : $event->setIsShow(true);
+
+            if (isset($data['tag']) && !empty($data['tag'])) {
+                foreach (explode(',', $data['tag']) as $tag) {
+                    $group = $this->getTagRepository()
+                        ->findOneBy(array('title' => trim($tag)));
+
+                    $event->addTag($tag);
+                }
+            }
+
+            if (isset($data['username']) && !empty($data['username'])) {
+                foreach (explode(',', $data['username']) as $username) {
+                    $user = $this->getService('fos_user.user_manager')
+                        ->findUserByUsername($username);
+
+                    $event->addUser($user);
+                }
+            }
+
+            if (isset($data['group']) && !empty($data['group'])) {
+                foreach (explode(',', $data['group']) as $group) {
+                    $group = $this->getGroupRepository()
+                        ->findOneBy(array('name' => trim($group)));
+
+                    $event->addGroup($group);
+                }
+            }
+
+            if (isset($data['category']) && !empty($data['category'])) {
+                $category = $this->getGroupRepository()
+                    ->findOneBy(array('name' => trim($data['category'])));
+
+                $teacher->setCategory($category);
+            }
+
+            $event->setStartDate($this->faker->dayTime('now'));
+            $event->setCompletionDate($this->faker->dayTime('+10 days'));
+            $event->setFrontImage($this->createImageWithContext('cover'));
+
+            $manager->persist($teaching);
+        }
+
+        $manager->flush();
+    }
+
 }

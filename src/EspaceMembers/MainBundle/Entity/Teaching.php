@@ -317,6 +317,8 @@ class Teaching
     public function setEvent(\EspaceMembers\MainBundle\Entity\Event $event = null)
     {
         $this->event = $event;
+        $event->addTeaching($this);
+
         return $this;
     }
 
@@ -433,6 +435,7 @@ class Teaching
     {
         if (false === $this->getUsers()->contains($user) ) {
             $this->users[] = $user;
+            $user->addTeaching($this);
         }
 
         return $this;

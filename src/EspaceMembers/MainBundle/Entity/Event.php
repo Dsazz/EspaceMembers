@@ -240,8 +240,9 @@ class Event
      */
     public function addTeaching(\EspaceMembers\MainBundle\Entity\Teaching $teaching)
     {
-        $this->teachings[] = $teaching;
-        $teaching->setEvent($this);
+        if (false === $this->getTeachings()->contains($teaching)) {
+            $this->teachings[] = $teaching;
+        }
 
         return $this;
     }

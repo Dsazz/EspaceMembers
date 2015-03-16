@@ -18,6 +18,7 @@ use EspaceMembers\MainBundle\Entity\Media;
 use EspaceMembers\MainBundle\Entity\Tag;
 use EspaceMembers\MainBundle\Entity\Teaching;
 use EspaceMembers\MainBundle\Entity\User;
+use EspaceMembers\MainBundle\Entity\Event;
 
 require_once 'PHPUnit/Autoload.php';
 require_once 'PHPUnit/Framework/Assert/Functions.php';
@@ -143,16 +144,6 @@ abstract class DefaultContext extends RawMinkContext implements Context, KernelA
     }
 
     /**
-     * Get repository of User
-     *
-     * @return Doctrine\ORM\EntityRepository
-     */
-    public function getUserRepository()
-    {
-        return $this->getEntityManager()->getRepository('EspaceMembersMainBundle:User');
-    }
-
-    /**
      * Get repository of Group
      *
      * @return Doctrine\ORM\EntityRepository
@@ -170,6 +161,36 @@ abstract class DefaultContext extends RawMinkContext implements Context, KernelA
     public function getTeachingRepository()
     {
         return $this->getEntityManager()->getRepository('EspaceMembersMainBundle:Teaching');
+    }
+
+    /**
+     * Get repository of Voie
+     *
+     * @return Doctrine\ORM\EntityRepository
+     */
+    public function getVoieRepository()
+    {
+        return $this->getEntityManager()->getRepository('EspaceMembersMainBundle:Voie');
+    }
+
+    /**
+     * Get repository of Tag
+     *
+     * @return Doctrine\ORM\EntityRepository
+     */
+    public function getTagRepository()
+    {
+        return $this->getEntityManager()->getRepository('EspaceMembersMainBundle:Tag');
+    }
+
+    /**
+     * Get repository of Event
+     *
+     * @return Doctrine\ORM\EntityRepository
+     */
+    public function getEventRepository()
+    {
+        return $this->getEntityManager()->getRepository('EspaceMembersMainBundle:Event');
     }
 
     /**
@@ -256,6 +277,32 @@ abstract class DefaultContext extends RawMinkContext implements Context, KernelA
         $media->setContext($context);
         $media->setBinaryContent(
             $this->faker->image($dir = '/tmp', $width = 640, $height = 480)
+        );
+
+        $mediaManager->save($media);
+
+        return $media;
+    }
+
+    /**
+     * Create new mp3 lesson
+     *
+     * @return EspaceMembers\MainBundle\Entity\Media
+     */
+    public function createLessonMp3()
+    {
+        $mediaManager = $this->getService('sonata.media.manager.media');
+        $media = new Media();
+
+        $media->setProviderName('sonata.media.provider.file');
+        $media->setContext('lesson');
+
+        $fixturesPath = "/../../../../../web/uploads/fixtures/";
+        $media->setBinaryContent(
+            $this->faker->file(
+                sprintf('%s%s', $fixturesPath, 'mp3'),
+                sprintf('%s%s', $fixturesPath, 'mp3_test')
+            )
         );
 
         $mediaManager->save($media);

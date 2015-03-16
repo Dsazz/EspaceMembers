@@ -39,25 +39,6 @@ EspaceMembers\MainBundle\Entity\Tag:
     tag{1..10}:
         title(unique): <word()>
 
-EspaceMembers\MainBundle\Entity\Teaching:
-    teaching_prototype(template):
-        title: <word()>
-        date: <dateTime('now')>
-        dayNumber: <randomDigitNotNull()>
-        dayTime: <randTimeDay()>
-        resume: <fr_FR:text(200)>
-        technical_comment: <fr_FR:text(200)>
-        is_show: <boolean(50)>
-        voies(unique): [@voie*, @voie*]
-        tags: [@tag*]
-    teachingMP3_{1..10}(extends teaching_prototype):
-        is_show: 1
-        serial: 1
-        lesson: @lessonMP3<current()>
-    teachingVideo_{1..10}(extends teaching_prototype):
-        serial: 2
-        lesson: @lessonVideo<current()>
-
 EspaceMembers\MainBundle\Entity\User:
     user(template):
         first_name: <fr_FR:firstName('male')>
@@ -83,9 +64,8 @@ EspaceMembers\MainBundle\Entity\User:
         addRole: [ROLE_ADMIN]
         setPlainPassword: [teacher]
         is_teacher: 1
-    teacher_male{1..9}(extends teacher):
+    teacher_male{1..10}(extends teacher):
         email: teachermale<current()>@test.com
-        teachings: [@teachingMP3_<current()>, @teachingVideo_<current()>]
     student_test(extends user):
         email: student@test.com
         setPlainPassword: [student]
@@ -101,13 +81,30 @@ EspaceMembers\MainBundle\Entity\Event:
         is_show: <boolean(50)>
         groups: [@groupMembers]
         tags(unique): [@tag*]
-        #tags: [@tag*]
         frontImage(unique): @cover*
         #flayer(unique): @flayer*
         category: @category*
-    event_male{1..9}(extends event):
-        teachings: [@teachingMP3_<current()>, @teachingVideo_<current()>]
+    event_male{1..10}(extends event):
         users: [@teacher_male<current()>]
-    #event_test{1..20}(extends event):
-        #teachings: [@teachingMP3_*, @teachingVideo_*]
-        #users: [@teacher_male*]
+
+EspaceMembers\MainBundle\Entity\Teaching:
+    teaching_prototype(template):
+        title: <word()>
+        date: <dateTime('now')>
+        dayNumber: <randomDigitNotNull()>
+        dayTime: <randTimeDay()>
+        resume: <fr_FR:text(200)>
+        technical_comment: <fr_FR:text(200)>
+        is_show: 1
+        voies(unique): [@voie*, @voie*]
+        tags: [@tag*]
+    teachingMP3_{1..10}(extends teaching_prototype):
+        serial: 1
+        lesson: @lessonMP3<current()>
+        users: [@teacher_male<current()>]
+        event: @event_male<current()>
+    teachingVideo_{1..10}(extends teaching_prototype):
+        serial: 2
+        lesson: @lessonVideo<current()>
+        users: [@teacher_male<current()>]
+        event: @event_male<current()>
