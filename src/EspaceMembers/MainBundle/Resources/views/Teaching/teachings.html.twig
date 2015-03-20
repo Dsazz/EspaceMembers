@@ -22,8 +22,8 @@
             <img src="{{ asset('bundles/espacemembersmain/images/video.png') }}" alt="icon" />
             {% endif %}
         </a>
-        {% set pathToMedia  %} {% path teaching.lesson, "reference" %} {% endset %}
-        <span class="time">{{ teaching.lesson.getPlayingTime(pathToMedia) }}</span>
+        {#{% set pathToMedia  %} {% path teaching.lesson, "reference" %} {% endset %}#}
+        {#<span class="time">{{ teaching.lesson.getPlayingTime(pathToMedia) }}</span>#}
     </div>
     <a href="#" class="follow fav
         {% if bookmarks is defined and bookmarks|filterIsBookmark(teaching.id) %}active{% endif %}"

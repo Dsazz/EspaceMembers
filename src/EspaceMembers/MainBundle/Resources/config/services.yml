@@ -77,13 +77,9 @@ services:
         class: EspaceMembers\MainBundle\Twig\DumpyTwigFilter
         tags:
             - { name: twig.extension }
-#Custom listeners
-    #espacemembers.user_listener:
-        #class: EspaceMembers\MainBundle\EventListener\UserListener
-        #tags:
-            #- { name: doctrine.event_listener, event: prePersist }
 
-    #espacemembers.event__listener:
-        #class: EspaceMembers\MainBundle\EventListener\EventEspaceMembersListener
-        #tags:
-            #- { name: doctrine.event_listener, event: prePersist }
+    espacemembers.media.twig.extension:
+        class: EspaceMembers\MainBundle\Twig\Extension\MediaExtension
+        arguments: ["@sonata.media.pool", "@sonata.media.manager.media", "%sonata_media_cdn_server_path%"]
+        tags:
+            - { name: twig.extension }

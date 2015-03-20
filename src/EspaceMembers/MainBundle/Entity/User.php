@@ -11,9 +11,9 @@ use Sonata\UserBundle\Entity\BaseUser as BaseUser;
  */
 class User extends BaseUser
 {
-    public static $ROLE_DEFAULT     = 'ROLE_USER';
-    public static $ROLE_ADMIN       = 'ROLE_ADMIN';
-    public static $ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
+    protected static $ROLE_DEFAULT     = 'ROLE_USER';
+    protected static $ROLE_ADMIN       = 'ROLE_ADMIN';
+    protected static $ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
 
     /**
      * @var integer
@@ -258,7 +258,7 @@ class User extends BaseUser
      */
     public function addEvent(\EspaceMembers\MainBundle\Entity\Event $event)
     {
-        if ( false === $this->getEvents()->contains($event) ) {
+        if (false === $this->getEvents()->contains($event)) {
             $this->events[] = $event;
             $event->addUser($this);
         }
@@ -301,7 +301,7 @@ class User extends BaseUser
      */
     public function addTeaching(\EspaceMembers\MainBundle\Entity\Teaching $teaching)
     {
-        if (false === $this->getTeachings()->contains($teaching) ) {
+        if (false === $this->getTeachings()->contains($teaching)) {
             $this->teachings[] = $teaching;
             $teaching->addUser($this);
         }
@@ -463,7 +463,7 @@ class User extends BaseUser
      */
     public function addBookmark(\EspaceMembers\MainBundle\Entity\Teaching $bookmark)
     {
-        if (false === $this->getBookmarks()->contains($bookmark) ) {
+        if (false === $this->getBookmarks()->contains($bookmark)) {
             $this->bookmarks[] = $bookmark;
             $bookmark->addBookmarkOwner($this);
         }

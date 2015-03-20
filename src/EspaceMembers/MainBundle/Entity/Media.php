@@ -9,10 +9,6 @@ class Media extends BaseMedia
 {
 
     protected $id;
-
-    /**
-     * @var string
-     */
     protected $path;
 
     /**

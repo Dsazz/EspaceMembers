@@ -12,7 +12,7 @@
 
         <div class="left-bar">
         {% for group in groups %}
-            <a href="#" class="link">{{ group.name }}</a>
+            <a href="{{ path('espace_members_community_filter', {'group_name': group.name}) }}" class="link">{{ group.name }}</a>
         {% else %}
             <a href="#" class="link">Not found groups</a>
         {% endfor %}
@@ -28,13 +28,11 @@
                 <h2>{{ user.lastName }} {{ user.firstName }}</h2>
 
                 <p>{{ user.description|length > 255 ? user.description|slice(0, 255) ~ '...' : user.description }}</p>
-
                 <p>
-                Téléphone:{{ user.phone|length > 0 ? user.phone : "" }}<br />
-                Email:{{ user.email|length > 0 ? user.email : "" }}<br />
-                Adresse:{{ user.address|length > 0 ? user.address : "" }}
+                    Téléphone:{{ user.phone|length > 0 ? user.phone : "" }}<br />
+                    Email:{{ user.email|length > 0 ? user.email : "" }}<br />
+                    Adresse:{{ user.address|length > 0 ? user.address : "" }}
                 </p>
-
             </div>
             {% endfor %}
 

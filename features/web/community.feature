@@ -13,10 +13,11 @@ Feature: Community
         And the following groups exist:
             | name    |
             | Members |
+            | Headers |
         And the following users exist:
             | first name | last name | gender | groups  | roles      | is teacher | email            | password |
             | Oliver     | Queen     | MALE   |         |            |            | student@test.com | student  |
-            | Stiven     | King      | MALE   | Members | ROLE_ADMIN | yes        |                  |          |
+            | Stiven     | King      | MALE   | Headers | ROLE_ADMIN | yes        |                  |          |
             | Asher      | Bell      | MALE   | Members | ROLE_ADMIN | yes        |                  |          |
             | Dennis     | Anthony   | FEMALE | Members | ROLE_ADMIN | yes        |                  |          |
             | Mary       | Ferguson  | FEMALE | Members | ROLE_ADMIN | yes        |                  |          |
@@ -27,3 +28,16 @@ Feature: Community
     Scenario: Index action return the correct number teachers
         Given I am on "/community"
         Then  I should see 4 ".box" element
+
+    @javascript
+    Scenario: Index action return the correct number teachers after filtering
+        Given I am on "/community"
+        When  I follow "Members"
+        Then  I should see 3 ".box" element
+
+    @javascript
+    Scenario: Filter action return the correct number teachers
+        Given I am on "/community"
+        When  I follow "Headers"
+        Then  I should see 1 ".box" element
+        And   I should see "King Stiven"

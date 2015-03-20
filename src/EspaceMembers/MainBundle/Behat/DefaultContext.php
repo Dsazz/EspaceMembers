@@ -192,6 +192,16 @@ abstract class DefaultContext extends RawMinkContext implements Context, KernelA
     }
 
     /**
+     * Get repository of Category
+     *
+     * @return Doctrine\ORM\EntityRepository
+     */
+    public function getCategoryRepository()
+    {
+        return $this->getEntityManager()->getRepository('EspaceMembersMainBundle:Category');
+    }
+
+    /**
      * Generate url.
      *
      * @param string  $route
@@ -295,7 +305,7 @@ abstract class DefaultContext extends RawMinkContext implements Context, KernelA
         $media->setProviderName('sonata.media.provider.file');
         $media->setContext('lesson');
 
-        $fixturesPath = "/../../../../../web/uploads/fixtures/";
+        $fixturesPath = $this->getService('kernel')->getRootDir().'/../web/uploads/fixtures/';
         $media->setBinaryContent(
             $this->faker->file(
                 sprintf('%s%s', $fixturesPath, 'mp3'),

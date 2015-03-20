@@ -1,9 +1,7 @@
 <div class="detail-box">
     <span class="sub-heading">
-        {% media teacher.avatar, 'small' with
-            { 'width': '30px', 'height': '30px', 'alt': 'flag', 'title': '' }
-        %}
-        {{ teacher.lastName }} {{ teacher.firstName }}
+        <img src="{{ path_to_media_by_array(teacher.avatar, 'small') }}" width="30px" height="30px" alt="avatar">
+        {{ teacher.last_name }} {{ teacher.first_name }}
     </span>
     {% set teachings = teacher.teachings %}
     {% if teachings is iterable and teachings is not empty %}

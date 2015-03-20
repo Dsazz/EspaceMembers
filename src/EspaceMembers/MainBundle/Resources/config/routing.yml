@@ -74,6 +74,10 @@ espace_members_community:
     path:     /community
     defaults: { _controller: EspaceMembersMainBundle:Community:index }
 
+espace_members_community_filter:
+    path:     /community/group/{group_name}
+    defaults: { _controller: EspaceMembersMainBundle:Community:filterByGroup }
+
 espace_members_bookmark_show:
     path:     /bookmark/show
     defaults: { _controller: EspaceMembersMainBundle:Bookmark:index }

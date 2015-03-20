@@ -6,12 +6,13 @@ use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 
 use EspaceMembers\MainBundle\Entity\Category;
+use EspaceMembers\MainBundle\Entity\Event;
 use EspaceMembers\MainBundle\Entity\Group;
 use EspaceMembers\MainBundle\Entity\Media;
 use EspaceMembers\MainBundle\Entity\Tag;
 use EspaceMembers\MainBundle\Entity\Teaching;
 use EspaceMembers\MainBundle\Entity\User;
-use EspaceMembers\MainBundle\Entity\Event;
+use EspaceMembers\MainBundle\Entity\Voie;
 
 class TeachingContext extends DefaultContext
 {
@@ -129,11 +130,12 @@ class TeachingContext extends DefaultContext
         $manager = $this->getEntityManager();
 
         foreach ($table->getHash() as $data) {
+            //TODO: refactor title -> name
             $category = new Category();
 
             isset($data['name']) && !empty($data['name'])
-                ? $category->setName(trim($data['name']))
-                : $category->setName($this->faker->unique()->word);
+                ? $category->setTitle(trim($data['name']))
+                : $category->setTitle($this->faker->unique()->word);
 
             $manager->persist($category);
         }
@@ -142,20 +144,21 @@ class TeachingContext extends DefaultContext
     }
 
     /**
-     * @Given /^there are voies:$/
-     * @Given /^there are following voies:$/
-     * @Given /^the following voies exist:$/
+     * @Given /^there are directions:$/
+     * @Given /^there are following directions:$/
+     * @Given /^the following directions exist:$/
      */
     public function thereAreVoies(TableNode $table)
     {
         $manager = $this->getEntityManager();
 
         foreach ($table->getHash() as $data) {
+            //TODO: refactor title -> name
             $direction = new Voie();
 
             isset($data['name']) && !empty($data['name'])
-                ? $direction->setName(trim($data['name']))
-                : $direction->setName($this->faker->unique()->word);
+                ? $direction->setTitle(trim($data['name']))
+                : $direction->setTitle($this->faker->unique()->word);
 
             $manager->persist($direction);
         }
@@ -181,6 +184,78 @@ class TeachingContext extends DefaultContext
                 : $tag->setTitle($this->faker->unique()->word);
 
             $manager->persist($tag);
+        }
+
+        $manager->flush();
+    }
+
+    /**
+     * @Given /^there are events:$/
+     * @Given /^there are following events:$/
+     * @Given /^the following events exist:$/
+     */
+    public function thereAreEvents(TableNode $table)
+    {
+        $manager = $this->getEntityManager();
+
+        foreach ($table->getHash() as $data) {
+            $event = new Event();
+
+            isset($data['title']) && !empty($data['title'])
+                ? $event->setTitle(trim($data['title']))
+                : $event->setTitle($this->faker->sentence(10));
+
+            isset($data['year']) && !empty($data['year'])
+                ? $event->setYear(trim($data['year']))
+                : $event->setYear($this->faker->year('+5 years'));
+
+            isset($data['description']) && !empty($data['description'])
+                ? $event->setDescription(trim($data['resume']))
+                : $event->setDescription($this->faker->text(200));
+
+            isset($data['is show']) && !empty($data['is show'])
+                ? $event->setIsShow((bool)trim($data['is show']))
+                : $event->setIsShow(true);
+
+            if (isset($data['tags']) && !empty($data['tags'])) {
+                foreach (explode(',', $data['tags']) as $tag) {
+                    $tag = $this->getTagRepository()
+                        ->findOneBy(array('title' => trim($tag)));
+
+                    $event->addTag($tag);
+                }
+            }
+
+            if (isset($data['usernames']) && !empty($data['usernames'])) {
+                foreach (explode(',', $data['usernames']) as $username) {
+                    $user = $this->getService('fos_user.user_manager')
+                        ->findUserByUsername(trim($username));
+
+                    $event->addUser($user);
+                }
+            }
+
+            if (isset($data['groups']) && !empty($data['groups'])) {
+                foreach (explode(',', $data['groups']) as $group) {
+                    $group = $this->getGroupRepository()
+                        ->findOneBy(array('name' => trim($group)));
+
+                    $event->addGroup($group);
+                }
+            }
+
+            if (isset($data['category']) && !empty($data['category'])) {
+                $category = $this->getCategoryRepository()
+                    ->findOneBy(array('title' => trim($data['category'])));
+
+                $event->setCategory($category);
+            }
+
+            $event->setStartDate($this->faker->dateTime('now'));
+            $event->setCompletionDate($this->faker->dateTime('+10 days'));
+            $event->setFrontImage($this->createImageWithContext('cover'));
+
+            $manager->persist($event);
         }
 
         $manager->flush();
@@ -215,7 +290,7 @@ class TeachingContext extends DefaultContext
                 : $teaching->setTechnicalComment($this->faker->text(200));
 
             isset($data['is show']) && !empty($data['is show'])
-                ? $teaching->setIsShow(trim($data['is show']))
+                ? $teaching->setIsShow((bool)trim($data['is show']))
                 : $teaching->setIsShow(true);
 
             isset($data['serial']) && !empty($data['serial'])
@@ -224,28 +299,28 @@ class TeachingContext extends DefaultContext
 
             if (isset($data['directions']) && !empty($data['directions'])) {
                 foreach (explode(',', $data['directions']) as $direction) {
-                    $group = $this->getVoieRepository()
-                        ->findOneBy(array('name' => trim($direction)));
+                    $direction = $this->getVoieRepository()
+                        ->findOneBy(array('title' => trim($direction)));
 
-                    $teacher->addVoie($direction);
+                    $teaching->addVoie($direction);
                 }
             }
 
             if (isset($data['tags']) && !empty($data['tags'])) {
-                foreach (explode(',', $data['tag']) as $tag) {
-                    $group = $this->getTagRepository()
+                foreach (explode(',', $data['tags']) as $tag) {
+                    $tag = $this->getTagRepository()
                         ->findOneBy(array('title' => trim($tag)));
 
-                    $teacher->addTag($tag);
+                    $teaching->addTag($tag);
                 }
             }
 
             if (isset($data['usernames']) && !empty($data['usernames'])) {
                 foreach (explode(',', $data['usernames']) as $username) {
                     $user = $this->getService('fos_user.user_manager')
-                        ->findUserByUsername($username);
+                        ->findUserByUsername(trim($username));
 
-                    $event->addUser($user);
+                    $teaching->addUser($user);
                 }
             }
 
@@ -253,11 +328,13 @@ class TeachingContext extends DefaultContext
                 $event = $this->getEventRepository()
                     ->findOneBy(array('title' => trim($data['event'])));
 
-                $teacher->setEvent($event);
+                $teaching->setEvent($event);
             }
 
-            $teaching->setDate($this->faker->dayTime('now'));
-            $teaching->setDateTime($this->faker->randTimeDay);
+            $teaching->setDate($this->faker->dateTime('now'));
+            $teaching->setDayTime(
+                array_rand(array('matin', 'midi', 'soir', 'minuit'))
+            );
             $teaching->setLesson($this->createLessonMp3());
 
             $manager->persist($teaching);
@@ -265,77 +342,4 @@ class TeachingContext extends DefaultContext
 
         $manager->flush();
     }
-
-    /**
-     * @Given /^there are events:$/
-     * @Given /^there are following events:$/
-     * @Given /^the following events exist:$/
-     */
-    public function thereAreEvents(TableNode $table)
-    {
-        $manager = $this->getEntityManager();
-
-        foreach ($table->getHash() as $data) {
-            $event = new Event();
-
-            isset($data['title']) && !empty($data['title'])
-                ? $event->setTitle(trim($data['title']))
-                : $event->setTitle($this->faker->sentence(10));
-
-            isset($data['year']) && !empty($data['year'])
-                ? $event->setYear(trim($data['year']))
-                : $event->setYear($this->faker->year('+5 years'));
-
-            isset($data['description']) && !empty($data['description'])
-                ? $event->setResume(trim($data['resume']))
-                : $event->setResume($this->faker->text(200));
-
-            isset($data['is show']) && !empty($data['is show'])
-                ? $event->setIsShow(trim($data['is show']))
-                : $event->setIsShow(true);
-
-            if (isset($data['tags']) && !empty($data['tags'])) {
-                foreach (explode(',', $data['tags']) as $tag) {
-                    $group = $this->getTagRepository()
-                        ->findOneBy(array('title' => trim($tag)));
-
-                    $event->addTag($tag);
-                }
-            }
-
-            if (isset($data['usernames']) && !empty($data['usernames'])) {
-                foreach (explode(',', $data['usernames']) as $username) {
-                    $user = $this->getService('fos_user.user_manager')
-                        ->findUserByUsername($username);
-
-                    $event->addUser($user);
-                }
-            }
-
-            if (isset($data['groups']) && !empty($data['groups'])) {
-                foreach (explode(',', $data['groups']) as $group) {
-                    $group = $this->getGroupRepository()
-                        ->findOneBy(array('name' => trim($group)));
-
-                    $event->addGroup($group);
-                }
-            }
-
-            if (isset($data['category']) && !empty($data['category'])) {
-                $category = $this->getGroupRepository()
-                    ->findOneBy(array('name' => trim($data['category'])));
-
-                $teacher->setCategory($category);
-            }
-
-            $event->setStartDate($this->faker->dayTime('now'));
-            $event->setCompletionDate($this->faker->dayTime('+10 days'));
-            $event->setFrontImage($this->createImageWithContext('cover'));
-
-            $manager->persist($teaching);
-        }
-
-        $manager->flush();
-    }
-
 }

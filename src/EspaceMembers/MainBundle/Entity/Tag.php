@@ -4,31 +4,11 @@ namespace EspaceMembers\MainBundle\Entity;
 
 class Tag
 {
-    /**
-     * @var integer
-     */
     private $id;
-
-    /**
-     * @var string
-     */
     private $title;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
     private $teachings;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
     private $events;
 
-    /**
-     * Get id
-     *
-     * @return integer
-     */
     public function getId()
     {
         return $this->id;

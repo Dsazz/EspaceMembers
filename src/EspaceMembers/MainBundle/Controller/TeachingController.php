@@ -18,6 +18,8 @@ class TeachingController extends Controller
         $pagerfanta = $em->getRepository('EspaceMembersMainBundle:Event')->findAllWithPaging($page);
 
         $this->setCurrentPageOr404($pagerfanta, $page);
+        //echo "<pre>";
+        //echo \Doctrine\Common\Util\Debug::dump($pagerfanta, 7);exit();
 
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'paginator' => $pagerfanta,

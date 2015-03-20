@@ -4,7 +4,7 @@
 </span>
 
 <div class="image-box">
-    {% media event.frontImage, 'big' with {'width': '175px', 'height': '175px', 'alt': 'image', 'title': ''} %}
+    <img src="{{ path_to_media_by_array(event.frontImage, 'big') }}" width="175px" height="175px" alt="image">
     <span class="describe">
         Du {{ event.startDate|localizeddate('none', 'none', 'fr_FR' , null, 'd LLLL')|title }}
         Au {{ event.completionDate|localizeddate('none', 'none', 'fr_FR' , null, 'd LLLL')|title }}
@@ -13,5 +13,5 @@
 </div>
 
 {% for teacher in event.users %}
-    {{ include( 'EspaceMembersMainBundle:Teaching:detail-box.html.twig', {'teacher' : teacher}) }}
+    {{ include('EspaceMembersMainBundle:Teaching:detail-box.html.twig', {'teacher' : teacher, 'avatar' : teacher.avatar}) }}
 {% endfor %}

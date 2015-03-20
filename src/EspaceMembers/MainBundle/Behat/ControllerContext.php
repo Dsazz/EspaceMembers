@@ -70,6 +70,18 @@ class ControllerContext extends DefaultContext
     }
 
     /**
+     * Clear apc cache
+     *
+     * @return void
+     */
+    public function processApcCacheClear()
+    {
+        apc_clear_cache();
+        apc_clear_cache('user');
+        apc_clear_cache('opcode');
+    }
+
+    /**
      * Clear all tables.
      *
      * @return void
@@ -80,6 +92,7 @@ class ControllerContext extends DefaultContext
     {
         echo $this->processDropDatabase();
         echo $this->processCreateDbAndSchemaTables();
+        echo $this->processApcCacheClear();
     }
 
     /**

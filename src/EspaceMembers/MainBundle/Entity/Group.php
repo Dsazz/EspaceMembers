@@ -10,9 +10,6 @@ use FOS\UserBundle\Entity\Group as BaseGroup;
  */
 class Group extends BaseGroup
 {
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
     protected $events;
 
     public function __toString()
@@ -48,7 +45,6 @@ class Group extends BaseGroup
     public function addEvent(\EspaceMembers\MainBundle\Entity\Event $event)
     {
         $this->events[] = $event;
-        //$event->addGroup($this);
         return $this;
     }
 
@@ -84,5 +80,4 @@ class Group extends BaseGroup
 
         return $this;
     }
-
 }
