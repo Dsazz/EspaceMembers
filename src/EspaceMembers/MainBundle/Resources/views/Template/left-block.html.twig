@@ -1,8 +1,8 @@
 {#BEGIN left-column#}
-{% for bookmark in chronology.bookmarks %}
+{% for bookmark in bookmarks %}
 
     <div class="left-column">
-        <span class="year">{{ bookmark.event.chronology.year }}</span>
+        <span class="year">{{ bookmark.event.year }}</span>
             <h2>{{ bookmark.event.title|capitalize }}</h2>
             <span class="sub-heading">
                 <img src="{{ asset('bundles/espacemembersmain/images/flag.png') }}" alt="flag" />

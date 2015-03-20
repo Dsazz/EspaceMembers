@@ -10,9 +10,9 @@ class CategoryRepository extends EntityRepository
     {
         return $qb = $this->createQueryBuilder('c')
             ->select('partial c.{id, title}')
-            ->innerJoin('c.events','ev')
-            ->innerJoin('ev.users','u', 'WITH', 'u.is_teacher = 1')
-            ->innerJoin('u.teachings','tch', 'WITH', 'tch.is_show = 1')
+            ->innerJoin('c.events', 'ev')
+            ->innerJoin('ev.users', 'u', 'WITH', 'u.is_teacher = 1')
+            ->innerJoin('u.teachings', 'tch', 'WITH', 'tch.is_show = 1')
             ->orderBy('c.title', 'ASC')
             ->getQuery()
             ->useResultCache(true, 3600)

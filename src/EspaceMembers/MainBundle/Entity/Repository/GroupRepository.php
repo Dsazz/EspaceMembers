@@ -5,12 +5,7 @@ use Doctrine\ORM\EntityRepository;
 
 class GroupRepository extends EntityRepository
 {
-    public function findAll()
-    {
-        return $this->findBy(array(), array('name' => 'ASC'));
-    }
-
-    public function findName()
+    public function findAllNames()
     {
         return $qb = $this->createQueryBuilder('g')
             ->select('partial g.{id, name}')
@@ -18,5 +13,4 @@ class GroupRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
-
 }

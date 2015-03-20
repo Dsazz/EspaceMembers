@@ -1,6 +1,7 @@
 
 /web/bundles/
 /web/uploads/media/*
+/web/uploads/fixtures/mp3_test/*
 /app/bootstrap.php.cache
 /app/cache/*
 /app/config/parameters.yml

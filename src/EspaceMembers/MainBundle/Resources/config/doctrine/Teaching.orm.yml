@@ -6,6 +6,9 @@ EspaceMembers\MainBundle\Entity\Teaching:
     id:
       type: integer
       generator: { strategy: AUTO }
+  indexes:
+    idx_serial:
+      columns: [serial]
   fields:
     title:
       type: string

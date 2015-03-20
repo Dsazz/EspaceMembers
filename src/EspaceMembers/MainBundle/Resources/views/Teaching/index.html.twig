@@ -40,27 +40,12 @@
     {% endblock right_column %}
 
     {% block left_column %}
-        {% if chronologies is defined %}
-            {% if chronologies is iterable %}
-                {% for chronology in chronologies %}
-                    {{ include( 'EspaceMembersMainBundle:Teaching:left-block.html.twig', {
-                        'chronology' : chronology,
-                    }) }}
-                {% else %}
-                    <div class="left-column">
-                        <p>Not found entries</p>
-                    </div>
-                {% endfor %}
-            {% else %}
-                {{ include( 'EspaceMembersMainBundle:Teaching:left-block.html.twig', {
-                    'chronology' : chronologies,
-                }) }}
-            {% endif %}
-        {% else %}
-            <div class="left-column">
-                <p>Not found entries</p>
-            </div>
-        {% endif %}
+        {{ include( 'EspaceMembersMainBundle:Teaching:left-block.html.twig', {'events' : events}) }}
+        {#{% if paginator.haveToPaginate %}#}
+        {#<div class="pagerfanta left-column">#}
+            {#{{ pagerfanta(paginator) }}#}
+        {#</div>#}
+        {#{% endif %}#}
     {% endblock left_column %}
 </div>
 <div class="clear"><!-- --></div>

@@ -4,27 +4,28 @@
 <!--[if lte IE 8 ]><html class="ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
 <head>
-	<!-- Basic Page Needs
-  ================================================== -->
+<!-- Basic Page Needs ================================================== -->
 {% block meta %}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>ESpace Members</title>
     <meta name="description" content="">
     <meta name="author" content="">
 <!-- Mobile Specific Metas
-  ================================================== -->
+================================================== -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 {% endblock %}
 
 <!-- CSS
-  ================================================== -->
+================================================== -->
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/espacemembersmain/css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/applicationsonatauser/css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/espacemembersmain/js/jquery-ui.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/espacemembersmain/css/pagerfanta.css') }}" />
     <!-- Fonts
     ================================================== -->
     <link href='http://fonts.googleapis.com/css?family=Economica:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="{{ asset('bundles/espacemembersmain/js/jquery-ui.css') }}" />
 {% endblock %}
 
 {% block javascript %}
@@ -80,12 +81,11 @@
       </div>
 
       <a class="logo" href="{{ path('espace_members_teaching') }}">
-		  <img src="{{ asset('bundles/espacemembersmain/images/logo.png') }}" alt="logo" />
-	  </a>
+          <img src="{{ asset('bundles/espacemembersmain/images/logo.png') }}" alt="logo" />
+      </a>
 
       {% endblock %}
-  </div>
-  <!-- #End HEADER -->
+  </div><!-- #End HEADER -->
 
   <!-- Start CONTENT
     ========================== -->

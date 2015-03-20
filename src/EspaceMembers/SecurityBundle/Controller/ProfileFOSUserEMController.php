@@ -85,6 +85,11 @@ class ProfileFOSUserEMController extends Controller
      */
     protected function setFlash($action, $value)
     {
-        $this->container->get('session')->getFlashBag()->set($action, $value);
+        $this->container->get('session')->getFlashBag()->add($action, $this->trans($value));
+    }
+
+    private function trans($message, array $params = array())
+    {
+        return $this->container->get('translator')->trans($message, $params, 'FOSUserBundle');
     }
 }

@@ -7,84 +7,29 @@ use Doctrine\ORM\Mapping as ORM;
 
 class Event
 {
-    /**
-     * @var integer
+    /*
+     *@const MAX_PER_PAGE the maximum projects on the page
      */
+    const MAX_PER_PAGE = 10;
+
     private $id;
-
-    /**
-     * @var string
-     */
     private $title;
-
-    /**
-     * @var \DateTime
-     */
     private $startDate;
-
-    /**
-     * @var \DateTime
-     */
     private $completionDate;
-
-    /**
-     * @var string
-     */
     private $year;
-
-    /**
-     * @var string
-     */
     private $description;
-
-    /**
-     * @var boolean
-     */
     private $is_show;
-
-    /**
-     * @var \EspaceMembers\MainBundle\Entity\Media
-     */
     private $frontImage;
-
-    /**
-     * @var \EspaceMembers\MainBundle\Entity\Media
-     */
     private $flayer;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
     private $teachings;
-
-    /**
-     * @var \EspaceMembers\MainBundle\Entity\Category
-     */
     private $category;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
     private $users;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
     private $groups;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
     private $tags;
 
     /**
-     * @var \EspaceMembers\MainBundle\Entity\Chronology
-     */
-    private $chronology;
-    /**
      * Constructor
      */
-
     public function __construct()
     {
         $this->teachings = new \Doctrine\Common\Collections\ArrayCollection();
@@ -175,7 +120,7 @@ class Event
     /**
      * Set year
      *
-     * @param  string $year
+     * @param  smallint $year
      * @return Event
      */
     public function setYear($year)
@@ -295,8 +240,9 @@ class Event
      */
     public function addTeaching(\EspaceMembers\MainBundle\Entity\Teaching $teaching)
     {
-        $this->teachings[] = $teaching;
-        $teaching->setEvent($this);
+        if (false === $this->getTeachings()->contains($teaching)) {
+            $this->teachings[] = $teaching;
+        }
 
         return $this;
     }
@@ -471,6 +417,7 @@ class Event
     {
         return $this->tags;
     }
+
     /**
      * @ORM\PrePersist
      */
@@ -478,32 +425,9 @@ class Event
     {
         // Add your code here
     }
+
     public function __toString()
     {
         return $this->getTitle();
-    }
-
-    /**
-     * Set chronology
-     *
-     * @param  \EspaceMembers\MainBundle\Entity\Chronology $chronology
-     * @return Event
-     */
-    public function setChronology(\EspaceMembers\MainBundle\Entity\Chronology $chronology = null)
-    {
-        $this->chronology = $chronology;
-        $chronology->addEvent($this);
-
-        return $this;
-    }
-
-    /**
-     * Get chronology
-     *
-     * @return \EspaceMembers\MainBundle\Entity\Chronology
-     */
-    public function getChronology()
-    {
-        return $this->chronology;
     }
 }

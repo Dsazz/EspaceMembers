@@ -39,7 +39,6 @@ class AppKernel extends Kernel
             new Sonata\AdminBundle\SonataAdminBundle(),
 
             new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),
-
             new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
 
             // -------- end sonata packages  ------,
@@ -48,8 +47,8 @@ class AppKernel extends Kernel
             new EspaceMembers\MainBundle\EspaceMembersMainBundle(),
             new EspaceMembers\SecurityBundle\EspaceMembersSecurityBundle(),
 
-
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

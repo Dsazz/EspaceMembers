@@ -18,7 +18,7 @@ class BookmarkController extends Controller
 
         return $this->render('EspaceMembersMainBundle:Bookmark:index.html.twig', array(
             'user' => $em->getRepository('EspaceMembersMainBundle:User')
-                ->findUserBookmark($this->getUser()->getId()),
+                ->findBookmarks($this->getUser()->getId()),
         ));
     }
 

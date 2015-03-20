@@ -1,9 +1,9 @@
 #загрузки файлов в LoadFixtureData.php
 EspaceMembers\MainBundle\Entity\Media:
-    avatarUser{1..31}:
+    avatarUser{1..20}:
         providerName: sonata.media.provider.image
         context: avatar
-        binaryContent: <generateBinaryContext("avatar")>
+        binaryContent: <image($dir = '/tmp', $width = 640, $height = 480)>
     lessonMP3{1..10}:
         providerName: sonata.media.provider.file
         context: lesson
@@ -16,10 +16,10 @@ EspaceMembers\MainBundle\Entity\Media:
         providerName: sonata.media.provider.file
         context: flayer
         binaryContent: <generateBinaryContext("flayer")>
-    cover{1..10}:
+    cover{1..30}:
         providerName: sonata.media.provider.image
         context: cover
-        binaryContent: <generateBinaryContext("cover")>
+        binaryContent: <image($dir = '/tmp', $width = 640, $height = 480)>
 
 EspaceMembers\MainBundle\Entity\Group:
     groupMembers:
@@ -29,36 +29,15 @@ EspaceMembers\MainBundle\Entity\Category:
     category{1..10}:
         title(unique): <word()>
 
+#Refactor name of Entity: voie -> direction
 EspaceMembers\MainBundle\Entity\Voie:
     voie{1..10}:
         title(unique): <word()>
 
+#Refactor field of Entity: title -> name
 EspaceMembers\MainBundle\Entity\Tag:
     tag{1..10}:
         title(unique): <word()>
-
-#EspaceMembers\MainBundle\Entity\Chronology:
-    #chronology{1..10}:
-        #year(unique): <year('+5 years')>
-
-EspaceMembers\MainBundle\Entity\Teaching:
-    teaching_prototype(template):
-        title: <word()>
-        date: <dateTime('now')>
-        dayNumber: <randomDigitNotNull()>
-        dayTime: <randTimeDay()>
-        resume: <fr_FR:text(200)>
-        technical_comment: <fr_FR:text(200)>
-        is_show: <boolean(50)>
-        voies(unique): [@voie*, @voie*]
-        tags: [@tag*]
-    teachingMP3_{1..10}(extends teaching_prototype):
-        is_show: 1
-        serial: 1
-        lesson: @lessonMP3<current()>
-    teachingVideo_{1..10}(extends teaching_prototype):
-        serial: 2
-        lesson: @lessonVideo<current()>
 
 EspaceMembers\MainBundle\Entity\User:
     user(template):
@@ -84,20 +63,10 @@ EspaceMembers\MainBundle\Entity\User:
     teacher(template, extends user):
         addRole: [ROLE_ADMIN]
         setPlainPassword: [teacher]
-        #addEvent(unique): [@event*, @event*]
-        #teachings(unique): [@teachingMP3_*, @teachingVideo_*]
         is_teacher: 1
-    teacher_male{1..9}(extends teacher):
+    teacher_male{1..10}(extends teacher):
         email: teachermale<current()>@test.com
-        teachings: [@teachingMP3_<current()>, @teachingVideo_<current()>]
-    #teacher_female{1..3}(extends teacher):
-        #first_name: <fr_FR:firstName('female')>
-        #email: teacherfemale<current()>@test.com
-        #teachings: [@teachingMP3_<current()>, @teachingVideo_<current()>]
-        #sex: FEMALE
     student_test(extends user):
-        first_name: student_first
-        last_name: student_last
         email: student@test.com
         setPlainPassword: [student]
         addRole: [ROLE_USER]
@@ -108,8 +77,6 @@ EspaceMembers\MainBundle\Entity\Event:
         startDate: <dateTime('now')>
         completionDate: <dateTime('+10 days')>
         year: <year('+5 years')>
-
-        chronology: @chronology*
         description: <fr_FR:text(200)>
         is_show: <boolean(50)>
         groups: [@groupMembers]
@@ -117,8 +84,27 @@ EspaceMembers\MainBundle\Entity\Event:
         frontImage(unique): @cover*
         #flayer(unique): @flayer*
         category: @category*
-    event_male{1..9}(extends event):
-        teachings: [@teachingMP3_<current()>, @teachingVideo_<current()>]
+    event_male{1..10}(extends event):
         users: [@teacher_male<current()>]
-    #event_test{1..1000}(extends event):
-        #users: [@teacher_male*]
+
+EspaceMembers\MainBundle\Entity\Teaching:
+    teaching_prototype(template):
+        title: <word()>
+        date: <dateTime('now')>
+        dayNumber: <randomDigitNotNull()>
+        dayTime: <randTimeDay()>
+        resume: <fr_FR:text(200)>
+        technical_comment: <fr_FR:text(200)>
+        is_show: 1
+        voies(unique): [@voie*, @voie*]
+        tags: [@tag*]
+    teachingMP3_{1..10}(extends teaching_prototype):
+        serial: 1
+        lesson: @lessonMP3<current()>
+        users: [@teacher_male<current()>]
+        event: @event_male<current()>
+    teachingVideo_{1..10}(extends teaching_prototype):
+        serial: 2
+        lesson: @lessonVideo<current()>
+        users: [@teacher_male<current()>]
+        event: @event_male<current()>

@@ -9,8 +9,6 @@ use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-use EspaceMembers\MainBundle\Entity\Chronology;
-
 class EventAdmin extends Admin
 {
     //public $supportsPreviewMode = true;
@@ -28,8 +26,6 @@ class EventAdmin extends Admin
             ->add('startDate', null, array('label' => 'Start date'))
             ->add('completionDate', null, array('label' => 'Completion date'))
             ->add('year', null, array('label' => 'Year'))
-            //->add('chronology', null, array('label' => 'Year'))
-
             ->add('description', null, array('label' => 'Description'))
             ->add('is_show', null, array('label' => 'Is show ?'))
             ->add('frontImage', 'sonata_type_admin', array('label' => 'Front image'))
@@ -68,14 +64,6 @@ class EventAdmin extends Admin
             //;
     //}
 
-    public function buildYearChoices()
-    {
-        $distance = 5;
-        $yearsBefore = date('Y', mktime(0, 0, 0, date("m"), date("d"), date("Y") ));
-        $yearsAfter = date('Y', mktime(0, 0, 0, date("m"), date("d"), date("Y") + $distance));
-
-        return array_combine(range($yearsBefore, $yearsAfter), range($yearsBefore, $yearsAfter));
-    }
 
     /**
      * Конфигурация формы редактирования записи
@@ -98,10 +86,7 @@ class EventAdmin extends Admin
                 'widget' => 'choice',
                 'years' => range(date('Y'), date('Y')-70),
             ))
-            ->add('year', 'choice', array(
-                    'choices' => $this->buildYearChoices(),
-                )
-            )
+            ->add('year', 'choice', array('choices' => $this->buildYearChoices()))
             ->add('description', 'textarea', array('attr' => array('class' => 'ckeditor')))
             ->add('is_show', null, array('label' => 'Is show ?', 'required' => false))
             ->add('flayer', 'sonata_type_model_list', array(
@@ -165,31 +150,16 @@ class EventAdmin extends Admin
             ))
         ;
     }
-    public function prePersist($event)
+
+    public function buildYearChoices()
     {
-        $em = $this->getConfigurationPool()->getContainer()->get('Doctrine')->getManager();
-        $chronology = $em->getRepository('EspaceMembersMainBundle:Chronology')
-            ->findOneBy(array('year' => $event->getYear()));
-        if (!$chronology) {
-            $chronology = new Chronology();
-            $chronology->setYear($event->getYear());
-        }
-        //echo "<pre>";
-        //\Doctrine\Common\Util\Debug::dump($chronology); die();
-        $event->setChronology($chronology);
+        $distance = 5;
+        $yearsBefore = date('Y', mktime(0, 0, 0, date("m"), date("d"), date("Y") ));
+        $yearsAfter = date('Y', mktime(0, 0, 0, date("m"), date("d"), date("Y") + $distance));
+
+        return array_combine(range($yearsBefore, $yearsAfter), range($yearsBefore, $yearsAfter));
     }
 
-    public function preUpdate($event)
-    {
-        $em = $this->getConfigurationPool()->getContainer()->get('Doctrine')->getManager();
-        $chronology = $em->getRepository('EspaceMembersMainBundle:Chronology')
-            ->findOneBy(array('year' => $event->getYear()));
-        if (!$chronology) {
-            $chronology = new Chronology();
-            $chronology->setYear($event->getYear());
-        }
-        $event->setChronology($chronology);
-    }
     /**
      * Конфигурация списка записей
      *
@@ -204,7 +174,6 @@ class EventAdmin extends Admin
             ->add('startDate', null, array('label' => 'Start date'))
             ->add('completionDate', null, array('label' => 'Completion date'))
             ->add('year', null, array('label' => 'Year'))
-            //->add('chronology', null, array('label' => 'Year'))
             ->add('description', null, array('label' => 'Description'))
             ->add('is_show', null, array('label' => 'Is show ?'))
             ->add('frontImage', 'sonata_type_admin', array('label' => 'Front image'))

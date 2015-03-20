@@ -5,9 +5,9 @@ a{ text-decoration:none; color:#fff;}
 img { border:none;}
 
 #top {  margin-top: -20px; }
-	.top { width: 998px; margin: 0 auto; font-size: 11px; padding: 0px ; }
-		.top a { text-decoration: none; float:right; margin:1px 0px 0px 5px; color: #666666; color:#fff; cursor:pointer; font-size:12px; }
-		
+    .top { width: 998px; margin: 0 auto; font-size: 11px; padding: 0px ; }
+        .top a { text-decoration: none; float:right; margin:1px 0px 0px 5px; color: #666666; color:#fff; cursor:pointer; font-size:12px; }
+
 #header { width: 998px; margin: 0 auto; z-index: 10; }
 #header a.logo{ width:auto; margin:30px 0px 0px 0px; float:left; }
 
@@ -15,7 +15,7 @@ img { border:none;}
 .main-menu {width:100%; float:left;}
 .main-menu h1{width:25%; float:left; margin:10px 0px; color:#fff; font-weight:normal; font-size:24px; font-family:Adobe Garamond Pro;}
 .main-menu h1 span{ font-size:29px;}
-	
+
 #main-nav 
 {
   width:75%; float:right; background:url(../images/menubg.png) repeat-x;
@@ -99,7 +99,7 @@ img { border:none;}
 
 #main-nav li.first 
 {
-	border-radius:5px 0px 0px 5px;
+    border-radius:5px 0px 0px 5px;
 }
 
 #main-nav li.current {
@@ -484,8 +484,8 @@ img { border:none;}
 #content .content video 
 {
  width:1000px; height:450px; background:#000; margin:25px 0px 25px 0px; cursor:pointer;
-	
-	}
+    
+    }
 
 
 
@@ -523,10 +523,10 @@ img { border:none;}
 }
 
 #content .content .topbar .rightside .num-list a.left-arrow-actived {
-	margin:9px 0px 0px -30px; float:left; width:22px; height:20px; background:url(../images/left-arrow-hover.png) no-repeat;
+    margin:9px 0px 0px -30px; float:left; width:22px; height:20px; background:url(../images/left-arrow-hover.png) no-repeat;
 }
 #content .content .topbar .rightside .num-list a.right-arrow-actived {
-	margin:9px -30px 0px 0px; float:right; width:22px; height:20px; background:url(../images/right-arrow-hover.png) no-repeat;
+    margin:9px -30px 0px 0px; float:right; width:22px; height:20px; background:url(../images/right-arrow-hover.png) no-repeat;
 }
 
 #content .content .topbar .rightside .num-list ul.menu {width: 100%; margin:0px 0px 0px 0px; float:left; list-style-type:none; position:relative; padding:0px;}
@@ -627,33 +627,33 @@ img { border:none;}
 
 /* Tablet Portrait size to standard 960 (devices and browsers) 
 @media only screen and (min-width: 767px) and (max-width: 998px) {
-	.top { width: 767px; margin: 0 auto; font-size: 11px; padding: 7px 0; }
-	#header { width: 767px; margin: 0 auto; position: relative; z-index: 10; }
-	#content{ width: 767px; margin: 0 auto; }
-*/	
+    .top { width: 767px; margin: 0 auto; font-size: 11px; padding: 7px 0; }
+    #header { width: 767px; margin: 0 auto; position: relative; z-index: 10; }
+    #content{ width: 767px; margin: 0 auto; }
+*/  
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) 
 @media only screen and (min-width: 480px) and (max-width: 767px) {
-	.top { width: 479px; margin: 0 auto; font-size: 11px; padding: 7px 0; }
-	#content{ width: 479px; margin: 0 auto; }
-	#header { width: 479px; margin: 0 auto; position: relative; z-index: 10; }
-	#main-nav { float:left; width:96%; padding: 2% 2% 1.5% 2%; }
-	.ie7 #main-nav { float:left; width:96%; padding: 2% 2% 1.5% 2%; }
-	.ie8 #main-nav { float:left; width:96%; padding: 2% 2% 1.5% 2%; }
-		#main-nav li { width: 100%; }
-			#main-nav a { padding:12px; }
-				#main-nav a:after, #main-nav > ul { display: none; }
-				#main-nav a:after { content: ''; }
+    .top { width: 479px; margin: 0 auto; font-size: 11px; padding: 7px 0; }
+    #content{ width: 479px; margin: 0 auto; }
+    #header { width: 479px; margin: 0 auto; position: relative; z-index: 10; }
+    #main-nav { float:left; width:96%; padding: 2% 2% 1.5% 2%; }
+    .ie7 #main-nav { float:left; width:96%; padding: 2% 2% 1.5% 2%; }
+    .ie8 #main-nav { float:left; width:96%; padding: 2% 2% 1.5% 2%; }
+        #main-nav li { width: 100%; }
+            #main-nav a { padding:12px; }
+                #main-nav a:after, #main-nav > ul { display: none; }
+                #main-nav a:after { content: ''; }
 */
 /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) 
 @media only screen and (max-width: 479px) {
-	.top { width: 320px; margin: 0 auto; font-size: 11px; padding: 7px 0; }
-	#content{ width: 320px; margin: 0 auto; }
-	#header { width: 320px; margin: 0 auto; position: relative; z-index: 10; }
-	#main-nav { float:left; width:96%; padding: 2% 2% 1.5% 2%; }
-	.ie7 #main-nav { float:left; width:96%; padding: 2% 2% 1.5% 2%; }
-	.ie8 #main-nav { float:left; width:96%; padding: 2% 2% 1.5% 2%; }
-		#main-nav li { width: 100%; }
-			#main-nav a { padding:12px; }
-				#main-nav a:after, #main-nav > ul { display: none; }
-				#main-nav a:after { content: ''; }
+    .top { width: 320px; margin: 0 auto; font-size: 11px; padding: 7px 0; }
+    #content{ width: 320px; margin: 0 auto; }
+    #header { width: 320px; margin: 0 auto; position: relative; z-index: 10; }
+    #main-nav { float:left; width:96%; padding: 2% 2% 1.5% 2%; }
+    .ie7 #main-nav { float:left; width:96%; padding: 2% 2% 1.5% 2%; }
+    .ie8 #main-nav { float:left; width:96%; padding: 2% 2% 1.5% 2%; }
+        #main-nav li { width: 100%; }
+            #main-nav a { padding:12px; }
+                #main-nav a:after, #main-nav > ul { display: none; }
+                #main-nav a:after { content: ''; }
 */

@@ -6,79 +6,20 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class Teaching
 {
-    /**
-     * @var integer
-     */
     private $id;
-
-    /**
-     * @var string
-     */
     private $title;
-
-    /**
-     * @var integer
-     */
     private $serial;
-
-    /**
-     * @var \DateTime
-     */
     private $date;
-
-    /**
-     * @var integer
-     */
     private $dayNumber;
-
-    /**
-     * @var string
-     */
     private $dayTime;
-
-    /**
-     * @var string
-     */
     private $resume;
-
-    /**
-     * @var string
-     */
     private $technical_comment;
-
-    /**
-     * @var boolean
-     */
     private $is_show;
-
-    /**
-     * @var \EspaceMembers\MainBundle\Entity\Media
-     */
     private $lesson;
-
-    /**
-     * @var \EspaceMembers\MainBundle\Entity\Event
-     */
     private $event;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
     private $tags;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
     private $voies;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
     private $users;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
     private $bookmarkOwners;
 
     /**
@@ -104,7 +45,7 @@ class Teaching
     /**
      * Set title
      *
-     * @param  string   $title
+     * @param string $title
      * @return Teaching
      */
     public function setTitle($title)
@@ -317,6 +258,8 @@ class Teaching
     public function setEvent(\EspaceMembers\MainBundle\Entity\Event $event = null)
     {
         $this->event = $event;
+        $event->addTeaching($this);
+
         return $this;
     }
 
@@ -433,6 +376,7 @@ class Teaching
     {
         if (false === $this->getUsers()->contains($user) ) {
             $this->users[] = $user;
+            $user->addTeaching($this);
         }
 
         return $this;

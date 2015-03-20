@@ -1,38 +1,15 @@
-{% if chronology.events is defined and chronology.events is empty %}
-    <div class="left-column">
-        <span class="year">{{ chronology.year }}</span>
-        <p>Not found events </p>
-    </div>
-    {% else %}
-    <div class="left-column">
-        <span class="year">{{ chronology.year }}</span>
-        {% for event in chronology.events %}
-            <h2>{{ event.title|capitalize }}</h2>
-            <span class="sub-heading">
-                <img src="{{ asset('bundles/espacemembersmain/images/flag.png') }}" alt="flag" />
-                {{ event.category.title|capitalize }}
-            </span>
+{% set year = 0 %}
+<div class="left-column">
+{% for event in events %}
+    {{ include('EspaceMembersMainBundle:Teaching:left-block-year-divide.html.twig', {
+        'year' : year, 'eventYear' : event.year
+    }) }}
+    {% set year = event.year %}
 
-            <div class="image-box">
-                {% media event.frontImage, 'big' with
-                    { 'width': '175px', 'height': '175px', 'alt': 'image', 'title': '' }
-                %}
-                <span class="describe">
-                    Du {{ event.startDate|localizeddate('none', 'none', 'fr_FR' , null, 'd LLLL')|title }}
-                    Au {{ event.completionDate|localizeddate('none', 'none', 'fr_FR' , null, 'd LLLL')|title }}
-                </span>
-                <a href="{{ path('espace_members_detail_teaching',
-                    { 'event_id' : event.id, } ) }}"
-                    class="zoom">EN SAVOIR
-                </a>
-            </div>
+    <h2>{{ event.title|capitalize }}</h2>
+    {{ include('EspaceMembersMainBundle:Teaching:left-block-item.html.twig', {'event' : event}) }}
 
-            {% for teacher in event.users %}
-                {{ include( 'EspaceMembersMainBundle:Teaching:detail-box.html.twig', {
-                    'teacher' : teacher,
-                }) }}
-            {% endfor %}
-
-        {% endfor %}
-    </div>
-{% endif %}
+{% else %}
+    <p>Not found events</p>
+{% endfor %}
+</div>

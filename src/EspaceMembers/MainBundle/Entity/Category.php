@@ -4,25 +4,10 @@ namespace EspaceMembers\MainBundle\Entity;
 
 class Category
 {
-
-    /**
-     * @var integer
-     */
     private $id;
-
-    /**
-     * @var string
-     */
     private $title;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
     private $events;
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         $this->events = new \Doctrine\Common\Collections\ArrayCollection();

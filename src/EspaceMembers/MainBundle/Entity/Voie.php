@@ -4,20 +4,8 @@ namespace EspaceMembers\MainBundle\Entity;
 
 class Voie
 {
-
-    /**
-     * @var integer
-     */
     private $id;
-
-    /**
-     * @var string
-     */
     private $title;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
     private $teachings;
 
     /**

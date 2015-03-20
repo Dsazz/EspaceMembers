@@ -16,19 +16,8 @@ class EspaceMembersFilterExtension extends Twig_Extension
     public function getFilters()
     {
         return array(
-            'filterLesson'     => new Twig_Filter_Method($this, 'filterLesson'),
             'filterIsBookmark' => new Twig_Filter_Method($this, 'filterIsBookmark'),
         );
-    }
-
-    public function filterLesson($entityCollection, $filterId)
-    {
-        $entityCollection = $entityCollection->filter(
-            function ($element) use ($filterId) {
-                return $element->getEvent()->getTitle() === $filterId && $element->getIsShow();
-            });
-
-        return $entityCollection;
     }
 
     public function filterIsBookmark($bookmarkCollection, $teaching_id)

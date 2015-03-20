@@ -1,10 +1,3 @@
-#parameters:
-#    espace_members_main.example.class: EspaceMembers\MainBundle\Example
-
-#services:
-#    espace_members_main.example:
-#        class: %espace_members_main.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
 parameters:
     sonata.user.admin.user.class: EspaceMembers\MainBundle\Admin\UserAdmin
     sonata.user.admin.user.entity: EspaceMembers\MainBundle\Entity\User
@@ -84,13 +77,9 @@ services:
         class: EspaceMembers\MainBundle\Twig\DumpyTwigFilter
         tags:
             - { name: twig.extension }
-#Custom listeners
-    #espacemembers.user_listener:
-        #class: EspaceMembers\MainBundle\EventListener\UserListener
-        #tags:
-            #- { name: doctrine.event_listener, event: prePersist }
 
-    #espacemembers.event__listener:
-        #class: EspaceMembers\MainBundle\EventListener\EventEspaceMembersListener
-        #tags:
-            #- { name: doctrine.event_listener, event: prePersist }
+    espacemembers.media.twig.extension:
+        class: EspaceMembers\MainBundle\Twig\Extension\MediaExtension
+        arguments: ["@sonata.media.pool", "@sonata.media.manager.media", "%sonata_media_cdn_server_path%"]
+        tags:
+            - { name: twig.extension }
