@@ -103,34 +103,21 @@ fos_user:
         group_manager: sonata.user.orm.group_manager
     service:
         user_manager: sonata.user.orm.user_manager
-    #profile:
-        #form:
-            #type:               fos_user_profile
-            #handler:            fos_user.profile.form.handler.default
-            #name:               fos_user_profile_form
-            #validation_groups:  [Authentication]
 
 # Sonata configurations
-#sonata_user:
-    #security_acl: true
-    #manager_type: orm
-
 sonata_user:
     security_acl:     false
     class:
         user: EspaceMembers\MainBundle\Entity\User #Override Sonata\UserBundle\Entity\BaseUser
         group:   EspaceMembers\MainBundle\Entity\Group
-        #group:   Sonata\UserBundle\Entity\BaseGroup
 
     admin:
         user:
-            #class:          Sonata\UserBundle\Admin\Entity\UserAdmin
             class:          EspaceMembers\MainBundle\Admin\UserAdmin
             controller:     SonataAdminBundle:CRUD
             translation:    SonataUserBundle
 
         group:
-            #class:          Sonata\UserBundle\Admin\Entity\GroupAdmin
             class:          EspaceMembers\MainBundle\Admin\GroupAdmin
             controller:     SonataAdminBundle:CRUD
             translation:    SonataUserBundle
@@ -139,17 +126,9 @@ sonata_user:
         form:
             type:               espacemembers_user_profile
             handler:            sonata.user.profile.form.handler.default
-            #handler:            espacemembers.user.profile.form.handler.default
             name:               espacemembers_user_profile_form
             #validation_groups:  [Profile]
         register:
-            form:
-                type:                 sonata_user_registration
-                handler:              sonata.user.registration.form.handler.default
-                name:                 sonata_user_registration_form
-                validation_groups:
-                    - Registration
-                    - Default
             confirm:
                 redirect:
                     route: 'espace_members_teaching'
