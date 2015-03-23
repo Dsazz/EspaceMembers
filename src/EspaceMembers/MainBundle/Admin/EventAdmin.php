@@ -28,7 +28,9 @@ class EventAdmin extends Admin
             ->add('year', null, array('label' => 'Year'))
             ->add('description', null, array('label' => 'Description'))
             ->add('is_show', null, array('label' => 'Is show ?'))
-            ->add('frontImage', 'sonata_type_admin', array('label' => 'Front image'))
+            ->add('frontImage', null, array(
+                'template' => 'ApplicationSonataMediaBundle::picture.html.twig'
+            ))
             ->add('flayer', 'sonata_type_admin', array('label' => 'Flayer'))
             ->add('teachings', null, array('label' => 'Teachings'))
             ->add('category', null, array('label' => 'Category'))
@@ -176,7 +178,9 @@ class EventAdmin extends Admin
             ->add('year', null, array('label' => 'Year'))
             ->add('description', null, array('label' => 'Description'))
             ->add('is_show', null, array('label' => 'Is show ?'))
-            ->add('frontImage', 'sonata_type_admin', array('label' => 'Front image'))
+            ->add('frontImage', null, array(
+                'template' => 'ApplicationSonataMediaBundle::picture.html.twig'
+            ))
             ->add('flayer', 'sonata_type_admin', array('label' => 'Flayer'))
             ->add('teachings', null, array('label' => 'Teachings'))
             ->add('category', null, array('label' => 'Category'))

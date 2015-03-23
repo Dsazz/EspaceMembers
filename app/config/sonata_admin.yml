@@ -1,0 +1,15 @@
+sonata_admin:
+    title: EspaceMembers
+    security:
+        handler: sonata.admin.security.handler.role
+    templates:
+        layout:              EspaceMembersMainBundle::sonata_admin_base_layout.html.twig
+        search:              SonataAdminBundle:Core:search.html.twig
+        search_result_block: SonataAdminBundle:Block:block_search_result.html.twig
+    dashboard:
+        groups:
+            espacemembers: ~
+            user:
+                label: Users management
+                items:
+                    - sonata.user.admin.user
