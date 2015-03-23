@@ -7,7 +7,7 @@ services:
         abstract: true
         public: false
 
-    app.espacemembers.admin.group:
+    sonata.admin.group:
         class: EspaceMembers\MainBundle\Admin\GroupAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: EspaceMembers, label: "Group" }
@@ -16,7 +16,7 @@ services:
             - EspaceMembers\MainBundle\Entity\Group
             - 'SonataAdminBundle:CRUD'
 
-    app.espacemembers.admin.teaching:
+    sonata.admin.teaching:
         class: EspaceMembers\MainBundle\Admin\TeachingAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: EspaceMembers, label: "Teaching" }
@@ -25,7 +25,7 @@ services:
             - EspaceMembers\MainBundle\Entity\Teaching
             - 'SonataAdminBundle:CRUD'
 
-    app.espacemembers.admin.voie:
+    sonata.admin.voie:
         class: EspaceMembers\MainBundle\Admin\VoieAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: EspaceMembers, label: "Voie" }
@@ -34,7 +34,7 @@ services:
             - EspaceMembers\MainBundle\Entity\Voie
             - 'SonataAdminBundle:CRUD'
 
-    app.espacemembers.admin.tag:
+    sonata.admin.tag:
         class: EspaceMembers\MainBundle\Admin\TagAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: EspaceMembers,  label: "Tag", show_in_dashboard: false}
@@ -43,7 +43,7 @@ services:
             - EspaceMembers\MainBundle\Entity\Tag
             - 'SonataAdminBundle:CRUD'
 
-    app.espacemembers.admin.category:
+    sonata.admin.category:
         class: EspaceMembers\MainBundle\Admin\CategoryAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: EspaceMembers,  label: "Category" }
@@ -52,7 +52,7 @@ services:
             - EspaceMembers\MainBundle\Entity\Category
             - 'SonataAdminBundle:CRUD'
 
-    app.espacemembers.admin.event:
+    sonata.admin.event:
         class: EspaceMembers\MainBundle\Admin\EventAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: EspaceMembers,  label: "Event" }
