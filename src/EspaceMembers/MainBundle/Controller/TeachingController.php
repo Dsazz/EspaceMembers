@@ -9,6 +9,8 @@ use EspaceMembers\MainBundle\Entity\User;
 use EspaceMembers\MainBundle\Entity\Teaching;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Pagerfanta\Exception\NotValidCurrentPageException;
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Pagerfanta;
 
 class TeachingController extends Controller
 {
@@ -18,8 +20,6 @@ class TeachingController extends Controller
         $pagerfanta = $em->getRepository('EspaceMembersMainBundle:Event')->findAllWithPaging($page);
 
         $this->setCurrentPageOr404($pagerfanta, $page);
-        //echo "<pre>";
-        //echo \Doctrine\Common\Util\Debug::dump($pagerfanta, 7);exit();
 
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'paginator' => $pagerfanta,
@@ -50,8 +50,6 @@ class TeachingController extends Controller
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'paginator'  => $pagerfanta,
             'events'     => $pagerfanta->getCurrentPageResults(),
-            'filteredId' => $year,
-            'accordion'  => '0',
         ));
     }
 
@@ -66,24 +64,20 @@ class TeachingController extends Controller
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'paginator'  => $pagerfanta,
             'events'     => $pagerfanta->getCurrentPageResults(),
-            'filteredId' => $category_id,
-            'accordion'  => '1',
         ));
     }
 
-    public function filterVoieAction($voie_id, $page)
+    public function filterDirectionAction($direction_id, $page)
     {
         $em = $this->getDoctrine()->getManager();
         $pagerfanta = $em->getRepository('EspaceMembersMainBundle:Event')
-            ->filterByVoieWithPaging($voie_id, $this->getUser()->getId());
+            ->filterByDirectionWithPaging($direction_id, $this->getUser()->getId());
 
         $this->setCurrentPageOr404($pagerfanta, $page);
 
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'paginator'  => $pagerfanta,
             'events'     => $pagerfanta->getCurrentPageResults(),
-            'filteredId'   => $voie_id,
-            'accordion'    => '2',
         ));
     }
 
@@ -98,24 +92,28 @@ class TeachingController extends Controller
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'paginator'  => $pagerfanta,
             'events'     => $pagerfanta->getCurrentPageResults(),
-            'filteredId'   => $teacher_id,
-            'accordion'    => '3',
         ));
     }
 
     public function filterTagAction($tag_id, $page)
     {
         $em = $this->getDoctrine()->getManager();
-        $pagerfanta = $em->getRepository('EspaceMembersMainBundle:Event')
-            ->filterTeachingsAndEventsByTagWithPaging($tag_id, $this->getUser()->getId());
+
+        $filteredEvents = array_merge(
+            $em->getRepository('EspaceMembersMainBundle:Event')->filterByTagTeaching($tag_id, $this->getUser()->getId()),
+            $em->getRepository('EspaceMembersMainBundle:Event')->filterByTagEvent($tag_id, $this->getUser()->getId())
+        );
+
+        $adapter = new ArrayAdapter($filteredEvents);
+        $pagerfanta = new Pagerfanta($adapter);
+
+        $pagerfanta->setMaxPerPage(Event::MAX_PER_PAGE);
 
         $this->setCurrentPageOr404($pagerfanta, $page);
 
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'paginator'  => $pagerfanta,
             'events'     => $pagerfanta->getCurrentPageResults(),
-            'filteredId'   => $tag_id,
-            'accordion'    => '4',
         ));
     }
 

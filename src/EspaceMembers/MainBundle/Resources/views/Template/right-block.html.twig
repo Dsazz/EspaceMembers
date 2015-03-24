@@ -1,93 +1,156 @@
+{% set filter = preg_match_result('/(?!(.+\\/))(?P<filter>\\w+)/', currentPath) %}
+{% set filter = (filter.filter is defined) ? filter.filter : 'false' %}
+
+{% set filterCategory = preg_match_result('/(?:.+\\/)(?P<category>\\w+)(?:\\/\\w+)/', currentPath) %}
+{% set filterCategory = (filterCategory.category is defined) ? filterCategory.category : 'false' %}
+
+<script>
+    $(function() {
+        var accordion = '{{ filterCategory }}';
+        switch (accordion) {
+            case 'chronology': accordion = 0; break;
+            case 'category':   accordion = 1; break;
+            case 'direction':  accordion = 2; break;
+            case 'teacher':    accordion = 3; break;
+            case 'tag':        accordion = 4; break;
+
+            default:           accordion = false;
+        }
+
+        $("#accordion").accordion({ active: accordion,  collapsible: true });
+    })
+</script>
+
 <div class="right-column">
    <div id="accordion">
-       <h3>
+       {% set chronologieIsActive = filterCategory matches '/chronology/' %}
+       <h3 {{ chronologieIsActive ? 'class="ui-active-accordion"' }}>
             <img src="{{ asset('bundles/espacemembersmain/js/images/calendar.png') }}" alt="icon" />
             Chronologique
-        </h3>
-        <div>
-            <ul>
-                <li>
-                    <a href="{{ path('espace_members_teaching') }}" link-id="-1" class="droplink">Tout</a>
-                </li>
-                {% for chronologie in chronologies %}
-                <li>
-                    <a href="{{ path('espace_members_filter_teaching_chronology', {'year': chronologie.year}) }}"
-                        link-id="{{ chronologie.year }}" class="droplink">
-                        {{ chronologie.year }}
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-        <h3>
+       </h3>
+       <div {{ chronologieIsActive ? 'class="accordion-filter-list"' }}>
+           <ul>
+               <li>
+                   <a href="{{ path('espace_members_teaching') }}"
+                       {{ chronologieIsActive ? 'class="droplink2"' : 'class="droplink2"' }}>Tout</a>
+               </li>
+               {% for chronologie in chronologies %}
+               {% set chronologiePath = path('espace_members_filter_teaching_chronology', {'year': chronologie.year}) %}
+               <li>
+                   <a href="{{ chronologiePath }}"
+                       {% if chronologieIsActive and filter == chronologie.year %}class="droplink2 active"
+                       {% elseif chronologieIsActive %}class="droplink2"
+                       {% else %}class="droplink"{%endif %}>
+
+                       {{ chronologie.year }}
+                   </a>
+               </li>
+               {% endfor %}
+           </ul>
+       </div>
+
+       {% set categoryIsActive = filterCategory matches '/category/' %}
+       <h3 {{ categoryIsActive ? 'class="ui-active-accordion"' }}>
             <img src="{{ asset('bundles/espacemembersmain/js/images/folder.png') }}" alt="icon" />
             Catégories
-        </h3>
-        <div>
-            <ul>
-                <li>
-                    <a href="{{ path('espace_members_teaching') }}" link-id="-1" class="droplink">Tout</a>
-                </li>
-                {% for category in categories %}
-                <li>
-                    <a href="{{ path('espace_members_filter_teaching_category', { 'category_id': category.id}) }}"
-                        link-id="{{ category.id }}" class="droplink">
-                        {{ category.title|capitalize }}
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-        <h3>
-            <img src="{{ asset('bundles/espacemembersmain/js/images/notes.png') }}" alt="icon" />Par voie</h3>
-        <div>
-            <ul>
-                <li>
-                    <a href="{{ path('espace_members_teaching') }}" link-id="-1" class="droplink">Tout</a>
-                </li>
-                {% for voie in voies %}
-                <li>
-                    <a href="{{ path('espace_members_filter_teaching_voie', { 'voie_id': voie.id}) }}"
-                        link-id="{{ voie.id }}" class="droplink">
-                        {{ voie.title|capitalize }}
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-        <h3>
-            <img src="{{ asset('bundles/espacemembersmain/js/images/mic.png') }}" alt="icon" />Par enseignant</h3>
-        <div>
-            <ul>
-                <li>
-                    <a href="{{ path('espace_members_teaching') }}" link-id="-1" class="droplink">Tout</a>
-                </li>
-                {% for teacher in teachers %}
-                <li>
-                    <a href="{{ path('espace_members_filter_teaching_teacher', { 'teacher_id': teacher.id}) }}"
-                        link-id="{{ teacher.id }}" class="droplink">
-                        {{ teacher.lastName }}  {{ teacher.firstName }}
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-        <h3>
-            <img src="{{ asset('bundles/espacemembersmain/js/images/comment.png') }}" alt="icon" />Par thème</h3>
-        <div>
-            <ul>
-                <li>
-                    <a href="{{ path('espace_members_teaching') }}" link-id="-1" class="droplink">Tout</a>
-                </li>
-                {% for tag in tags %}
-                    <li>
-                        <a href="{{ path('espace_members_filter_teaching_tag', { 'tag_id': tag.id}) }}"
-                            link-id="{{ tag.id }}" class="droplink">
-                            {{ tag.title|capitalize }}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
+       </h3>
+       <div {{ categoryIsActive ? 'class="accordion-filter-list"' }}>
+           <ul>
+               <li>
+                   <a href="{{ path('espace_members_teaching') }}"
+                       {{ categoryIsActive ? 'class="droplink2"' : 'class="droplink2"' }}>Tout</a>
+               </li>
+               {% for category in categories %}
+               {% set categoryPath = path('espace_members_filter_teaching_category', { 'category_id': category.id}) %}
+               <li>
+                   <a href="{{ categoryPath }}"
+                       {% if categoryIsActive and filter == category.id %}class="droplink2 active"
+                       {% elseif categoryIsActive %}class="droplink2"
+                       {% else %}class="droplink"{%endif %}>
+
+                       {{ category.title|capitalize }}
+                   </a>
+               </li>
+               {% endfor %}
+           </ul>
+       </div>
+
+       {% set directionIsActive = filterCategory matches '/direction/' %}
+       <h3 {{ directionIsActive ? 'class="ui-active-accordion"' }}>
+            <img src="{{ asset('bundles/espacemembersmain/js/images/notes.png') }}" alt="icon" />
+            Par voie
+       </h3>
+       <div {{ directionIsActive ? 'class="accordion-filter-list"' }}>
+           <ul>
+               <li>
+                   <a href="{{ path('espace_members_teaching') }}"
+                       {{ directionIsActive ? 'class="droplink2"' : 'class="droplink2"' }}>Tout</a>
+               </li>
+               {% for direction in directions %}
+               {% set directionPath = path('espace_members_filter_teaching_direction', { 'direction_id': direction.id}) %}
+               <li>
+                   <a href="{{ directionPath }}"
+                       {% if directionIsActive and filter == direction.id %}class="droplink2 active"
+                       {% elseif directionIsActive %}class="droplink2"
+                       {% else %}class="droplink"{%endif %}>
+
+                       {{ direction.title|capitalize }}
+                   </a>
+               </li>
+               {% endfor %}
+           </ul>
+       </div>
+
+       {% set teacherIsActive = filterCategory matches '/teacher/' %}
+       <h3 {{ teacherIsActive ? 'class="ui-active-accordion"' }}>
+           <img src="{{ asset('bundles/espacemembersmain/js/images/mic.png') }}" alt="icon" />
+           Par enseignant
+       </h3>
+       <div {{ teacherIsActive ? 'class="accordion-filter-list"' }}>
+           <ul>
+               <li>
+                   <a href="{{ path('espace_members_teaching') }}"
+                       {{ directionIsActive ? 'class="droplink2"' : 'class="droplink2"' }}>Tout</a>
+               </li>
+               {% for teacher in teachers %}
+               {% set teacherPath = path('espace_members_filter_teaching_teacher', { 'teacher_id': teacher.id}) %}
+               <li>
+                   <a href="{{ teacherPath }}"
+                       {% if teacherIsActive and filter == teacher.id %}class="droplink2 active"
+                       {% elseif teacherIsActive %}class="droplink2"
+                       {% else %}class="droplink"{%endif %}>
+
+                       {{ teacher.lastName }}  {{ teacher.firstName }}
+                   </a>
+               </li>
+               {% endfor %}
+           </ul>
+       </div>
+
+       {% set tagIsActive = filterCategory matches '/tag/' %}
+       <h3 {{ tagIsActive ? 'class="ui-active-accordion"' }}>
+           <img src="{{ asset('bundles/espacemembersmain/js/images/comment.png') }}" alt="icon" />
+           Par thème
+       </h3>
+       <div>
+           <ul>
+               <li>
+                   <a href="{{ path('espace_members_teaching') }}"
+                       {{ tagIsActive ? 'class="droplink2"' : 'class="droplink2"' }}>Tout</a>
+               </li>
+               {% for tag in tags %}
+               {% set tagPath = path('espace_members_filter_teaching_tag', { 'tag_id': tag.id}) %}
+               <li>
+                   <a href="{{ tagPath }}"
+                       {% if tagIsActive and filter == tag.id %}class="droplink2 active"
+                       {% elseif tagIsActive %}class="droplink2"
+                       {% else %}class="droplink"{%endif %}>
+
+                       {{ tag.title|capitalize }}
+                   </a>
+               </li>
+               {% endfor %}
+           </ul>
+       </div>
     </div>
 </div>
