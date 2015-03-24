@@ -3,6 +3,7 @@ namespace EspaceMembers\MainBundle\Twig;
 
 use Twig_Extension;
 use Twig_Filter_Method;
+use Twig_SimpleFunction;
 
 class EspaceMembersFilterExtension extends Twig_Extension
 {
@@ -20,6 +21,13 @@ class EspaceMembersFilterExtension extends Twig_Extension
         );
     }
 
+    public function getFunctions()
+    {
+        return array(
+            'preg_match_result' => new Twig_SimpleFunction('preg_match_result', array($this, 'getPregMatchResult'))
+        );
+    }
+
     public function filterIsBookmark($bookmarkCollection, $teaching_id)
     {
         $bookmarkCollection = $bookmarkCollection->filter(
@@ -28,6 +36,13 @@ class EspaceMembersFilterExtension extends Twig_Extension
             });
 
         return $bookmarkCollection->isEmpty() ? false : true;
+    }
+
+    public function getPregMatchResult($pattern = '', $string = '')
+    {
+        preg_match($pattern, $string, $matches);
+
+        return $matches;
     }
 
     public function getName()

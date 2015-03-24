@@ -43,9 +43,9 @@ espace_members_filter_teaching_category:
     options:
         expose: true
 
-espace_members_filter_teaching_voie:
-    pattern:  /filter/voie/{voie_id}/{page}
-    defaults: { _controller: EspaceMembersMainBundle:Teaching:filterVoie, page: 1 }
+espace_members_filter_teaching_direction:
+    pattern:  /filter/direction/{direction_id}/{page}
+    defaults: { _controller: EspaceMembersMainBundle:Teaching:filterDirection, page: 1 }
     requirements:
         _method: GET
         voie_id: \d+
