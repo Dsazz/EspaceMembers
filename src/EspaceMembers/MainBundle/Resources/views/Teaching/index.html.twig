@@ -21,11 +21,11 @@
 
     {% block left_column %}
         {{ include( 'EspaceMembersMainBundle:Teaching:left-block.html.twig', {'events' : events}) }}
-        {#{% if paginator.haveToPaginate %}#}
-        {#<div class="pagerfanta left-column">#}
-            {#{{ pagerfanta(paginator) }}#}
-        {#</div>#}
-        {#{% endif %}#}
+        {% if paginator.haveToPaginate %}
+        <div class="pagerfanta left-column">
+            {{ pagerfanta(paginator) }}
+        </div>
+        {% endif %}
     {% endblock left_column %}
 </div>
 <div class="clear"><!-- --></div>
