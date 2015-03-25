@@ -361,4 +361,55 @@ class EventRepository extends EntityRepository
             ->useResultCache(true, 3600)
             ->getResult();
     }
+
+
+
+
+    public function findBookmarks($bookmarkData = array())
+    {
+        $qb = $this->createQueryBuilder('ev')
+            ->select(
+                'partial ev.{
+                    id, title, category, year, frontImage, startDate, completionDate
+                }'
+            )
+            ->addSelect('partial c.{id, title}')
+            ->addSelect('partial u.{id, last_name, first_name, avatar}')
+            ->addSelect(
+                'partial tch.{
+                    id, title, serial, lesson, dayNumber, dayTime, date
+                }'
+            )
+            ->addSelect('partial lsn.{id, contentType, path}')
+            ->addSelect(
+                'partial frntImg.{
+                    id, providerName, providerStatus, providerReference,
+                        width, height, contentType, context
+                }'
+            )
+            ->addSelect(
+                'partial avatar.{
+                    id, providerName, providerStatus, providerReference,
+                        width, height, contentType, context
+                }'
+            )
+            ->innerJoin('ev.users', 'u', 'WITH', 'u.is_teacher = 1 AND u.id IN (:teachers) ')
+            ->innerJoin('ev.category', 'c')
+            ->innerJoin('ev.frontImage', 'frntImg')
+            ->innerJoin('u.teachings', 'tch', 'WITH', 'tch.is_show = 1 AND tch.event IN (:events) AND tch.id IN (:teachings)')
+            ->innerJoin('u.avatar', 'avatar')
+            ->innerJoin('tch.lesson', 'lsn')
+            ->orderBy('ev.year', 'DESC')
+
+            ->setParameter('teachers', $bookmarkData['user_id'])
+            ->setParameter('teachings', $bookmarkData['teaching_id'])
+            ->setParameter('events', $bookmarkData['event_id'])
+            ->getQuery()
+            ->getArrayResult();
+
+        $adapter = new ArrayAdapter($qb);
+        $pagerfanta = new Pagerfanta($adapter);
+
+        return $pagerfanta->setMaxPerPage(Event::MAX_PER_PAGE);
+    }
 }

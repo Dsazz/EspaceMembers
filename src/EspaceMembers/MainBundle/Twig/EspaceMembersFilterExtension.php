@@ -28,14 +28,13 @@ class EspaceMembersFilterExtension extends Twig_Extension
         );
     }
 
-    public function filterIsBookmark($bookmarkCollection, $teaching_id)
+    public function filterIsBookmark($bookmarksId, $teachingId)
     {
-        $bookmarkCollection = $bookmarkCollection->filter(
-            function ($element) use ($teaching_id) {
-                return $element->getId() === $teaching_id;
-            });
+        $bookmarksId = array_filter($bookmarksId, function ($element) use ($teachingId) {
+            return $element['id'] === $teachingId;
+        });
 
-        return $bookmarkCollection->isEmpty() ? false : true;
+        return count($bookmarksId) > 0;
     }
 
     public function getPregMatchResult($pattern = '', $string = '')

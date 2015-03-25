@@ -1,14 +1,13 @@
 {% set year = 0 %}
 <div class="left-column">
 {% for event in events %}
-    {{ include('EspaceMembersMainBundle:Teaching:left-block-year-divide.html.twig', {
+    {{ include('EspaceMembersMainBundle:Template/left-block:year-divide.html.twig', {
         'year' : year, 'eventYear' : event.year
     }) }}
     {% set year = event.year %}
 
     <h2>{{ event.title|capitalize }}</h2>
-    {{ include('EspaceMembersMainBundle:Teaching:left-block-item.html.twig', {'event' : event}) }}
-
+    {{ include('EspaceMembersMainBundle:Template/left-block:item.html.twig', {'event' : event, 'bookmarksId' : bookmarksId}) }}
 {% else %}
     <p>Not found events</p>
 {% endfor %}

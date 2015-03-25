@@ -1,8 +1,16 @@
 <?php
 
 namespace EspaceMembers\MainBundle\Entity\Repository;
+
 use Doctrine\ORM\EntityRepository;
 use Doctrine\Common\Cache\ApcCache;
+use Doctrine\ORM\Query;
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Pagerfanta;
+use EspaceMembers\MainBundle\Entity\Event;
+use Symfony\Component\Security\Core\User\UserInterface;
+
+use PDO;
 
 class UserRepository extends EntityRepository
 {
@@ -103,54 +111,41 @@ class UserRepository extends EntityRepository
             ->getOneOrNullResult();
     }
 
-    public function findBookmarks($userId)
+
+
+    public function getBookmarksData(UserInterface $user)
+    {
+        $sql = "
+            SELECT tu.user_id, tu.teaching_id, t.event_id
+            FROM bookmarks_users as bu
+            JOIN teachings_users as tu ON tu.teaching_id = bu.teaching_id
+            JOIN teaching as t ON t.id = tu.teaching_id
+            WHERE bu.user_id = :user_id
+        ";
+
+        $stmt = $this->_em->getConnection()->prepare($sql);
+        $stmt->bindValue('user_id', $user->getId());
+        $stmt->execute();
+
+        $bookmarkData = [];
+        foreach ($stmt->fetchAll() as $data) {
+            $bookmarkData['user_id'][] = $data['user_id'];
+            $bookmarkData['teaching_id'][] = $data['teaching_id'];
+            $bookmarkData['event_id'][] = $data['event_id'];
+        }
+
+        return $bookmarkData;
+    }
+
+    public function getBookmarksId(UserInterface $user)
     {
         return $qb = $this->createQueryBuilder('u')
             ->select('partial u.{id}')
-            ->addSelect('partial tu.{id, last_name, first_name}')
-            ->addSelect(
-                'partial ev.{
-                    id, title, year, category, frontImage, startDate, completionDate
-                }'
-            )
-            ->addSelect(
-                'partial bk.{
-                    id, title, serial,lesson, dayNumber, dayTime, date
-                }'
-            )
-            ->addSelect('partial tch.{id}')
-            ->addSelect('partial lsn.{id, contentType, path}')
-            ->addSelect(
-                'partial frntImg.{
-                    id, providerName, providerStatus, providerReference,
-                    width, height, contentType, context
-                }'
-            )
-            ->addSelect(
-                'partial avatar.{
-                    id, providerName, providerStatus, providerReference,
-                    width, height, contentType, context
-                }'
-            )
-            ->addSelect(
-                'partial tavatar.{
-                    id, providerName, providerStatus, providerReference,
-                    width, height, contentType, context
-                }'
-            )
-
+            ->addSelect('partial bk.{id}')
             ->innerJoin('u.bookmarks', 'bk')
-            ->innerJoin('u.avatar', 'avatar')
-            ->innerJoin('bk.event', 'ev')
-            ->innerJoin('ev.users', 'tu')
-            ->innerJoin('tu.teachings', 'tch', 'WITH', 'tch.id = bk.id')
-            ->innerJoin('tu.avatar', 'tavatar')
-            ->innerJoin('tch.lesson', 'lsn')
-            ->innerJoin('ev.frontImage', 'frntImg')
-            ->where('u.id = :user_id')
-            ->setParameter("user_id", $userId)
-            ->orderBy('ev.year', 'DESC')
+            ->where('u = :user')
+            ->setParameter("user", $user)
             ->getQuery()
-            ->getSingleResult();
+            ->getSingleResult(Query::HYDRATE_ARRAY);
     }
 }

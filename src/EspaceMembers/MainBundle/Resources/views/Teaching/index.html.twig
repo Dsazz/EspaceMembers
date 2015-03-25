@@ -13,14 +13,14 @@
 
 {% block body %}
 <div class="content">
-
     {% block right_column %}
         {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
         {{ render(controller('EspaceMembersMainBundle:Render:rightBlock', { 'currentPath' : currentPath })) }}
     {% endblock right_column %}
 
     {% block left_column %}
-        {{ include( 'EspaceMembersMainBundle:Teaching:left-block.html.twig', {'events' : events}) }}
+        {{ include('EspaceMembersMainBundle:Template/left-block:index.html.twig', {'events' : events, 'bookmarksId' : bookmarksId.bookmarks }) }}
+
         {% if paginator.haveToPaginate %}
         <div class="pagerfanta left-column">
             {{ pagerfanta(paginator) }}

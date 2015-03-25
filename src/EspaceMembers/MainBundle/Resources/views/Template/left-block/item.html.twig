@@ -13,5 +13,7 @@
 </div>
 
 {% for teacher in event.users %}
-    {{ include('EspaceMembersMainBundle:Teaching:detail-box.html.twig', {'teacher' : teacher, 'avatar' : teacher.avatar}) }}
+    {{ include('EspaceMembersMainBundle:Template/left-block:detail-box.html.twig', {
+        'teacher' : teacher, 'avatar' : teacher.avatar, 'bookmarksId' : bookmarksId
+    }) }}
 {% endfor %}
