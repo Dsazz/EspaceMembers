@@ -24,9 +24,8 @@ class TeachingController extends Controller
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'paginator' => $pagerfanta,
             'events'  => $pagerfanta->getCurrentPageResults(),
-
-            /* Check this */
-            'bookmarks' => $this->getUser()->getBookmarks(),
+            'bookmarksId' => $em->getRepository('EspaceMembersMainBundle:User')
+                ->getBookmarksId($this->getUser()),
         ));
     }
 
@@ -50,6 +49,8 @@ class TeachingController extends Controller
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'paginator'  => $pagerfanta,
             'events'     => $pagerfanta->getCurrentPageResults(),
+            'bookmarksId' => $em->getRepository('EspaceMembersMainBundle:User')
+                ->getBookmarksId($this->getUser()),
         ));
     }
 
@@ -64,6 +65,8 @@ class TeachingController extends Controller
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'paginator'  => $pagerfanta,
             'events'     => $pagerfanta->getCurrentPageResults(),
+            'bookmarksId' => $em->getRepository('EspaceMembersMainBundle:User')
+                ->getBookmarksId($this->getUser()),
         ));
     }
 
@@ -78,6 +81,8 @@ class TeachingController extends Controller
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'paginator'  => $pagerfanta,
             'events'     => $pagerfanta->getCurrentPageResults(),
+            'bookmarksId' => $em->getRepository('EspaceMembersMainBundle:User')
+                ->getBookmarksId($this->getUser()),
         ));
     }
 
@@ -92,6 +97,8 @@ class TeachingController extends Controller
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'paginator'  => $pagerfanta,
             'events'     => $pagerfanta->getCurrentPageResults(),
+            'bookmarksId' => $em->getRepository('EspaceMembersMainBundle:User')
+                ->getBookmarksId($this->getUser()),
         ));
     }
 
@@ -114,6 +121,8 @@ class TeachingController extends Controller
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'paginator'  => $pagerfanta,
             'events'     => $pagerfanta->getCurrentPageResults(),
+            'bookmarksId' => $em->getRepository('EspaceMembersMainBundle:User')
+                ->getBookmarksId($this->getUser()),
         ));
     }
 

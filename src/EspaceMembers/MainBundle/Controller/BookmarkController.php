@@ -10,15 +10,29 @@ use EspaceMembers\MainBundle\Entity\Teaching;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+use Pagerfanta\Exception\NotValidCurrentPageException;
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Pagerfanta;
+
 class BookmarkController extends Controller
 {
-    public function indexAction()
+    public function indexAction($page)
     {
         $em = $this->getDoctrine()->getManager();
 
-        return $this->render('EspaceMembersMainBundle:Bookmark:index.html.twig', array(
-            'user' => $em->getRepository('EspaceMembersMainBundle:User')
-                ->findBookmarks($this->getUser()->getId()),
+        $bookmarkData = $em->getRepository('EspaceMembersMainBundle:User')
+            ->getBookmarksData($this->getUser());
+
+        $pagerfanta = $em->getRepository('EspaceMembersMainBundle:Event')
+            ->findBookmarks($bookmarkData);
+
+        $this->setCurrentPageOr404($pagerfanta, $page);
+
+        return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
+            'paginator'   => $pagerfanta,
+            'events'      => $pagerfanta->getCurrentPageResults(),
+            'bookmarksId' => $em->getRepository('EspaceMembersMainBundle:User')
+                ->getBookmarksId($this->getUser()),
         ));
     }
 
@@ -55,6 +69,15 @@ class BookmarkController extends Controller
             return new JsonResponse(array('error' => 'You don`t have access'), Response::HTTP_FORBIDDEN);
         } catch (NotFoundHttpException $e) {
             return new JsonResponse(array('error' => 'Bookmark not found'), Response::HTTP_NOT_FOUND);
+        }
+    }
+
+    private function setCurrentPageOr404($pagerfanta, $page)
+    {
+        try {
+            $pagerfanta->setCurrentPage($page);
+        } catch (NotValidCurrentPageException $e) {
+            throw new NotFoundHttpException();
         }
     }
 }

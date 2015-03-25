@@ -6,13 +6,15 @@
     {% set teachings = teacher.teachings %}
     {% if teachings is iterable and teachings is not empty %}
         {% for teaching in teachings %}
-            {{ include( 'EspaceMembersMainBundle:Teaching:teachings.html.twig', {
+            {{ include( 'EspaceMembersMainBundle:Template/left-block:teachings.html.twig', {
                 'teaching': teaching,
+                'bookmarksId' : bookmarksId
             }) }}
         {% endfor %}
     {% elseif teachings is defined %}
-        {{ include( 'EspaceMembersMainBundle:Teaching:teachings.html.twig', {
-            'teaching': teacher.teachings.first(),
+        {{ include('EspaceMembersMainBundle:Template/left-block:teachings.html.twig', {
+            'teaching' : teacher.teachings.first(),
+            'bookmarksId' : bookmarksId
         }) }}
     {% else %}
         <div class="item">

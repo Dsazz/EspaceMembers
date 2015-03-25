@@ -79,8 +79,8 @@ espace_members_community_filter:
     defaults: { _controller: EspaceMembersMainBundle:Community:filterByGroup }
 
 espace_members_bookmark_show:
-    path:     /bookmark/show
-    defaults: { _controller: EspaceMembersMainBundle:Bookmark:index }
+    path:     /bookmark/show/{page}
+    defaults: { _controller: EspaceMembersMainBundle:Bookmark:index, page: 1 }
 
 espace_members_bookmark_add:
     pattern:  /bookmark/add/{id}

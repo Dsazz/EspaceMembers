@@ -10,7 +10,7 @@ class RenderController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        return $this->render('EspaceMembersMainBundle:Template:right-block.html.twig', array(
+        return $this->render('EspaceMembersMainBundle:Template\right-block:index.html.twig', array(
             'chronologies' => $em->getRepository('EspaceMembersMainBundle:Event')->getYears(),
             'categories'   => $em->getRepository('EspaceMembersMainBundle:Category')->getTitles(),
             'directions'   => $em->getRepository('EspaceMembersMainBundle:Voie')->getTitles(),
@@ -24,7 +24,7 @@ class RenderController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        return $this->render('EspaceMembersMainBundle:Template:left-block.html.twig', array(
+        return $this->render('EspaceMembersMainBundle:Template\left-block:index.html.twig', array(
             'events' =>  $em->getRepository('EspaceMembersMainBundle:Event')->findAllForEnseignements(),
         ));
     }

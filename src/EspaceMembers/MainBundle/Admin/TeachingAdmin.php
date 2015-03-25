@@ -110,19 +110,19 @@ class TeachingAdmin extends Admin
             ->add('is_show', null, array('label' => 'Is show ?','required' => false))
             ->add('resume', 'textarea', array('attr' => array('class' => 'ckeditor'), 'required' => false,))
             ->add('technical_comment', 'textarea', array('attr' => array('class' => 'ckeditor'), 'required' => false,))
-            //->add('event', 'entity' , array(
-                //'label' => 'Event',
-                //'required' => false,
-                //'class' => 'EspaceMembers\MainBundle\Entity\Event',
-                //'expanded' => false,
-                //'multiple' =>false
-            //))
-            //->add('users', 'sonata_type_model', array(
-                //'by_reference' => false,
-                //'expanded' => false,
-                //'multiple' => true,
-                //'btn_add'  => false,
-            //))
+            ->add('event', 'entity' , array(
+                'label' => 'Event',
+                'required' => false,
+                'class' => 'EspaceMembers\MainBundle\Entity\Event',
+                'expanded' => false,
+                'multiple' =>false
+            ))
+            ->add('users', 'sonata_type_model', array(
+                'by_reference' => false,
+                'expanded' => false,
+                'multiple' => true,
+                'btn_add'  => false,
+            ))
             ->add('voies', 'sonata_type_model',
                 array(
                     'by_reference' => false,
