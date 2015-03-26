@@ -399,6 +399,7 @@ class EventRepository extends EntityRepository
             ->innerJoin('u.teachings', 'tch', 'WITH', 'tch.is_show = 1 AND tch.event IN (:events) AND tch.id IN (:teachings)')
             ->innerJoin('u.avatar', 'avatar')
             ->innerJoin('tch.lesson', 'lsn')
+            ->where('ev.id IN (:events)')
             ->orderBy('ev.year', 'DESC')
 
             ->setParameter('teachers', $bookmarkData['user_id'])

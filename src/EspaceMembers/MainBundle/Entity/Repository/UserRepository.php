@@ -146,6 +146,6 @@ class UserRepository extends EntityRepository
             ->where('u = :user')
             ->setParameter("user", $user)
             ->getQuery()
-            ->getSingleResult(Query::HYDRATE_ARRAY);
+            ->getOneOrNullResult(Query::HYDRATE_ARRAY);
     }
 }
