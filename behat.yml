@@ -5,7 +5,6 @@
 default:
     suites:
         controller:
-            #path: [ %paths.base%/features/core ]
             paths:
                 features: features/controller
             type: symfony_bundle
@@ -16,7 +15,6 @@ default:
                 - EspaceMembers\MainBundle\Behat\CommunityContext
                 - EspaceMembers\MainBundle\Behat\WebContext
         web:
-            #path: [ %paths.base%/features/web ]
             paths:
                 features: features/web
             type: symfony_bundle
@@ -34,8 +32,6 @@ default:
                 debug: true
         Behat\MinkExtension:
             base_url: 'http://espacemembers.ua/app_test.php/'
-            #default_session: 'symfony2'
-            #javascript_session: sahi
             browser_name: firefox
             javascript_session: selenium2
             goutte: ~

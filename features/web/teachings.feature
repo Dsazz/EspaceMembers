@@ -4,7 +4,7 @@
     #I need to ...      // The feature we want
 @teachings
 Feature: Teachings
-    In order to check the teaching page
+    In order to check the teaching page and filters
     As a student
     I need to be sure that page has no errors
 
@@ -46,7 +46,7 @@ Feature: Teachings
             | Best Mathematic 2014 2     | teacher2@test.com                    | Best    | Mathematic  | 2      | Best News 2014   |
             | Awesome Philosophic 2013 1 | teacher3@test.com, teacher4@test.com | Awesome | Philosophic | 1      | Awesome Top 2013 |
             | Best Mathematic 2013 1     | teacher1@test.com                    | Best    | Mathematic  | 1      | Best News 2013   |
-            | Awesome Philosophic 2013 1 | teacher2@test.com                    | Awesome | Philosophic | 1      | Best News 2013   |
+            | Best Philosophic 2013 1    | teacher2@test.com                    | Best    | Philosophic | 1      | Best News 2013   |
         And I am logged in as "student@test.com" with password "student"
         Then  I should be on "/profile/"
 
@@ -58,3 +58,72 @@ Feature: Teachings
         And   I should see "Best News 2013"
         And   I should see "Awesome Top 2013"
         And   I should not see "Archived Top 2013"
+
+
+    @javascript
+    Scenario: Filtering events for 2013
+        When  I follow "Enseignements"
+        And   I click on the element "#ui-accordion-accordion-header-0"
+        And   I follow "2013"
+        Then  I should see 1 ".left-column" element
+        And   I should see "Best News 2013"
+        And   I should see "Awesome Top 2013"
+        And   I should not see "Archived Top 2013"
+        And   I should not see "Best News 2014"
+        And   I should see 4 ".detail-box" element
+        And   I should see "Awesome Philosophic 2013 1"
+        And   I should see "Best Philosophic 2013 1"
+        And   I should see "Best Mathematic 2013 1"
+        And   I should not see "Best Mathematic 2014 1"
+        And   I should not see "Best Mathematic 2014 2"
+
+    @javascript
+    Scenario: Filtering events by category "News"
+        When  I follow "Enseignements"
+        And   I click on the element "#ui-accordion-accordion-header-1"
+        And   I follow "News"
+        Then  I should see 2 ".left-column" element
+        And   I should see "Best News 2013"
+        And   I should see "Best News 2014"
+        And   I should not see "Archived Top 2013"
+        And   I should not see "Awesome Top 2013"
+        And   I should see 4 ".detail-box" element
+        And   I should see "Best Mathematic 2014 1"
+        And   I should see "Best Mathematic 2014 2"
+        And   I should see "Best Mathematic 2013 1"
+        And   I should see "Best Philosophic 2013 1"
+        And   I should not see "Awesome Philosophic 2013 1"
+
+    @javascript
+    Scenario: Filtering events by direction "Mathematic"
+        When  I follow "Enseignements"
+        And   I click on the element "#ui-accordion-accordion-header-2"
+        And   I follow "Mathematic"
+        Then  I should see 2 ".left-column" element
+        And   I should see "Best News 2013"
+        And   I should see "Best News 2014"
+        And   I should not see "Archived Top 2013"
+        And   I should not see "Awesome Top 2013"
+        And   I should see 3 ".detail-box" element
+        And   I should see "Best Mathematic 2014 1"
+        And   I should see "Best Mathematic 2014 2"
+        And   I should see "Best Mathematic 2013 1"
+        And   I should not see "Best Philosophic 2013 1"
+        And   I should not see "Awesome Philosophic 2013 1"
+
+    @javascript
+    Scenario: Filtering events by direction "Mathematic"
+        When  I follow "Enseignements"
+        And   I click on the element "#ui-accordion-accordion-header-2"
+        And   I follow "Mathematic"
+        Then  I should see 2 ".left-column" element
+        And   I should see "Best News 2013"
+        And   I should see "Best News 2014"
+        And   I should not see "Archived Top 2013"
+        And   I should not see "Awesome Top 2013"
+        And   I should see 3 ".detail-box" element
+        And   I should see "Best Mathematic 2014 1"
+        And   I should see "Best Mathematic 2014 2"
+        And   I should see "Best Mathematic 2013 1"
+        And   I should not see "Best Philosophic 2013 1"
+        And   I should not see "Awesome Philosophic 2013 1"

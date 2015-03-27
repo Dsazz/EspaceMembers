@@ -57,4 +57,20 @@ class WebContext extends DefaultContext
     {
         $this->getSession()->wait(1000*$seconds);
     }
+
+    /**
+     * Click on the element with the provided CSS Selector
+     *
+     * @When /^I click on the element "([^"]*)"$/
+     */
+    public function iClickOnTheElement($cssSelector)
+    {
+        $element = $this->getSession()->getPage()->find('css', $cssSelector);
+
+        if (null === $element) {
+            throw new \InvalidArgumentException(sprintf('Could not evaluate CSS Selector: "%s"', $cssSelector));
+        }
+
+        $element->click();
+    }
 }

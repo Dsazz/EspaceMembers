@@ -42,7 +42,7 @@ class TeachingController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $pagerfanta = $em->getRepository('EspaceMembersMainBundle:Event')
-            ->filterByYearWithPaging($year, $this->getUser());
+            ->filterByYearWithPaging($year);
 
         $this->setCurrentPageOr404($pagerfanta, $page);
 
@@ -58,23 +58,7 @@ class TeachingController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $pagerfanta = $em->getRepository('EspaceMembersMainBundle:Event')
-            ->filterByCategoryWithPaging($category_id, $this->getUser()->getId());
-
-        $this->setCurrentPageOr404($pagerfanta, $page);
-
-        return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
-            'paginator'  => $pagerfanta,
-            'events'     => $pagerfanta->getCurrentPageResults(),
-            'bookmarksId' => $em->getRepository('EspaceMembersMainBundle:User')
-                ->getBookmarksId($this->getUser()),
-        ));
-    }
-
-    public function filterDirectionAction($direction_id, $page)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $pagerfanta = $em->getRepository('EspaceMembersMainBundle:Event')
-            ->filterByDirectionWithPaging($direction_id, $this->getUser()->getId());
+            ->filterByCategoryWithPaging($category_id);
 
         $this->setCurrentPageOr404($pagerfanta, $page);
 
@@ -102,19 +86,28 @@ class TeachingController extends Controller
         ));
     }
 
+    public function filterDirectionAction($direction_id, $page)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $pagerfanta = $em->getRepository('EspaceMembersMainBundle:Event')
+            ->filterByDirectionWithPaging($direction_id);
+
+        $this->setCurrentPageOr404($pagerfanta, $page);
+
+        return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
+            'paginator'  => $pagerfanta,
+            'events'     => $pagerfanta->getCurrentPageResults(),
+            'bookmarksId' => $em->getRepository('EspaceMembersMainBundle:User')
+                ->getBookmarksId($this->getUser()),
+        ));
+    }
+
     public function filterTagAction($tag_id, $page)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $filteredEvents = array_merge(
-            $em->getRepository('EspaceMembersMainBundle:Event')->filterByTagTeaching($tag_id, $this->getUser()->getId()),
-            $em->getRepository('EspaceMembersMainBundle:Event')->filterByTagEvent($tag_id, $this->getUser()->getId())
-        );
-
-        $adapter = new ArrayAdapter($filteredEvents);
-        $pagerfanta = new Pagerfanta($adapter);
-
-        $pagerfanta->setMaxPerPage(Event::MAX_PER_PAGE);
+        $pagerfanta = $em->getRepository('EspaceMembersMainBundle:Event')
+            ->filterByTagTeachingsAndEvents($tag_id);
 
         $this->setCurrentPageOr404($pagerfanta, $page);
 
