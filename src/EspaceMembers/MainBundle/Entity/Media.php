@@ -3,13 +3,11 @@
 namespace EspaceMembers\MainBundle\Entity;
 
 use Sonata\MediaBundle\Entity\BaseMedia as BaseMedia;
-use GetId3\GetId3Core as GetId3;
 
 class Media extends BaseMedia
 {
-
     protected $id;
-    protected $path;
+    protected $playtime;
 
     /**
      * {@inheritdoc}
@@ -20,36 +18,25 @@ class Media extends BaseMedia
     }
 
     /**
-     * Set path
+     * Set playtime
      *
-     * @param  string $path
+     * @param  string $playtime
      * @return Media
      */
-    public function setPath($path)
+    public function setPlaytime($playtime)
     {
-        $this->path = $path;
+        $this->playtime = $playtime;
 
         return $this;
     }
 
     /**
-     * Get path
+     * Get playtime
      *
      * @return string
      */
-    public function getPath()
+    public function getPlaytime()
     {
-        return $this->path;
-    }
-
-    public function getPlayingTime($pathToMedia)
-    {
-        $pathToMedia =  __DIR__.'/../../../../web'.trim($pathToMedia);
-        $getId3 = new GetId3();
-
-        $audio = $getId3->analyze($pathToMedia);
-        $this->setLength(isset($audio['playtime_string']) ? $audio['playtime_string'] : '');
-
-        return $this->getLength();
+        return $this->playtime;
     }
 }

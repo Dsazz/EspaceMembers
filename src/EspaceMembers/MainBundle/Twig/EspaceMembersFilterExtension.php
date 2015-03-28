@@ -30,8 +30,12 @@ class EspaceMembersFilterExtension extends Twig_Extension
 
     public function filterIsBookmark($bookmarksId, $teachingId)
     {
+        if (empty($bookmarksId)) {
+            return false;
+        }
+
         $bookmarksId = array_filter($bookmarksId, function ($element) use ($teachingId) {
-            return $element['id'] === $teachingId;
+            return $element === $teachingId;
         });
 
         return count($bookmarksId) > 0;

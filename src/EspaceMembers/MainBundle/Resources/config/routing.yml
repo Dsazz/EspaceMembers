@@ -1,3 +1,15 @@
+espace_members_filter_teaching:
+  resource: "@EspaceMembersMainBundle/Resources/config/routing/filter_teaching_routing.yml"
+  prefix: /filter
+
+espace_members_community_page:
+  resource: "@EspaceMembersMainBundle/Resources/config/routing/community_routing.yml"
+  prefix: /community
+
+espace_members_bookmark_page:
+  resource: "@EspaceMembersMainBundle/Resources/config/routing/bookmark_routing.yml"
+  prefix: /bookmark
+
 espace_members_teaching:
     path:     /{page}
     defaults: { _controller: EspaceMembersMainBundle:Teaching:index, page: 1 }
@@ -6,7 +18,7 @@ espace_members_teaching:
         page: \d+
 
 espace_members_playing_teaching:
-    pattern:  /teaching/{teaching_id}/teacher/{teacher_id}/event/{event_id}
+    pattern:  /playing/teaching/{teaching_id}/teacher/{teacher_id}/event/{event_id}
     defaults: { _controller: EspaceMembersMainBundle:Teaching:play }
     requirements:
         _method: GET
@@ -17,88 +29,11 @@ espace_members_playing_teaching:
         expose: true
 
 espace_members_detail_teaching:
-    pattern:  /event/{event_id}
+    pattern:  /detail/event/{event_id}
     defaults: { _controller: EspaceMembersMainBundle:Teaching:viewDetail }
     requirements:
         _method: GET
         event_id: \d+
-    options:
-        expose: true
-
-espace_members_filter_teaching_chronology:
-    pattern:  /filter/chronology/{year}/{page}
-    defaults: { _controller: EspaceMembersMainBundle:Teaching:filterChronology, page: 1 }
-    requirements:
-        _method: GET
-        year: \d+
-    options:
-        expose: true
-
-espace_members_filter_teaching_category:
-    pattern:  /filter/category/{category_id}/{page}
-    defaults: { _controller: EspaceMembersMainBundle:Teaching:filterCategory, page: 1 }
-    requirements:
-        _method: GET
-        category_id: \d+
-    options:
-        expose: true
-
-espace_members_filter_teaching_direction:
-    pattern:  /filter/direction/{direction_id}/{page}
-    defaults: { _controller: EspaceMembersMainBundle:Teaching:filterDirection, page: 1 }
-    requirements:
-        _method: GET
-        voie_id: \d+
-    options:
-        expose: true
-
-espace_members_filter_teaching_teacher:
-    pattern:  /filter/teacher/{teacher_id}/{page}
-    defaults: { _controller: EspaceMembersMainBundle:Teaching:filterTeacher, page: 1 }
-    requirements:
-        _method: GET
-        teacher_id: \d+
-    options:
-        expose: true
-
-espace_members_filter_teaching_tag:
-    pattern:  /filter/tag/{tag_id}/{page}
-    defaults: { _controller: EspaceMembersMainBundle:Teaching:filterTag, page: 1 }
-    requirements:
-        _method: GET
-        tag_id: \d+
-    options:
-        expose: true
-
-espace_members_community:
-    path:     /community
-    defaults: { _controller: EspaceMembersMainBundle:Community:index }
-
-espace_members_community_filter:
-    path:     /community/group/{group_name}
-    defaults: { _controller: EspaceMembersMainBundle:Community:filterByGroup }
-
-espace_members_bookmark_show:
-    path:     /bookmark/show/{page}
-    defaults: { _controller: EspaceMembersMainBundle:Bookmark:index, page: 1 }
-
-espace_members_bookmark_add:
-    pattern:  /bookmark/add/{id}
-    defaults: { _controller: EspaceMembersMainBundle:Bookmark:add, _format: json }
-    condition: "request.headers.get('X-Requested-With') == 'XMLHttpRequest'"
-    requirements:
-        _method: GET
-        tag_id: \d+
-    options:
-        expose: true
-
-espace_members_bookmark_remove:
-    pattern:  /bookmark/remove/{id}
-    defaults: { _controller: EspaceMembersMainBundle:Bookmark:remove, _format: json }
-    condition: "request.headers.get('X-Requested-With') == 'XMLHttpRequest'"
-    requirements:
-        _method: GET
-        tag_id: \d+
     options:
         expose: true
 

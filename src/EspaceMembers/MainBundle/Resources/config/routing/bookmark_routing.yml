@@ -1,0 +1,23 @@
+espace_members_bookmark_show:
+    path:     /show/{page}
+    defaults: { _controller: EspaceMembersMainBundle:Bookmark:index, page: 1 }
+
+espace_members_bookmark_add:
+    pattern:  /add/{id}
+    defaults: { _controller: EspaceMembersMainBundle:Bookmark:add, _format: json }
+    condition: "request.headers.get('X-Requested-With') == 'XMLHttpRequest'"
+    requirements:
+        _method: GET
+        tag_id: \d+
+    options:
+        expose: true
+
+espace_members_bookmark_remove:
+    pattern:  /remove/{id}
+    defaults: { _controller: EspaceMembersMainBundle:Bookmark:remove, _format: json }
+    condition: "request.headers.get('X-Requested-With') == 'XMLHttpRequest'"
+    requirements:
+        _method: GET
+        tag_id: \d+
+    options:
+        expose: true

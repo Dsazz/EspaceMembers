@@ -5,6 +5,8 @@ namespace EspaceMembers\MainBundle\Behat;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Behat\Mink\Driver\BrowserKitDriver;
+use Behat\Mink\Exception\ElementNotFoundException;
+
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
@@ -56,5 +58,40 @@ class WebContext extends DefaultContext
     public function waitSeconds($seconds)
     {
         $this->getSession()->wait(1000*$seconds);
+    }
+
+    /**
+     * Click on the element with the provided CSS Selector
+     *
+     * @When /^I click on the element "([^"]*)"$/
+     */
+    public function iClickOnTheElement($cssSelector)
+    {
+        $element = $this->getSession()->getPage()->find('css', $cssSelector);
+
+        if (null === $element) {
+            throw new \InvalidArgumentException(sprintf('Could not evaluate CSS Selector: "%s"', $cssSelector));
+        }
+
+        $element->click();
+    }
+
+    /**
+     * Check that the element contains a class
+     *
+     * @Then /^the "(?P<cssSelector>(?:[^"]|\\")*)" element should has class "(?P<class>(?:[^"]|\\")*)"$/
+     */
+    public function theElementShouldHasClass($cssSelector, $class)
+    {
+        $element = $this->getSession()->getPage()->find('css', $cssSelector);
+
+        if (null === $element) {
+            throw new ElementNotFoundException($this->getSession(), 'link', 'class', $cssSelector);
+        }
+
+        //TODO: Download Selenium 2.45 because method hasClass not works in current version
+        //if (!$element->hasClass($class)) {
+            //throw new \Exception(sprintf('Could not find %s class in element: "%s"', $class, $cssSelector));
+        //}
     }
 }

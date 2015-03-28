@@ -8,6 +8,7 @@ use Doctrine\ORM\Query;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use EspaceMembers\MainBundle\Entity\Event;
+use EspaceMembers\MainBundle\Entity\Teaching;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 use PDO;
@@ -35,6 +36,37 @@ class UserRepository extends EntityRepository
             ->getResult();
     }
 
+    public function findTeacherByEvent($userId, $eventId)
+    {
+        return $qb = $this->createQueryBuilder('u')
+            ->select(
+                'partial u.{
+                    id, first_name, last_name, address, phone, email, is_teacher
+                }'
+            )
+            ->addSelect(
+                'partial tch.{
+                    id, title, serial, lesson, dayNumber, dayTime, date
+                }'
+            )
+            ->addSelect('partial lsn.{id, contentType, playtime}')
+            ->addSelect(
+                'partial avatar.{
+                    id, providerName, providerStatus, providerReference,
+                    width, height, contentType, context
+                }'
+            )
+            ->innerJoin('u.teachings', 'tch', 'WITH', 'tch.is_show = 1 AND tch.event = :event_id')
+            ->innerJoin('tch.lesson', 'lsn')
+            ->innerJoin('u.avatar', 'avatar')
+            ->where('u.is_teacher = 1 AND u.id = :user_id')
+            ->setParameter("event_id", $eventId)
+            ->setParameter("user_id", $userId)
+            ->orderBy('u.last_name', 'ASC')
+            ->getQuery()
+            ->getOneOrNullResult(Query::HYDRATE_ARRAY);
+    }
+
     public function findTeachersByGroup($groupName)
     {
         return $qb = $this->createQueryBuilder('u')
@@ -55,63 +87,8 @@ class UserRepository extends EntityRepository
             ->setParameter("group_name", $groupName)
             ->getQuery()
             ->useResultCache(true, 3600)
-            ->getResult();
+            ->getArrayResult();
     }
-
-    public function findTeachersWithLessons()
-    {
-        return $qb = $this->createQueryBuilder('u')
-            ->select(
-                'partial u.{
-                    id, first_name, last_name, address, phone, email, is_teacher
-                }'
-            )
-            ->addSelect(
-                'partial avatar.{
-                    id, providerName, providerStatus, providerReference,
-                    width, height, contentType, context
-                }'
-            )
-
-            ->innerJoin('u.teachings', 'tch', 'WITH', 'tch.is_show = 1')
-            ->innerJoin('u.avatar', 'avatar')
-            ->innerJoin('tch.event', 'ev')
-            ->where('u.is_teacher = 1')
-            ->orderBy('u.last_name', 'ASC')
-            ->getQuery()
-            ->useResultCache(true, 3600)
-            ->getResult();
-    }
-
-    //TODO: Create partial select
-    public function findTeachingsByEvent($userId, $eventId)
-    {
-        return $qb = $this->createQueryBuilder('u')
-            ->select('u, t')
-            ->innerJoin('u.teachings', 't', 'WITH', 't.is_show = 1')
-            ->innerJoin('t.event', 'e', 'WITH', 'e.id = :eventId')
-            ->where('u.is_teacher = 1')
-            ->andWhere('u.id = :user_id')
-            ->setParameter("eventId", $eventId)
-            ->setParameter("user_id", $userId)
-            ->orderBy('u.last_name', 'ASC')
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
-
-    public function isBookmark($userId, $teachingId)
-    {
-        return (bool) $qb = $this->createQueryBuilder('u')
-            ->select('u.id')
-            ->innerJoin('u.teachings', 't', 'WITH', 't.id = :teaching_id')
-            ->where("u.id = :user_id")
-            ->setParameter("teaching_id", $teachingId)
-            ->setParameter("user_id", $userId)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
-
-
 
     public function getBookmarksData(UserInterface $user)
     {
@@ -134,18 +111,31 @@ class UserRepository extends EntityRepository
             $bookmarkData['event_id'][] = $data['event_id'];
         }
 
+        if (empty($bookmarkData)) {
+            $bookmarkData['user_id'][] = 0;
+            $bookmarkData['teaching_id'][] = 0;
+            $bookmarkData['event_id'][] = 0;
+        }
+
         return $bookmarkData;
     }
 
     public function getBookmarksId(UserInterface $user)
     {
-        return $qb = $this->createQueryBuilder('u')
-            ->select('partial u.{id}')
-            ->addSelect('partial bk.{id}')
-            ->innerJoin('u.bookmarks', 'bk')
-            ->where('u = :user')
-            ->setParameter("user", $user)
-            ->getQuery()
-            ->getOneOrNullResult(Query::HYDRATE_ARRAY);
+        $sql = "
+            SELECT bu.teaching_id FROM bookmarks_users as bu
+            WHERE bu.user_id = :user_id
+        ";
+
+        $stmt = $this->_em->getConnection()->prepare($sql);
+        $stmt->bindValue('user_id', $user->getId());
+        $stmt->execute();
+
+        $bookmarksId = [];
+        foreach ($stmt->fetchAll(PDO::FETCH_COLUMN) as $data) {
+            $bookmarksId[] = (int)$data;
+        }
+
+        return $bookmarksId;
     }
 }
