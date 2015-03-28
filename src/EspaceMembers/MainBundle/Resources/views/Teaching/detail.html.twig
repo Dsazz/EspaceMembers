@@ -17,10 +17,7 @@
         </span>
 
         <div class="image-box">
-            {% media event.frontImage.providerReference, 'big' with {
-                    'width': '175px', 'height': '175px', 'alt': 'image', 'title': ''
-                }
-            %}
+            <img src="{{ path_to_media_by_array(event.frontImage, 'big') }}" width="175px" height="175px" alt="image">
             <span class="describe">
                 Du {{ event.startDate|localizeddate('none', 'none', 'fr_FR' , null, 'd LLLL')|title }}
                 Au {{ event.completionDate|localizeddate('none', 'none', 'fr_FR' , null, 'd LLLL')|title }}
@@ -30,7 +27,7 @@
 
             <p>Enseignant(s):<br />
             {% for teacher in event.users %}
-                <a href="#" class="link">{{ teacher.lastName }} {{ teacher.firstName }}<br /></a>
+                <a href="#" class="link">{{ teacher.last_name }} {{ teacher.first_name }}<br /></a>
             {% else %}
                 <a href="#" class="link">Not found teachers</a>
             {% endfor %}
@@ -47,49 +44,13 @@
                 <a href="#" class="theme-button">Not found tag</a>
             {% endfor %}
             </p>
-
         </div>
 
         {% for teacher in event.users %}
-        <div class="detail-box">
-            <span class="sub-heading">
-                {% media teacher.avatar.providerReference, 'small' with { 'width': '30px', 'height': '30px', 'alt': 'flag', 'title': '' } %}
-                {{ teacher.lastName }} {{ teacher.firstName }}
-            </span>
-            {% for teaching in teacher.teachings %}
-            <div class="item">
-                <div class="hoverclick">
-                    <span class="categorie">Causerie {{ teaching.serial }}</span>
-                    <a href="{{ path('espace_members_playing_teaching', {
-                        'event_id' : event.id,
-                        'teacher_id' : teacher.id,
-                        'teaching_id' : teaching.id
-                    } ) }}" class="tittle">
-                        {{ teaching.title|length > 20 ?  teaching.title|slice(0, 20) ~ '...' : teaching.title }}
-                        <span class="uploaded-time">Jour {{ teaching.dayNumber }},
-                            {{ teaching.date|localizeddate('none', 'none', 'fr_FR' , null, 'd
-                            LLLL Y') }} (env. {{teaching.dayTime}} )
-                        </span>
-                    </a>
-                    {% if teaching.lesson.contentType == 'audio/mpeg' %}
-                    <a href="#" class="play"><img src="{{ asset('bundles/espacemembersmain/images/audio.png') }}" alt="icon" /></a>
-
-                    {% set pathToMedia  %} {% path teaching.lesson, "reference" %} {% endset %}
-                    <span class="time">{{ teaching.lesson.getPlayingTime(pathToMedia) }}</span>
-                    {% else %}
-                    <a href="#" class="play"><img src="{{ asset('bundles/espacemembersmain/images/video.png') }}" alt="icon" /></a>
-                    {% set pathToMedia  %} {% path teaching.lesson, "reference" %} {% endset %}
-                    <span class="time">{{ teaching.lesson.getPlayingTime(pathToMedia) }}</span>
-                    {% endif %}
-                </div>
-
-                <a href="#" class="fav"></a>
-            </div>
-            {% endfor %}
-
-        </div>
+            {{ include('EspaceMembersMainBundle:Template/left-block:detail-box.html.twig', {
+                'teacher' : teacher, 'avatar' : teacher.avatar, 'bookmarksId' : bookmarksId
+            }) }}
         {% endfor %}
-
     </div>
     <div class="clear"><!-- --></div>
 {% endblock %}

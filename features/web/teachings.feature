@@ -49,10 +49,10 @@ Feature: Teachings
             | Best Philosophic 2013 1    | teacher2@test.com                    | Best    | Philosophic | 1      | Best News 2013   |
         And I am logged in as "student@test.com" with password "student"
         Then  I should be on "/profile/"
+        And   I follow "Enseignements"
 
     @javascript
     Scenario: Index action return the correct number events
-        When  I follow "Enseignements"
         Then  I should see 2 ".left-column" element
         And   I should see "Best News 2014"
         And   I should see "Best News 2013"
@@ -62,8 +62,7 @@ Feature: Teachings
 
     @javascript
     Scenario: Filtering events for 2013
-        When  I follow "Enseignements"
-        And   I click on the element "#ui-accordion-accordion-header-0"
+        When  I click on the element "#ui-accordion-accordion-header-0"
         And   I follow "2013"
         Then  I should see 1 ".left-column" element
         And   I should see "Best News 2013"
@@ -79,8 +78,7 @@ Feature: Teachings
 
     @javascript
     Scenario: Filtering events by category "News"
-        When  I follow "Enseignements"
-        And   I click on the element "#ui-accordion-accordion-header-1"
+        When  I click on the element "#ui-accordion-accordion-header-1"
         And   I follow "News"
         Then  I should see 2 ".left-column" element
         And   I should see "Best News 2013"
@@ -96,8 +94,7 @@ Feature: Teachings
 
     @javascript
     Scenario: Filtering events by direction "Mathematic"
-        When  I follow "Enseignements"
-        And   I click on the element "#ui-accordion-accordion-header-2"
+        When  I click on the element "#ui-accordion-accordion-header-2"
         And   I follow "Mathematic"
         Then  I should see 2 ".left-column" element
         And   I should see "Best News 2013"
@@ -112,18 +109,45 @@ Feature: Teachings
         And   I should not see "Awesome Philosophic 2013 1"
 
     @javascript
-    Scenario: Filtering events by direction "Mathematic"
-        When  I follow "Enseignements"
-        And   I click on the element "#ui-accordion-accordion-header-2"
-        And   I follow "Mathematic"
+    Scenario: Filtering events by teacher "King Stiven"
+        When  I click on the element "#ui-accordion-accordion-header-3"
+        And   I follow "King Stiven"
+        Then  I should see 2 ".left-column" element
+        And   I should see "King Stiven"
+        And   I should see "Best News 2013"
+        And   I should see "Best News 2014"
+        And   I should not see "Archived Top 2013"
+        And   I should not see "Awesome Top 2013"
+        And   I should see 2 ".detail-box" element
+        And   I should see "Best Mathematic 2014 1"
+        And   I should see "Best Mathematic 2013 1"
+        And   I should not see "Best Mathematic 2014 2"
+        And   I should not see "Best Philosophic 2013 1"
+        And   I should not see "Awesome Philosophic 2013 1"
+
+    @javascript
+    Scenario: Filtering events by tag "Best"
+        When   I click on the element "#ui-accordion-accordion-header-4"
+        And   I follow "Best"
         Then  I should see 2 ".left-column" element
         And   I should see "Best News 2013"
         And   I should see "Best News 2014"
         And   I should not see "Archived Top 2013"
         And   I should not see "Awesome Top 2013"
-        And   I should see 3 ".detail-box" element
+        And   I should see 4 ".detail-box" element
         And   I should see "Best Mathematic 2014 1"
         And   I should see "Best Mathematic 2014 2"
         And   I should see "Best Mathematic 2013 1"
-        And   I should not see "Best Philosophic 2013 1"
+        And   I should see "Best Philosophic 2013 1"
         And   I should not see "Awesome Philosophic 2013 1"
+
+    @data
+    Scenario: Adding one bookmark
+        When  I click on the element "a.follow.fav[data-id='1']"
+        And   I follow "bookmarks"
+        Then  I should see 1 ".left-column" element
+        And   I should see 1 ".detail-box" element
+        And   I should see "Best News 2014"
+        And   I should see "King Stiven"
+        And   I should see "Best Mathematic 2014 1"
+        #And   the "a.follow.fav[data-id='1']" element should has class "active"

@@ -1,0 +1,7 @@
+espace_members_community:
+    path:     /
+    defaults: { _controller: EspaceMembersMainBundle:Community:index }
+
+espace_members_community_filter:
+    path:     /group/{group_name}
+    defaults: { _controller: EspaceMembersMainBundle:Community:filterByGroup }

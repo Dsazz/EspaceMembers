@@ -32,7 +32,6 @@ default:
                 debug: true
         Behat\MinkExtension:
             base_url: 'http://espacemembers.ua/app_test.php/'
-            browser_name: firefox
             javascript_session: selenium2
             goutte: ~
             selenium2: ~

@@ -18,15 +18,44 @@ class EventRepository extends EntityRepository
     public function findEventWithTeachers($eventId)
     {
         return $qb = $this->createQueryBuilder('ev')
-            ->select('partial ev.{id, title, year, frontImage, category}')
-            ->addSelect('partial u.{id, avatar, last_name, first_name}')
-            ->innerJoin('ev.users', 'u')
-            ->innerJoin('u.teachings', 't', 't.is_show = 1')
-            ->innerJoin('t.event', 'e2', 'WITH', 'e2.title = ev.title')
+            ->select(
+                'partial ev.{
+                    id, title, category, year, frontImage,
+                    startDate, completionDate, description
+                }'
+            )
+            ->addSelect('partial c.{id, title}')
+            ->addSelect('partial tgs.{id, title}')
+            ->addSelect('partial u.{id, last_name, first_name, avatar}')
+            ->addSelect(
+                'partial tch.{
+                    id, title, serial, lesson, dayNumber, dayTime, date
+                }'
+            )
+            ->addSelect('partial lsn.{id, contentType, playtime}')
+            ->addSelect(
+                'partial frntImg.{
+                    id, providerName, providerStatus, providerReference,
+                        width, height, contentType, context
+                }'
+            )
+            ->addSelect(
+                'partial avatar.{
+                    id, providerName, providerStatus, providerReference,
+                        width, height, contentType, context
+                }'
+            )
+            ->innerJoin('ev.users', 'u', 'WITH', 'u.is_teacher = 1')
+            ->innerJoin('ev.category', 'c')
+            ->innerJoin('ev.frontImage', 'frntImg')
+            ->innerJoin('ev.tags', 'tgs')
+            ->innerJoin('u.teachings', 'tch', 'WITH', 'tch.is_show = 1 AND tch.event = ev')
+            ->innerJoin('u.avatar', 'avatar')
+            ->innerJoin('tch.lesson', 'lsn')
             ->where('ev.id = :event_id')
             ->setParameter('event_id', $eventId)
             ->getQuery()
-            ->getSingleResult();
+            ->getOneOrNullResult(Query::HYDRATE_ARRAY);
     }
 
     public function findAllWithPaging()
@@ -44,17 +73,17 @@ class EventRepository extends EntityRepository
                     id, title, serial, lesson, dayNumber, dayTime, date
                 }'
             )
-            ->addSelect('partial lsn.{id, contentType, path}')
+            ->addSelect('partial lsn.{id, contentType, playtime}')
             ->addSelect(
                 'partial frntImg.{
                     id, providerName, providerStatus, providerReference,
-                        width, height, contentType, context
+                    width, height, contentType, context
                 }'
             )
             ->addSelect(
                 'partial avatar.{
                     id, providerName, providerStatus, providerReference,
-                        width, height, contentType, context
+                    width, height, contentType, context
                 }'
             )
             ->innerJoin('ev.users', 'u', 'WITH', 'u.is_teacher = 1')
@@ -89,7 +118,7 @@ class EventRepository extends EntityRepository
                 }'
             )
             ->addSelect('partial c.{id, title}')
-            ->addSelect('partial lsn.{id, contentType, path}')
+            ->addSelect('partial lsn.{id, contentType, playtime}')
             ->addSelect(
                 'partial frntImg.{
                     id, providerName, providerStatus, providerReference,
@@ -99,7 +128,7 @@ class EventRepository extends EntityRepository
             ->addSelect(
                 'partial avatar.{
                     id, providerName, providerStatus, providerReference,
-                        width, height, contentType, context
+                    width, height, contentType, context
                 }'
             )
             ->innerJoin('ev.users', 'u', 'WITH', 'u.is_teacher = 1')
@@ -136,11 +165,11 @@ class EventRepository extends EntityRepository
                 }'
             )
             ->addSelect('partial c.{id, title}')
-            ->addSelect('partial lsn.{id, contentType, path}')
+            ->addSelect('partial lsn.{id, contentType, playtime}')
             ->addSelect(
                 'partial frntImg.{
                     id, providerName, providerStatus, providerReference,
-                        width, height, contentType, context
+                    width, height, contentType, context
                 }'
             )
             ->addSelect(
@@ -183,7 +212,7 @@ class EventRepository extends EntityRepository
                 }'
             )
             ->addSelect('partial c.{id, title}')
-            ->addSelect('partial lsn.{id, contentType, path}')
+            ->addSelect('partial lsn.{id, contentType, playtime}')
             ->addSelect(
                 'partial frntImg.{
                     id, providerName, providerStatus, providerReference,
@@ -193,7 +222,7 @@ class EventRepository extends EntityRepository
             ->addSelect(
                 'partial avatar.{
                     id, providerName, providerStatus, providerReference,
-                        width, height, contentType, context
+                    width, height, contentType, context
                 }'
             )
             ->innerJoin('ev.users', 'u', 'WITH', 'u.is_teacher = 1 AND u.id = :teacher_id')
@@ -227,11 +256,11 @@ class EventRepository extends EntityRepository
                 }'
             )
             ->addSelect('partial c.{id, title}')
-            ->addSelect('partial lsn.{id, contentType, path}')
+            ->addSelect('partial lsn.{id, contentType, playtime}')
             ->addSelect(
                 'partial frntImg.{
                     id, providerName, providerStatus, providerReference,
-                        width, height, contentType, context
+                    width, height, contentType, context
                 }'
             )
             ->addSelect(
@@ -273,7 +302,7 @@ class EventRepository extends EntityRepository
                 }'
             )
             ->addSelect('partial c.{id, title}')
-            ->addSelect('partial lsn.{id, contentType, path}')
+            ->addSelect('partial lsn.{id, contentType, playtime}')
             ->addSelect(
                 'partial frntImg.{
                     id, providerName, providerStatus, providerReference,
@@ -351,7 +380,7 @@ class EventRepository extends EntityRepository
         $rsm->addJoinedEntityResult('EspaceMembers\MainBundle\Entity\Media', 'lsn', 'tch', 'lesson');
         $rsm->addFieldResult('lsn', 'lesson_id', 'id');
         $rsm->addFieldResult('lsn', 'lsn_contentType', 'contentType');
-        $rsm->addFieldResult('lsn', 'path', 'path');
+        $rsm->addFieldResult('lsn', 'playtime', 'playtime');
 
         $sql =
             '( SELECT ev.id as event_id, ev.title, ev.year, ev.startDate , ev.completionDate , '.
@@ -363,7 +392,7 @@ class EventRepository extends EntityRepository
                 'avatar.id as avatar_id, avatar.provider_name, avatar.provider_status, '.
                 'avatar.provider_reference, avatar.width, avatar.height, avatar.content_type, avatar.context, '.
                 'tch.id as teaching_id, tch.title as tch_title, tch.serial, tch.dayNumber, tch.dayTime, tch.date, '.
-                'lsn.id as lesson_id, lsn.content_type as lsn_contentType, lsn.path '.
+                'lsn.id as lesson_id, lsn.content_type as lsn_contentType, lsn.playtime '.
 
             'FROM event as ev '.
 
@@ -390,7 +419,7 @@ class EventRepository extends EntityRepository
                 'avatar.id as avatar_id, avatar.provider_name, avatar.provider_status, '.
                 'avatar.provider_reference, avatar.width, avatar.height, avatar.content_type, avatar.context, '.
                 'tch.id as teaching_id, tch.title as tch_title, tch.serial, tch.dayNumber, tch.dayTime, tch.date, '.
-                'lsn.id as lesson_id, lsn.content_type as lsn_contentType, lsn.path '.
+                'lsn.id as lesson_id, lsn.content_type as lsn_contentType, lsn.playtime '.
 
             'FROM event as ev '.
 
@@ -441,17 +470,17 @@ class EventRepository extends EntityRepository
                     id, title, serial, lesson, dayNumber, dayTime, date
                 }'
             )
-            ->addSelect('partial lsn.{id, contentType, path}')
+            ->addSelect('partial lsn.{id, contentType, playtime}')
             ->addSelect(
                 'partial frntImg.{
                     id, providerName, providerStatus, providerReference,
-                        width, height, contentType, context
+                    width, height, contentType, context
                 }'
             )
             ->addSelect(
                 'partial avatar.{
                     id, providerName, providerStatus, providerReference,
-                        width, height, contentType, context
+                    width, height, contentType, context
                 }'
             )
             ->innerJoin('ev.users', 'u', 'WITH', 'u.is_teacher = 1 AND u.id IN (:teachers) ')

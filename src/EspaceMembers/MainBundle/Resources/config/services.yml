@@ -3,6 +3,9 @@ parameters:
     sonata.user.admin.user.entity: EspaceMembers\MainBundle\Entity\User
 
 services:
+    getid3:
+        class: GetId3\GetId3Core
+
     sonata.user.admin.group:
         abstract: true
         public: false
@@ -78,8 +81,15 @@ services:
         tags:
             - { name: twig.extension }
 
-    espacemembers.media.twig.extension:
+    twig.sonata_media.extension:
         class: EspaceMembers\MainBundle\Twig\Extension\MediaExtension
-        arguments: ["@sonata.media.pool", "@sonata.media.manager.media", "%sonata_media_cdn_server_path%"]
+        arguments: ["@sonata.media.pool", "@sonata.media.manager.media", "%sonata_media_cdn_server_path%", "%kernel.root_dir%"]
         tags:
             - { name: twig.extension }
+
+    #Doctrine Media Listener
+    media_listener:
+        class: EspaceMembers\MainBundle\Entity\Listener\MediaListener
+        arguments: ["@service_container"]
+        tags:
+            - { name: doctrine.orm.entity_listener }
