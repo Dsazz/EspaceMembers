@@ -1,0 +1,44 @@
+espace_members_filter_teaching_chronology:
+    pattern:  /chronology/{year}/{page}
+    defaults: { _controller: EspaceMembersMainBundle:Teaching:filterChronology, page: 1 }
+    requirements:
+        _method: GET
+        year: \d+
+    options:
+        expose: true
+
+espace_members_filter_teaching_category:
+    pattern:  /category/{category_id}/{page}
+    defaults: { _controller: EspaceMembersMainBundle:Teaching:filterCategory, page: 1 }
+    requirements:
+        _method: GET
+        category_id: \d+
+    options:
+        expose: true
+
+espace_members_filter_teaching_direction:
+    pattern:  /direction/{direction_id}/{page}
+    defaults: { _controller: EspaceMembersMainBundle:Teaching:filterDirection, page: 1 }
+    requirements:
+        _method: GET
+        voie_id: \d+
+    options:
+        expose: true
+
+espace_members_filter_teaching_teacher:
+    pattern:  /teacher/{teacher_id}/{page}
+    defaults: { _controller: EspaceMembersMainBundle:Teaching:filterTeacher, page: 1 }
+    requirements:
+        _method: GET
+        teacher_id: \d+
+    options:
+        expose: true
+
+espace_members_filter_teaching_tag:
+    pattern:  /tag/{tag_id}/{page}
+    defaults: { _controller: EspaceMembersMainBundle:Teaching:filterTag, page: 1 }
+    requirements:
+        _method: GET
+        tag_id: \d+
+    options:
+        expose: true

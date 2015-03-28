@@ -10,6 +10,7 @@
     {{ parent() }}
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/espacemembersmain/css/msdropdown/dd.css') }}" />
 {% endblock %}
+
 {% block javascript %}
     {{ parent() }}
     <script src="{{ asset('bundles/espacemembersmain/js/msdropdown/jquery.dd.min.js') }}" type="text/javascript"></script>
@@ -19,9 +20,7 @@
 {% block body %}
 <div class="content">
     <div class="topbar">
-        {% media event.frontImage, 'small' with {
-            'width': '50px', 'height': '50px', 'class': 'leftimg', 'alt': 'image', 'title': ''
-        } %}
+        <img src="{{ path_to_media_by_array(event.frontImage, 'small') }}" width="50px" height="50px" class="leftimg" alt="image">
 
         <h2>{{ event.title|capitalize }}</h2>
 
@@ -35,11 +34,11 @@
                                 'teaching_id' : teachingCurr.id })
                             }}"
                             {% if teacher.id == teacherCurr.id %}
-                                selected="selected" title="{% path teacher.avatar, 'very_small' %}"
+                                selected="selected" title="{{ path_to_media_by_array(teacher.avatar, 'very_small') }}"
                             {% else %}
-                                data-image="{% path teacher.avatar, 'very_small' %}"
+                                data-image="{{ path_to_media_by_array(teacher.avatar, 'very_small') }}"
                             {% endif %}>
-                            {{ teacher.lastName }} {{ teacher.firstName }}
+                            {{ teacher.last_name }} {{ teacher.first_name }}
                         </option>
                     {% endfor %}
                 </select>
@@ -64,7 +63,7 @@
                             <li data-serial="{{ teaching.serial }}">
                                 <span class="categorie">Causerie {{ teaching.serial }}</span>
                                 <a href="{{ pathToPlayingTeaching }}" class="tittle">
-                                    {{ teaching.title|length > 20 ?  teaching.title|slice(0, 20) ~ '...' : teaching.title }}
+                                    {{ teaching.title|length > 37 ?  teaching.title|slice(0, 37) ~ '...' : teaching.title }}
                                     <span class="uploaded-time">Jour {{ teaching.dayNumber }},
                                         {{ teaching.date|localizeddate('none', 'none', 'fr_FR' , null, 'd
                                         LLLL Y') }} (env. {{teaching.dayTime}} )
@@ -77,15 +76,14 @@
                                     <img src="{{ asset('bundles/espacemembersmain/images/video.png') }}" alt="icon" />
                                     {% endif %}
                                 </a>
-                                {% set pathToMedia  %} {% path teaching.lesson, "reference" %} {% endset %}
-                                <span class="time">{{ teaching.lesson.getPlayingTime(pathToMedia) }}</span>
 
-                                <a href="#" class="follow fav {% if isBookmark %}active{% endif %}"
-                                    data-id='{{ teaching.id }}' >
+                                <span class="time">{{ teaching.lesson.playtime }}</span>
+
+                                <a href="#" class="follow fav {% if bookmarksId is defined and bookmarksId|filterIsBookmark(teaching.id) %}active{% endif %}"
+                                    data-id="{{ teaching.id }}">
                                 </a>
                             </li>
                         {% endfor %}
-
                         </ul>
                     </li>
                 </ul>
@@ -93,16 +91,15 @@
         </div>
     </div>
     <video controls>
-        <source src="{% path teachingCurr.lesson, 'reference' %}" type="{{ teachingCurr.lesson.contentType }}">
+        <source src="{{ path_to_media_by_array(teachingCurr.lesson, 'reference') }}" type="{{ teachingCurr.lesson.contentType }}">
+        {#<source src="{% path teachingCurr.lesson, 'reference' %}" type="{{ teachingCurr.lesson.contentType }}">#}
         Your browser does not support the video tag.
     </video>
 
     <div class="full-width2">
-
         <div class="favbox">
             <h2>{{ teachingCurr.title|capitalize }}</h2>
-
-            {% if isBookmark %}
+            {% if bookmarksId is defined and bookmarksId|filterIsBookmark(teachingCurr.id) %}
                 <a href="#" class="active" data-id="{{ teachingCurr.id }}">ENLEVER DE MES FAVORIS</a>
             {% else %}
                 <a href="#" class="unactive" data-id="{{ teachingCurr.id }}">AJOUTER A MES FAVORIS</a>
@@ -110,7 +107,6 @@
         </div>
 
         <div class="left-bar2">
-
             <p class="heading">{{ event.title|capitalize }}</p>
             <p>Causerie {{ teachingCurr.serial }}<br />
                 <span style="color:#282629;">
@@ -125,7 +121,7 @@
                 <a href="{{ path('espace_members_filter_teaching_teacher', {
                         'teacher_id': teacher.id
                     }) }}" class="link">
-                    {{ teacher.lastName }} {{ teacher.firstName }}
+                    {{ teacher.last_name }} {{ teacher.first_name }}
                 </a>
             {% endfor %}
             </p>
@@ -145,8 +141,7 @@
 
             <p>Thèmes:<br />
             {% for tag in teachingCurr.tags %}
-                <a href="{{ path('espace_members_filter_teaching_tag', {
-                        'tag_id': tag.id}) }}" class="theme-button">{{ tag.title }}</a>
+                <a href="{{ path('espace_members_filter_teaching_tag', { 'tag_id': tag.id}) }}" class="theme-button">{{ tag.title }}</a>
             {% else %}
                 <a href="#" class="theme-button">Not found tag</a>
             {% endfor %}
@@ -155,7 +150,6 @@
         </div>
 
         <div class="right-bar2">
-
             <div class="box">
                 <p>{{ teachingCurr.resume }}</p>
             </div>

@@ -12,10 +12,10 @@ EspaceMembers\MainBundle\Entity\Media:
         providerName: sonata.media.provider.file
         context: lesson
         binaryContent: <generateBinaryContext("video")>
-    flayer{1..10}:
-        providerName: sonata.media.provider.file
-        context: flayer
-        binaryContent: <generateBinaryContext("flayer")>
+    #flayer{1..10}:
+        #providerName: sonata.media.provider.file
+        #context: flayer
+        #binaryContent: <generateBinaryContext("flayer")>
     cover{1..30}:
         providerName: sonata.media.provider.image
         context: cover

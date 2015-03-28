@@ -19,13 +19,4 @@ class RenderController extends Controller
             'currentPath'  => $currentPath
         ));
     }
-
-    public function leftBlockAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        return $this->render('EspaceMembersMainBundle:Template\left-block:index.html.twig', array(
-            'events' =>  $em->getRepository('EspaceMembersMainBundle:Event')->findAllForEnseignements(),
-        ));
-    }
 }

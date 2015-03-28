@@ -10,20 +10,6 @@ use Symfony\Component\Process\Process;
 class ControllerContext extends DefaultContext
 {
     /**
-     * BeforeFeature hook
-     *
-     * @BeforeFeature
-     */
-    public static function beforeFeature()
-    {
-        //$process = new Process('php app/console doctrine:database:drop --env=test --force && php app/console doctrine:database:create --env=test && php app/console doctrine:schema:drop --env=test --force && php app/console doctrine:schema:update --env=test --force && php app/console doctrine:fixtures:load --env=test && php app/console cache:clear --env=test');
-        //$process->setTimeout(3600);
-        //$process->mustRun();
-
-        //echo $process->getOutput();
-    }
-
-    /**
      * @param \Behat\Behat\Event\ScenarioEvent|\Behat\Behat\Event\OutlineExampleEvent $event - event
      *
      * @return void

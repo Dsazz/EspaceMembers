@@ -20,17 +20,19 @@ class MediaExtension extends \Twig_Extension
      * @param Pool             $mediaService
      * @param ManagerInterface $mediaManager
      * @param string           $cdnPath
+     * @param string           $rootDir
      */
-    public function __construct(Pool $mediaService, ManagerInterface $mediaManager, $cdnPath)
+    public function __construct(Pool $mediaService, ManagerInterface $mediaManager, $cdnPath, $rootDir)
     {
         $this->mediaService = $mediaService;
         $this->mediaManager = $mediaManager;
         $this->cdnPath = $cdnPath;
+        $this->rootDir = $rootDir;
     }
 
     public function getFunctions() {
         return array(
-            'path_to_media_by_array' => new \Twig_Function_Method($this, 'pathToMediaByArray')
+            'path_to_media_by_array' => new \Twig_Function_Method($this, 'pathToMediaByArray'),
         );
     }
 
@@ -144,5 +146,4 @@ class MediaExtension extends \Twig_Extension
     {
         return 'espace_media';
     }
-
 }
