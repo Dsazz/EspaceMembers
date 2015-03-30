@@ -17,7 +17,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use EspaceMembers\MainBundle\DBAL\Types\SexType;
 
 class ProfileType extends AbstractType
 {

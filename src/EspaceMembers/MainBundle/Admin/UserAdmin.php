@@ -10,8 +10,6 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
 
-use EspaceMembers\MainBundle\DBAL\Types\SexType;
-
 class UserAdmin extends BaseUserAdmin
 {
     /**
@@ -28,21 +26,6 @@ class UserAdmin extends BaseUserAdmin
             ;
     }
 
-    //public function validate(ErrorElement $errorElement, $object)
-    //{
-        //$errorElement
-            //->with('avatar')
-                //->assertFile(array(
-                    //'maxSize' => '50M',
-                    //'mimeTypes' => array(
-                        //'image/pjpeg','image/jpeg','image/png',
-                        //'image/x-png', 'image/gif'
-                    //),
-                    //'notFoundMessage' => "The mime type of the file is invalid. Allowed mime types are 'jpg', 'png', 'gif', 'jpeg' !",
-                //))
-            //->end()
-            //;
-    //}
     /**
      * {@inheritdoc}
      */

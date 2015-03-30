@@ -69,7 +69,6 @@ doctrine:
         # path:     "%database_path%"
         types:
             json: Sonata\Doctrine\Types\JsonType
-            SexType: EspaceMembers\MainBundle\DBAL\Types\SexType
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         entity_managers:
