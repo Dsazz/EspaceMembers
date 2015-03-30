@@ -111,15 +111,18 @@ class TeachingController extends Controller
      *    "repository_method" = "findEventWithTeachers",
      *    "id" = "event_id",
      *  })
-     * @ParamConverter("teaching", class="EspaceMembersMainBundle:Teaching", options={
-     *    "repository_method" = "findPartialOneById",
-     *    "id" = "teaching_id",
-     *  })
      * @ParamConverter("teacher", class="EspaceMembersMainBundle:User", converter="teacher_by_event_converter")
      */
-    public function playAction(Event $event, Teaching $teaching, UserInterface $teacher)
+    public function playAction(Event $event, UserInterface $teacher, $teaching_id)
     {
         $em = $this->getDoctrine()->getManager();
+
+        $teaching = $em->getRepository('EspaceMembersMainBundle:Teaching')
+                ->findPartialOneById($teaching_id);
+
+        if (is_null($teaching) || empty($teaching)) {
+            throw $this->createNotFoundException('The teaching does not exist');
+        }
 
         return $this->render('EspaceMembersMainBundle:Teaching:play.html.twig', array(
             'event'        => $event,

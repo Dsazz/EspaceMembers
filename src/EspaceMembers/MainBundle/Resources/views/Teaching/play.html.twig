@@ -38,7 +38,7 @@
                             {% else %}
                                 data-image="{{ path_to_media(teacher.avatar, 'very_small') }}"
                             {% endif %}>
-                            {{ teacher.lastName }} {{ teacher.firstName }}
+                            {{ teacher.lastname }} {{ teacher.firstname }}
                         </option>
                     {% endfor %}
                 </select>
@@ -120,7 +120,7 @@
                 <a href="{{ path('espace_members_filter_teaching_teacher', {
                         'teacher_id': teacher.id
                     }) }}" class="link">
-                    {{ teacher.lastName }} {{ teacher.firstName }}
+                    {{ teacher.lastname }} {{ teacher.firstname }}
                 </a>
             {% endfor %}
             </p>

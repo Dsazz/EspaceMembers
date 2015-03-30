@@ -84,9 +84,7 @@ class LoadFixtureData extends AbstractFixture implements FixtureInterface, Conta
     //For random sex of user
     public function randSex()
     {
-        $sex = array(
-            'MALE', 'FEMALE'
-        );
+        $sex = array('m', 'f');
 
         return $sex[array_rand($sex)];
     }

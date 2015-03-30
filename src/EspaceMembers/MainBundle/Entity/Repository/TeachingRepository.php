@@ -11,8 +11,8 @@ class TeachingRepository extends EntityRepository
     {
         return $qb = $this->createQueryBuilder('tch')
             ->select('tch')
-            ->addSelect('partial lsn.{id, contentType, context, providerName, providerStatus, providerReference, playtime}')
-            ->addSelect('partial u.{id, last_name, first_name}')
+            ->addSelect('partial lsn.{id, contentType, context, providerName, providerStatus, providerReference}')
+            ->addSelect('partial u.{id, lastname, firstname}')
             ->addSelect('v')
             ->addSelect('tags')
             ->innerJoin('tch.lesson', 'lsn')
@@ -22,6 +22,6 @@ class TeachingRepository extends EntityRepository
             ->where('tch.is_show = 1 AND tch.id = :teaching_id')
             ->setParameter("teaching_id", $teaching_id)
             ->getQuery()
-            ->getOneOrNullResult();
+            ->getOneOrNullResult(Query::HYDRATE_ARRAY);
     }
 }

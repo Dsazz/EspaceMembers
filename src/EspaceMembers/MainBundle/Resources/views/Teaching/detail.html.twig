@@ -27,7 +27,7 @@
 
             <p>Enseignant(s):<br />
             {% for teacher in event.users %}
-                <a href="#" class="link">{{ teacher.lastName }} {{ teacher.firstName }}<br /></a>
+                <a href="#" class="link">{{ teacher.lastname }} {{ teacher.firstname }}<br /></a>
             {% else %}
                 <a href="#" class="link">Not found teachers</a>
             {% endfor %}

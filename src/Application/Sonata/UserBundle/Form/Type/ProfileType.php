@@ -42,11 +42,11 @@ class ProfileType extends AbstractType
     {
         $user = $this->securityContext->getToken()->getUser();
         $builder
-                ->add('first_name', null, array(
+                ->add('firstname', null, array(
                     'label' => 'First name',
                     'attr' => array('class' => 'pure-input-1-2'),
                     'required' => false))
-                ->add('last_name', null, array(
+                ->add('lastname', null, array(
                     'label' => 'Last name',
                     'attr' => array('class' => 'pure-input-1-2'),
                     'required' => false))
@@ -70,7 +70,7 @@ class ProfileType extends AbstractType
                     'attr' => array('class' => 'pure-input-1-2'),
                     'required' => false,
                 ))
-                ->add('description', 'textarea', array(
+                ->add('biography', 'textarea', array(
                     'label' => 'Description',
                     'attr' => array('class' => 'pure-input-1-2', 'rows' => '7'),
                     'required' => false,
@@ -79,7 +79,7 @@ class ProfileType extends AbstractType
 
         if ($user && $user->hasRole('ROLE_SUPER_ADMIN')) {
             $builder
-                    ->add('birthday', 'date', array(
+                    ->add('dateOfBirth', 'date', array(
                         'label'  => 'Birthday',
                         'format' => 'dd MMMM yyyy',
                         'widget' => 'choice',
@@ -88,12 +88,7 @@ class ProfileType extends AbstractType
                         'attr' => array('class' => 'fix-birthday'),
                         'empty_value' => false,
                     ))
-                    ->add('sex', 'choice', array(
-                        'label' => 'Sex',
-                        'choices' => SexType::getChoices(),
-                        'required' => false,
-                        'empty_value' => false,
-                    ))
+                    ->add('gender')
                     ->add('is_teacher', null, array('label' => 'Is teacher ?'))
                     ->add('groups', 'entity', array(
                         'label' => 'Group',

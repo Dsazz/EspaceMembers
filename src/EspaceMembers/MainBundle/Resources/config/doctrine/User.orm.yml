@@ -7,22 +7,6 @@ EspaceMembers\MainBundle\Entity\User:
       type: integer
       generator: { strategy: AUTO }
   fields:
-    first_name:
-      type: string
-      length: 255
-      nullable: true
-    last_name:
-      type: string
-      length: 255
-      nullable: true
-    birthday:
-      type: datetime
-    description:
-      type: text
-      nullable: true
-    sex:
-      type: SexType
-      nullable: true
     is_teacher:
       type: boolean
       nullable: true

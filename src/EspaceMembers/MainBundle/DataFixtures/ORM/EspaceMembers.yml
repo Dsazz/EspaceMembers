@@ -41,22 +41,22 @@ EspaceMembers\MainBundle\Entity\Tag:
 
 EspaceMembers\MainBundle\Entity\User:
     user(template):
-        first_name: <fr_FR:firstName('male')>
-        last_name: <fr_FR:lastName()>
+        firstname: <fr_FR:firstName('male')>
+        lastname: <fr_FR:lastName()>
         email: <email()>
         setPlainPassword: [fixture]
-        birthday: <dateTimeBetween('-30 years', '-20 year')>
+        dateOfBirth: <dateTimeBetween('-30 years', '-20 year')>
         phone: <fr_FR:phoneNumber()>
         address: <fr_FR:address()>
-        description: <fr_FR:text(255)>
+        biography: <fr_FR:text(255)>
         enabled: true
         avatar(unique): @avatarUser*
-        sex: MALE
+        gender: m
         addGroup: [@groupMembers]
         is_teacher: 0
     superadmin(extends user):
-        first_name: Dsazz
-        last_name: Tazz
+        firstname: Dsazz
+        lastname: Tazz
         email: ting09@mail.ru
         setPlainPassword: [ting09]
         addRole: [ROLE_SUPER_ADMIN]

@@ -20,7 +20,7 @@ class UserRepository extends EntityRepository
         return $qb = $this->createQueryBuilder('u')
             ->select(
                 'partial u.{
-                    id, first_name, last_name, address, phone, email, is_teacher
+                    id, firstname, lastname, address, phone, email, is_teacher
                 }'
             )
             ->addSelect(
@@ -41,7 +41,7 @@ class UserRepository extends EntityRepository
         return $qb = $this->createQueryBuilder('u')
             ->select(
                 'partial u.{
-                    id, first_name, last_name, address, phone, email, is_teacher
+                    id, firstname, lastname, address, phone, email, is_teacher
                 }'
             )
             ->addSelect(
@@ -62,7 +62,7 @@ class UserRepository extends EntityRepository
             ->where('u.is_teacher = 1 AND u.id = :user_id')
             ->setParameter("event_id", $eventId)
             ->setParameter("user_id", $userId)
-            ->orderBy('u.last_name', 'ASC')
+            ->orderBy('u.lastname', 'ASC')
             ->getQuery()
             ->getOneOrNullResult();
     }
@@ -72,7 +72,7 @@ class UserRepository extends EntityRepository
         return $qb = $this->createQueryBuilder('u')
             ->select(
                 'partial u.{
-                    id, first_name, last_name, address, phone, email, is_teacher
+                    id, firstname, lastname, address, phone, email, is_teacher
                 }'
             )
             ->addSelect(
