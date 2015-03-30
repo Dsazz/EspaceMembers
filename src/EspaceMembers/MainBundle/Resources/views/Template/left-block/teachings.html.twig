@@ -24,7 +24,7 @@
         </a>
         <span class="time">{{ teaching.lesson.playtime }}</span>
     </div>
-    <a href="#" class="follow fav {% if bookmarksId is defined and bookmarksId|filterIsBookmark(teaching.id) %}active{% endif %}"
+    <a href="#" class="follow fav {% if bookmarksId is defined and bookmarksId|isBookmark(teaching.id) %}active{% endif %}"
         data-id="{{ teaching.id }}">
     </a>
 </div>

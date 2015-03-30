@@ -22,6 +22,6 @@ class TeachingRepository extends EntityRepository
             ->where('tch.is_show = 1 AND tch.id = :teaching_id')
             ->setParameter("teaching_id", $teaching_id)
             ->getQuery()
-            ->getOneOrNullResult(Query::HYDRATE_ARRAY);
+            ->getOneOrNullResult();
     }
 }

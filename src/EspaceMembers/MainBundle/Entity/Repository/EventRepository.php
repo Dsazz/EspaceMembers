@@ -55,7 +55,7 @@ class EventRepository extends EntityRepository
             ->where('ev.id = :event_id')
             ->setParameter('event_id', $eventId)
             ->getQuery()
-            ->getOneOrNullResult(Query::HYDRATE_ARRAY);
+            ->getOneOrNullResult();
     }
 
     public function findAllWithPaging()

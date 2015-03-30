@@ -1,6 +1,6 @@
 <div class="detail-box">
     <span class="sub-heading">
-        <img src="{{ path_to_media_by_array(teacher.avatar, 'small') }}" width="30px" height="30px" alt="avatar">
+        <img src="{{ path_to_media(teacher.avatar, 'small') }}" width="30px" height="30px" alt="avatar">
         {{ teacher.last_name }} {{ teacher.first_name }}
     </span>
     {% set teachings = teacher.teachings %}

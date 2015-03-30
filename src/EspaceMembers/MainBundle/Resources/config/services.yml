@@ -70,9 +70,13 @@ services:
         tags:
             - { name: twig.extension }
 
-    twig.extension.espace_members_extension:
-        class: EspaceMembers\MainBundle\Twig\EspaceMembersFilterExtension
-        arguments: [ @doctrine.orm.entity_manager ]
+    twig.extension.espace_members.filter_extension:
+        class: EspaceMembers\MainBundle\Twig\FilterExtension
+        tags:
+            - { name: twig.extension }
+
+    twig.extension.espace_members.function_extension:
+        class: EspaceMembers\MainBundle\Twig\FunctionExtension
         tags:
             - { name: twig.extension }
 
@@ -82,8 +86,13 @@ services:
             - { name: twig.extension }
 
     twig.sonata_media.extension:
-        class: EspaceMembers\MainBundle\Twig\Extension\MediaExtension
-        arguments: ["@sonata.media.pool", "@sonata.media.manager.media", "%sonata_media_cdn_server_path%", "%kernel.root_dir%"]
+        class: EspaceMembers\MainBundle\Twig\MediaExtension
+        arguments:
+            - @sonata.media.pool
+            - @sonata.media.manager.media
+            - @sonata.media.twig.extension
+            - %sonata_media_cdn_server_path%
+            - %kernel.root_dir%
         tags:
             - { name: twig.extension }
 
@@ -93,3 +102,11 @@ services:
         arguments: ["@service_container"]
         tags:
             - { name: doctrine.orm.entity_listener }
+
+    #Doctrine ParamConverters
+    param_converter.teacher_by_event:
+        class: EspaceMembers\MainBundle\Request\ParamConverter\TeacherByEventParamConverter
+        tags:
+            - { name: request.param_converter, converter: teacher_by_event_converter }
+        arguments:
+            - @?doctrine

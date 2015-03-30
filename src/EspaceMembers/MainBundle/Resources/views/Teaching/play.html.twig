@@ -20,7 +20,7 @@
 {% block body %}
 <div class="content">
     <div class="topbar">
-        <img src="{{ path_to_media_by_array(event.frontImage, 'small') }}" width="50px" height="50px" class="leftimg" alt="image">
+        <img src="{{ path_to_media(event.frontImage, 'small') }}" width="50px" height="50px" class="leftimg" alt="image">
 
         <h2>{{ event.title|capitalize }}</h2>
 
@@ -34,11 +34,11 @@
                                 'teaching_id' : teachingCurr.id })
                             }}"
                             {% if teacher.id == teacherCurr.id %}
-                                selected="selected" title="{{ path_to_media_by_array(teacher.avatar, 'very_small') }}"
+                                selected="selected" title="{{ path_to_media(teacher.avatar, 'very_small') }}"
                             {% else %}
-                                data-image="{{ path_to_media_by_array(teacher.avatar, 'very_small') }}"
+                                data-image="{{ path_to_media(teacher.avatar, 'very_small') }}"
                             {% endif %}>
-                            {{ teacher.last_name }} {{ teacher.first_name }}
+                            {{ teacher.lastName }} {{ teacher.firstName }}
                         </option>
                     {% endfor %}
                 </select>
@@ -79,7 +79,7 @@
 
                                 <span class="time">{{ teaching.lesson.playtime }}</span>
 
-                                <a href="#" class="follow fav {% if bookmarksId is defined and bookmarksId|filterIsBookmark(teaching.id) %}active{% endif %}"
+                                <a href="#" class="follow fav {% if bookmarksId is defined and bookmarksId|isBookmark(teaching.id) %}active{% endif %}"
                                     data-id="{{ teaching.id }}">
                                 </a>
                             </li>
@@ -91,15 +91,14 @@
         </div>
     </div>
     <video controls>
-        <source src="{{ path_to_media_by_array(teachingCurr.lesson, 'reference') }}" type="{{ teachingCurr.lesson.contentType }}">
-        {#<source src="{% path teachingCurr.lesson, 'reference' %}" type="{{ teachingCurr.lesson.contentType }}">#}
+        <source src="{{ path_to_media(teachingCurr.lesson, 'reference') }}" type="{{ teachingCurr.lesson.contentType }}">
         Your browser does not support the video tag.
     </video>
 
     <div class="full-width2">
         <div class="favbox">
             <h2>{{ teachingCurr.title|capitalize }}</h2>
-            {% if bookmarksId is defined and bookmarksId|filterIsBookmark(teachingCurr.id) %}
+            {% if bookmarksId is defined and bookmarksId|isBookmark(teachingCurr.id) %}
                 <a href="#" class="active" data-id="{{ teachingCurr.id }}">ENLEVER DE MES FAVORIS</a>
             {% else %}
                 <a href="#" class="unactive" data-id="{{ teachingCurr.id }}">AJOUTER A MES FAVORIS</a>
@@ -121,7 +120,7 @@
                 <a href="{{ path('espace_members_filter_teaching_teacher', {
                         'teacher_id': teacher.id
                     }) }}" class="link">
-                    {{ teacher.last_name }} {{ teacher.first_name }}
+                    {{ teacher.lastName }} {{ teacher.firstName }}
                 </a>
             {% endfor %}
             </p>

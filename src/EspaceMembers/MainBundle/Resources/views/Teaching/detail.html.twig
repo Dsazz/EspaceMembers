@@ -17,7 +17,7 @@
         </span>
 
         <div class="image-box">
-            <img src="{{ path_to_media_by_array(event.frontImage, 'big') }}" width="175px" height="175px" alt="image">
+            <img src="{{ path_to_media(event.frontImage, 'big') }}" width="175px" height="175px" alt="image">
             <span class="describe">
                 Du {{ event.startDate|localizeddate('none', 'none', 'fr_FR' , null, 'd LLLL')|title }}
                 Au {{ event.completionDate|localizeddate('none', 'none', 'fr_FR' , null, 'd LLLL')|title }}
@@ -27,7 +27,7 @@
 
             <p>Enseignant(s):<br />
             {% for teacher in event.users %}
-                <a href="#" class="link">{{ teacher.last_name }} {{ teacher.first_name }}<br /></a>
+                <a href="#" class="link">{{ teacher.lastName }} {{ teacher.firstName }}<br /></a>
             {% else %}
                 <a href="#" class="link">Not found teachers</a>
             {% endfor %}
@@ -48,7 +48,7 @@
 
         {% for teacher in event.users %}
             {{ include('EspaceMembersMainBundle:Template/left-block:detail-box.html.twig', {
-                'teacher' : teacher, 'avatar' : teacher.avatar, 'bookmarksId' : bookmarksId
+                'teacher' : teacher, 'bookmarksId' : bookmarksId
             }) }}
         {% endfor %}
     </div>

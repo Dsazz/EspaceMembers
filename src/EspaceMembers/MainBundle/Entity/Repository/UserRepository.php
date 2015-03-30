@@ -64,7 +64,7 @@ class UserRepository extends EntityRepository
             ->setParameter("user_id", $userId)
             ->orderBy('u.last_name', 'ASC')
             ->getQuery()
-            ->getOneOrNullResult(Query::HYDRATE_ARRAY);
+            ->getOneOrNullResult();
     }
 
     public function findTeachersByGroup($groupName)

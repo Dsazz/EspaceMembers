@@ -1,6 +1,6 @@
 <?php
 
-namespace EspaceMembers\MainBundle\Twig\Extension;
+namespace EspaceMembers\MainBundle\Twig;
 
 use Sonata\MediaBundle\Twig\TokenParser\MediaTokenParser;
 use Sonata\MediaBundle\Twig\TokenParser\ThumbnailTokenParser;
@@ -8,6 +8,7 @@ use Sonata\MediaBundle\Twig\TokenParser\PathTokenParser;
 use Sonata\CoreBundle\Model\ManagerInterface;
 use Sonata\MediaBundle\Model\MediaInterface;
 use Sonata\MediaBundle\Provider\Pool;
+use Sonata\MediaBundle\Twig\Extension\MediaExtension as SonataMediaExtension;
 
 class MediaExtension extends \Twig_Extension
 {
@@ -19,53 +20,46 @@ class MediaExtension extends \Twig_Extension
     /**
      * @param Pool             $mediaService
      * @param ManagerInterface $mediaManager
+     * @param MediaExtension   $sonataMediaExtension
      * @param string           $cdnPath
      * @param string           $rootDir
      */
-    public function __construct(Pool $mediaService, ManagerInterface $mediaManager, $cdnPath, $rootDir)
+    public function __construct(
+        Pool $mediaService,
+        ManagerInterface $mediaManager,
+        SonataMediaExtension $sonataMediaExtension,
+        $cdnPath,
+        $rootDir
+    )
     {
         $this->mediaService = $mediaService;
         $this->mediaManager = $mediaManager;
+        $this->sonataMediaExtension = $sonataMediaExtension;
         $this->cdnPath = $cdnPath;
         $this->rootDir = $rootDir;
     }
 
-    public function getFunctions() {
+    public function getFunctions()
+    {
         return array(
-            'path_to_media_by_array' => new \Twig_Function_Method($this, 'pathToMediaByArray'),
+            new \Twig_SimpleFunction('path_to_media', array($this, 'getPathToMediaByArray')),
         );
     }
 
     /**
-     * @param mixed $media
-     *
-     * @return null|\Sonata\MediaBundle\Model\MediaInterface
-     */
-    private function getMedia($mediaId)
-    {
-        $media = $this->mediaManager->findOneBy(array('id' => $mediaId));
-
-        if (!$media instanceof MediaInterface) {
-            return false;
-        }
-
-        if ($media->getProviderStatus() !== MediaInterface::STATUS_OK) {
-            return false;
-        }
-
-        return $media;
-    }
-
-    /**
-     * @param \Sonata\MediaBundle\Model\MediaInterface $media
-     * @param string                                   $format
+     * @param mixed  $media
+     * @param string $format
      *
      * @return string
      */
-    public function pathToMediaByArray($media, $format)
+    public function getPathToMediaByArray($media, $format)
     {
         if (!$media) {
              return '';
+        }
+
+        if ($media instanceof MediaInterface) {
+            return $this->sonataMediaExtension->path($media, $format);
         }
 
         $format = $this->getFormatName($media, $format);
@@ -79,6 +73,12 @@ class MediaExtension extends \Twig_Extension
         return sprintf('%s/%s', rtrim($this->cdnPath, '/'), ltrim($relativePath, '/'));
     }
 
+    /**
+     * @param mixed  $media
+     * @param string $format
+     *
+     * @return string
+     */
     public function generatePublicUrl($media, $format)
     {
         if ($format == 'reference') {
@@ -95,6 +95,11 @@ class MediaExtension extends \Twig_Extension
         return $path;
     }
 
+    /**
+     * @param mixed  $media
+     *
+     * @return string
+     */
     public function getReferenceImage($media)
     {
         return sprintf('%s/%s',
@@ -103,6 +108,11 @@ class MediaExtension extends \Twig_Extension
         );
     }
 
+    /**
+     * @param mixed  $media
+     *
+     * @return string
+     */
     public function generatePath($media)
     {
         $firstLevel = 100000;
@@ -113,6 +123,12 @@ class MediaExtension extends \Twig_Extension
         return sprintf('%s/%04s/%02s', $media['context'], $rep_first_level + 1, $rep_second_level + 1);//param Context
     }
 
+    /**
+     * @param mixed  $media
+     * @param string $format
+     *
+     * @return string
+     */
     public function getFormatName($media, $format)
     {
         if ($format == 'admin') {
@@ -132,18 +148,10 @@ class MediaExtension extends \Twig_Extension
     }
 
     /**
-     * @return \Sonata\MediaBundle\Provider\Pool
-     */
-    public function getMediaService()
-    {
-        return $this->mediaService;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getName()
     {
-        return 'espace_media';
+        return 'espace_media_extension';
     }
 }
