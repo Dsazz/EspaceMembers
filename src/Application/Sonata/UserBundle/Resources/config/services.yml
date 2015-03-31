@@ -12,12 +12,3 @@ services:
         arguments: [%fos_user.model.user.class%, @security.context, @service_container]
         tags:
             - { name: form.type, alias: espacemembers_user_profile }
-
-    #espacemembers.user.profile.form.handler.default:
-        #class: Application\Sonata\UserBundle\Form\Handler\ProfileFormHandler
-        #scope: request
-        #public: false
-        #arguments:
-             #- @espacemembers.user.profile.form
-             #- @request
-             #- @fos_user.user_manager

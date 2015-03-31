@@ -41,7 +41,7 @@ class TeacherByEventParamConverter implements ParamConverterInterface
 
         $em = $this->registry->getManagerForClass($configuration->getClass());
 
-        if ('EspaceMembers\MainBundle\Entity\User' !== $em->getClassMetadata($configuration->getClass())->getName()) {
+        if ('Application\Sonata\UserBundle\Entity\User' !== $em->getClassMetadata($configuration->getClass())->getName()) {
             return false;
         }
 

@@ -1,9 +1,16 @@
 imports:
     - { resource: parameters.yml }
     - { resource: @ApplicationSonataUserBundle/Resources/config/services.yml }
+    - { resource: @ApplicationSonataMediaBundle/Resources/config/services.yml }
     - { resource: @EspaceMembersMainBundle/Resources/config/services.yml }
     - { resource: @EspaceMembersSecurityBundle/Resources/config/services.yml }
     - { resource: security.yml }
+
+    - { resource: fos_user.yml }
+    - { resource: sonata/sonata_admin.yml }
+    - { resource: sonata/sonata_block.yml }
+    - { resource: sonata/sonata_media.yml }
+    - { resource: sonata/sonata_user.yml }
 
 framework:
     #esi:             ~
@@ -81,7 +88,7 @@ doctrine:
                     SonataMediaBundle: ~
                     FOSUserBundle: ~
                     EspaceMembersMainBundle: ~
-                    #ApplicationSonataUserBundle: ~
+                    ApplicationSonataUserBundle: ~
                     SonataUserBundle: ~
 
 # Swiftmailer Configuration
@@ -91,140 +98,3 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
-
-#FOSUserBundle configuration for SonataAdmin
-fos_user:
-    db_driver: orm
-    firewall_name: main
-    user_class: EspaceMembers\MainBundle\Entity\User #Override Sonata\UserBundle\Entity\BaseUser
-    group:
-        group_class:   EspaceMembers\MainBundle\Entity\Group
-        group_manager: sonata.user.orm.group_manager
-    service:
-        user_manager: sonata.user.orm.user_manager
-
-# Sonata configurations
-sonata_user:
-    security_acl:     false
-    class:
-        user: EspaceMembers\MainBundle\Entity\User #Override Sonata\UserBundle\Entity\BaseUser
-        group:   EspaceMembers\MainBundle\Entity\Group
-
-    admin:
-        user:
-            class:          EspaceMembers\MainBundle\Admin\UserAdmin
-            controller:     SonataAdminBundle:CRUD
-            translation:    SonataUserBundle
-
-        group:
-            class:          EspaceMembers\MainBundle\Admin\GroupAdmin
-            controller:     SonataAdminBundle:CRUD
-            translation:    SonataUserBundle
-
-    profile:  # Profile Form (firstname, lastname, etc ...)
-        form:
-            type:               espacemembers_user_profile
-            handler:            sonata.user.profile.form.handler.default
-            name:               espacemembers_user_profile_form
-            #validation_groups:  [Profile]
-        register:
-            confirm:
-                redirect:
-                    route: 'espace_members_teaching'
-                    route_parameters: ~
-        menu:
-            - { route: 'sonata_user_profile_edit', label: 'link_edit_profile', domain: 'SonataUserBundle'}
-            - { route: 'sonata_user_profile_edit_authentication', label: 'link_edit_authentication', domain: 'SonataUserBundle'}
-
-sonata_admin:
-    title: EspaceMembers
-    security:
-        handler: sonata.admin.security.handler.role
-    templates:
-        layout:  EspaceMembersMainBundle::sonata_admin_base_layout.html.twig
-        search:              SonataAdminBundle:Core:search.html.twig
-        search_result_block: SonataAdminBundle:Block:block_search_result.html.twig
-    dashboard:
-        groups:
-            EspaceMembers: ~
-            user:
-                label: Users management
-                items:
-                    - sonata.user.admin.user
-
-sonata_block:
-    default_contexts: [cms]
-    blocks:
-        sonata.user.block.menu:
-        sonata.user.block.account:
-        sonata.block.service.text:
-        sonata.admin.block.admin_list:
-            contexts:   [admin]
-        sonata.admin.block.search_result:
-            contexts: [admin]
-
-sonata_media:
-    providers:
-        file:
-            allowed_extensions: ['pdf', 'mp4', 'flv', 'mp3', 'avi']
-            allowed_mime_types: ['video/mp4', 'video/x-flv', 'audio/mpeg', 'application/pdf', 'application/pdf', 'application/x-pdf', 'application/acrobat', 'applications/vnd.pdf', 'text/pdf', 'text/x-pdf', 'application/x-troff-msvideo', 'video/avi', 'applicationvideo/msvideo', 'video/x-msvideo' ]
-        image:
-            resizer:  sonata.media.resizer.square
-            allowed_extensions: ['jpg', 'png', 'gif', 'jpeg']
-            allowed_mime_types: ['image/pjpeg','image/jpeg','image/png','image/x-png', 'image/gif']
-    default_context: default
-    db_driver: doctrine_orm # or doctrine_mongodb, doctrine_phpcr
-    contexts:
-        default:  # the default context is mandatory
-            providers:
-                - sonata.media.provider.dailymotion
-                - sonata.media.provider.youtube
-                - sonata.media.provider.image
-                - sonata.media.provider.file
-            formats:
-                small: { width: 100 , quality: 70}
-                #big:   { width: 500 , quality: 70}
-        lesson:
-            #download:
-                #strategy: sonata.media.security.superadmin_strategy
-                #mode: http
-            providers:
-                - sonata.media.provider.file
-            formats:
-                mp3:   { quality: 100 }
-                video: { quality: 100 }
-        flayer:
-            download:
-                strategy: sonata.media.security.superadmin_strategy
-                mode: http
-            providers:
-                - sonata.media.provider.file
-            formats:
-                pdf: { quality: 100 }
-        cover:
-            download:
-                strategy: sonata.media.security.superadmin_strategy
-                mode: http
-            providers:
-                - sonata.media.provider.image
-            formats:
-                small: { width: 50, height: 50, quality: 100 }
-                big:   { width: 175, height: 175, quality: 100 }
-        avatar:
-            providers:
-                - sonata.media.provider.image
-            formats:
-                very_small: { width: 25, height: 25,  quality: 100 }
-                small:   { width: 30, height: 30, quality: 100 }
-                big:     { width: 175, height: 175, quality: 100 }
-    cdn:
-        server:
-            path: /uploads/media # http://media.sonata-project.org/
-
-    filesystem:
-        local:
-            directory:  %kernel.root_dir%/../web/uploads/media
-            create:     false
-
-    class:
-        media:  EspaceMembers\MainBundle\Entity\Media

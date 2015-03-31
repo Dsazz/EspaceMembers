@@ -18,18 +18,17 @@ class Teaching
     private $lesson;
     private $event;
     private $tags;
-    private $voies;
+    private $directions;
     private $users;
-    private $bookmarkOwners;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->voies = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tags = new ArrayCollection();
+        $this->directions = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     /**
@@ -229,10 +228,10 @@ class Teaching
     /**
      * Set lesson
      *
-     * @param  \EspaceMembers\MainBundle\Entity\Media $lesson
+     * @param  \Sonata\MediaBundle\Model\MediaInterface $lesson
      * @return Teaching
      */
-    public function setLesson(\EspaceMembers\MainBundle\Entity\Media $lesson = null)
+    public function setLesson(\Sonata\MediaBundle\Model\MediaInterface $lesson = null)
     {
         $this->lesson = $lesson;
 
@@ -242,7 +241,7 @@ class Teaching
     /**
      * Get lesson
      *
-     * @return \EspaceMembers\MainBundle\Entity\Media
+     * @return \Sonata\MediaBundle\Model\MediaInterface
      */
     public function getLesson()
     {
@@ -316,47 +315,47 @@ class Teaching
         return $this->tags;
     }
 
-    public function setVoies(ArrayCollection $voies)
+    public function setDirections(ArrayCollection $directions)
     {
-        foreach ($voies as $voie) {
-            $this->addVoie($voie);
+        foreach ($directions as $direction) {
+            $this->addDirection($direction);
         }
     }
 
     /**
-     * Add voies
+     * Add direction
      *
-     * @param  \EspaceMembers\MainBundle\Entity\Voie $voies
+     * @param  \EspaceMembers\MainBundle\Entity\Direction $direction
      * @return Teaching
      */
-    public function addVoie(\EspaceMembers\MainBundle\Entity\Voie $voie)
+    public function addDirection(\EspaceMembers\MainBundle\Entity\Direction $direction)
     {
-        if (false === $this->getVoies()->contains($voie) ) {
-            $this->voies[] = $voie;
-            $voie->addTeaching($this);
+        if (false === $this->getDirections()->contains($direction) ) {
+            $this->directions[] = $direction;
+            $direction->addTeaching($this);
         }
 
         return $this;
     }
 
     /**
-     * Remove voies
+     * Remove direction
      *
-     * @param \EspaceMembers\MainBundle\Entity\Voie $voies
+     * @param \EspaceMembers\MainBundle\Entity\Direction $direction
      */
-    public function removeVoie(\EspaceMembers\MainBundle\Entity\Voie $voies)
+    public function removeDirection(\EspaceMembers\MainBundle\Entity\Direction $direction)
     {
-        $this->voies->removeElement($voies);
+        $this->directions->removeElement($direction);
     }
 
     /**
-     * Get voies
+     * Get directions
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getVoies()
+    public function getDirections()
     {
-        return $this->voies;
+        return $this->directions;
     }
 
     public function setUsers(ArrayCollection $users)
@@ -369,10 +368,10 @@ class Teaching
     /**
      * Add users
      *
-     * @param  \EspaceMembers\MainBundle\Entity\User $users
+     * @param  \Symfony\Component\Security\Core\User\UserInterface $user
      * @return Teaching
      */
-    public function addUser(\EspaceMembers\MainBundle\Entity\User $user)
+    public function addUser(\Symfony\Component\Security\Core\User\UserInterface $user)
     {
         if (false === $this->getUsers()->contains($user) ) {
             $this->users[] = $user;
@@ -385,11 +384,11 @@ class Teaching
     /**
      * Remove users
      *
-     * @param \EspaceMembers\MainBundle\Entity\User $users
+     * @param  \Symfony\Component\Security\Core\User\UserInterface $user
      */
-    public function removeUser(\EspaceMembers\MainBundle\Entity\User $users)
+    public function removeUser(\Symfony\Component\Security\Core\User\UserInterface $user)
     {
-        $this->users->removeElement($users);
+        $this->users->removeElement($user);
     }
 
     /**
@@ -405,38 +404,5 @@ class Teaching
     public function __toString()
     {
         return $this->getTitle() ?: '';
-    }
-
-    /**
-     * Add bookmarkOwners
-     *
-     * @param  \EspaceMembers\MainBundle\Entity\User $bookmarkOwners
-     * @return Teaching
-     */
-    public function addBookmarkOwner(\EspaceMembers\MainBundle\Entity\User $bookmarkOwners)
-    {
-        $this->bookmarkOwners[] = $bookmarkOwners;
-
-        return $this;
-    }
-
-    /**
-     * Remove bookmarkOwners
-     *
-     * @param \EspaceMembers\MainBundle\Entity\User $bookmarkOwners
-     */
-    public function removeBookmarkOwner(\EspaceMembers\MainBundle\Entity\User $bookmarkOwners)
-    {
-        $this->bookmarkOwners->removeElement($bookmarkOwners);
-    }
-
-    /**
-     * Get bookmarkOwners
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getBookmarkOwners()
-    {
-        return $this->bookmarkOwners;
     }
 }

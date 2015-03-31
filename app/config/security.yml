@@ -50,7 +50,7 @@ security:
                 use_forward:     false
                 check_path:      sonata_user_admin_security_check
                 success_handler: user_security.login_success
-                failure_path:    sonata_user_admin_security_login 
+                failure_path:    sonata_user_admin_security_login
                 use_referer:     true 
                 default_target_path: sonata_user_admin_security_login
             logout:
@@ -71,4 +71,3 @@ security:
         - { path: ^/profile/edit-profile, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN, ROLE_USER] }
         - { path: ^/bookmark/.*, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN, ROLE_USER] }
         - { path: ^/.*, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN, ROLE_USER] }
-

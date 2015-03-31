@@ -20,7 +20,7 @@ class TeachingController extends Controller
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'paginator'   => $pagerfanta,
             'events'      => $pagerfanta->getCurrentPageResults(),
-            'bookmarksId' => $em->getRepository('EspaceMembersMainBundle:User')
+            'bookmarksId' => $em->getRepository('ApplicationSonataUserBundle:User')
                 ->getBookmarksId($this->getUser()),
         ));
     }
@@ -36,7 +36,7 @@ class TeachingController extends Controller
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'paginator'   => $pagerfanta,
             'events'      => $pagerfanta->getCurrentPageResults(),
-            'bookmarksId' => $em->getRepository('EspaceMembersMainBundle:User')
+            'bookmarksId' => $em->getRepository('ApplicationSonataUserBundle:User')
                 ->getBookmarksId($this->getUser()),
         ));
     }
@@ -52,7 +52,7 @@ class TeachingController extends Controller
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'paginator'   => $pagerfanta,
             'events'      => $pagerfanta->getCurrentPageResults(),
-            'bookmarksId' => $em->getRepository('EspaceMembersMainBundle:User')
+            'bookmarksId' => $em->getRepository('ApplicationSonataUserBundle:User')
                 ->getBookmarksId($this->getUser()),
         ));
     }
@@ -68,7 +68,7 @@ class TeachingController extends Controller
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'paginator'   => $pagerfanta,
             'events'      => $pagerfanta->getCurrentPageResults(),
-            'bookmarksId' => $em->getRepository('EspaceMembersMainBundle:User')
+            'bookmarksId' => $em->getRepository('ApplicationSonataUserBundle:User')
                 ->getBookmarksId($this->getUser()),
         ));
     }
@@ -84,7 +84,7 @@ class TeachingController extends Controller
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'paginator'   => $pagerfanta,
             'events'      => $pagerfanta->getCurrentPageResults(),
-            'bookmarksId' => $em->getRepository('EspaceMembersMainBundle:User')
+            'bookmarksId' => $em->getRepository('ApplicationSonataUserBundle:User')
                 ->getBookmarksId($this->getUser()),
         ));
     }
@@ -101,7 +101,7 @@ class TeachingController extends Controller
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'paginator'   => $pagerfanta,
             'events'      => $pagerfanta->getCurrentPageResults(),
-            'bookmarksId' => $em->getRepository('EspaceMembersMainBundle:User')
+            'bookmarksId' => $em->getRepository('ApplicationSonataUserBundle:User')
                 ->getBookmarksId($this->getUser()),
         ));
     }
@@ -111,7 +111,7 @@ class TeachingController extends Controller
      *    "repository_method" = "findEventWithTeachers",
      *    "id" = "event_id",
      *  })
-     * @ParamConverter("teacher", class="EspaceMembersMainBundle:User", converter="teacher_by_event_converter")
+     * @ParamConverter("teacher", class="ApplicationSonataUserBundle:User", converter="teacher_by_event_converter")
      */
     public function playAction(Event $event, UserInterface $teacher, $teaching_id)
     {
@@ -128,7 +128,7 @@ class TeachingController extends Controller
             'event'        => $event,
             'teachingCurr' => $teaching,
             'teacherCurr'  => $teacher,
-            'bookmarksId'  => $em->getRepository('EspaceMembersMainBundle:User')
+            'bookmarksId' => $em->getRepository('ApplicationSonataUserBundle:User')
                 ->getBookmarksId($this->getUser()),
         ));
     }
@@ -145,7 +145,7 @@ class TeachingController extends Controller
 
         return $this->render('EspaceMembersMainBundle:Teaching:detail.html.twig', array(
             'event'       => $event,
-            'bookmarksId' => $em->getRepository('EspaceMembersMainBundle:User')
+            'bookmarksId' => $em->getRepository('ApplicationSonataUserBundle:User')
                 ->getBookmarksId($this->getUser()),
         ));
     }

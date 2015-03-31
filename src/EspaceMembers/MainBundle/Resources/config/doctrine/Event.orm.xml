@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity
+        name="EspaceMembers\MainBundle\Entity\Event"
+        table="event"
+        repository-class="EspaceMembers\MainBundle\Repository\EventRepository"
+        >
+
+        <id name="id" column="id" type="integer">
+            <generator strategy="AUTO" />
+        </id>
+
+        <indexes>
+            <index name="year_idx" columns="year"/>
+        </indexes>
+
+        <field name="title" type="string" column="title" length="255" />
+        <field name="startDate" type="datetime" column="startDate" />
+        <field name="completionDate" type="datetime" column="completionDate" />
+        <field name="year" type="smallint" column="year" />
+        <field name="description" type="text" column="description" nullable="true" />
+        <field name="is_show" type="boolean" column="is_show" nullable="true" />
+
+        <one-to-one field="frontImage" target-entity="Application\Sonata\MediaBundle\Entity\Media">
+             <cascade><cascade-persist /></cascade>
+            <join-column name="front_image_id" referenced-column-name="id" on-delete="SET NULL" nullable="true"/>
+        </one-to-one>
+
+        <one-to-one field="flayer" target-entity="Application\Sonata\MediaBundle\Entity\Media">
+             <cascade><cascade-persist /></cascade>
+            <join-column name="flayer_id" referenced-column-name="id" on-delete="SET NULL" nullable="true"/>
+        </one-to-one>
+
+        <one-to-many field="teachings" target-entity="EspaceMembers\MainBundle\Entity\Teaching" mapped-by="event">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+        <many-to-one field="category" target-entity="EspaceMembers\MainBundle\Entity\Category" inversed-by="events">
+            <cascade><cascade-persist /></cascade>
+            <join-column name="category_id" referenced-column-name="id" on-delete="SET NULL" />
+        </many-to-one>
+
+        <many-to-many field="users" mapped-by="events" target-entity="Application\Sonata\UserBundle\Entity\User">
+            <cascade><cascade-persist/></cascade>
+        </many-to-many>
+
+        <many-to-many field="tags" mapped-by="events" target-entity="EspaceMembers\MainBundle\Entity\Tag">
+            <cascade><cascade-persist/></cascade>
+        </many-to-many>
+
+    </entity>
+
+</doctrine-mapping>

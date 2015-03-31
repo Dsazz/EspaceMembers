@@ -1,5 +1,5 @@
 #загрузки файлов в LoadFixtureData.php
-EspaceMembers\MainBundle\Entity\Media:
+Application\Sonata\MediaBundle\Entity\Media:
     avatarUser{1..20}:
         providerName: sonata.media.provider.image
         context: avatar
@@ -21,25 +21,23 @@ EspaceMembers\MainBundle\Entity\Media:
         context: cover
         binaryContent: <image($dir = '/tmp', $width = 640, $height = 480)>
 
-EspaceMembers\MainBundle\Entity\Group:
+Application\Sonata\UserBundle\Entity\Group:
     groupMembers:
         name: Members
 
 EspaceMembers\MainBundle\Entity\Category:
     category{1..10}:
-        title(unique): <word()>
+        name(unique): <word()>
 
-#Refactor name of Entity: voie -> direction
-EspaceMembers\MainBundle\Entity\Voie:
-    voie{1..10}:
-        title(unique): <word()>
+EspaceMembers\MainBundle\Entity\Direction:
+    direction{1..10}:
+        name(unique): <word()>
 
-#Refactor field of Entity: title -> name
 EspaceMembers\MainBundle\Entity\Tag:
     tag{1..10}:
-        title(unique): <word()>
+        name(unique): <word()>
 
-EspaceMembers\MainBundle\Entity\User:
+Application\Sonata\UserBundle\Entity\User:
     user(template):
         firstname: <fr_FR:firstName('male')>
         lastname: <fr_FR:lastName()>
@@ -79,7 +77,6 @@ EspaceMembers\MainBundle\Entity\Event:
         year: <year('+5 years')>
         description: <fr_FR:text(200)>
         is_show: <boolean(50)>
-        groups: [@groupMembers]
         tags(unique): [@tag*]
         frontImage(unique): @cover*
         #flayer(unique): @flayer*
@@ -96,7 +93,7 @@ EspaceMembers\MainBundle\Entity\Teaching:
         resume: <fr_FR:text(200)>
         technical_comment: <fr_FR:text(200)>
         is_show: 1
-        voies(unique): [@voie*, @voie*]
+        directions(unique): [@direction*, @direction*]
         tags: [@tag*]
     teachingMP3_{1..10}(extends teaching_prototype):
         serial: 1

@@ -68,7 +68,7 @@
                        {% elseif categoryIsActive %}class="droplink2"
                        {% else %}class="droplink"{%endif %}>
 
-                       {{ category.title|capitalize }}
+                       {{ category.name|capitalize }}
                    </a>
                </li>
                {% endfor %}
@@ -94,7 +94,7 @@
                        {% elseif directionIsActive %}class="droplink2"
                        {% else %}class="droplink"{%endif %}>
 
-                       {{ direction.title|capitalize }}
+                       {{ direction.name|capitalize }}
                    </a>
                </li>
                {% endfor %}
@@ -146,7 +146,7 @@
                        {% elseif tagIsActive %}class="droplink2"
                        {% else %}class="droplink"{%endif %}>
 
-                       {{ tag.title|capitalize }}
+                       {{ tag.name|capitalize }}
                    </a>
                </li>
                {% endfor %}

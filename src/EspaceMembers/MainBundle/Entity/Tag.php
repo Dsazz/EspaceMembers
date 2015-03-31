@@ -5,7 +5,7 @@ namespace EspaceMembers\MainBundle\Entity;
 class Tag
 {
     private $id;
-    private $title;
+    private $name;
     private $teachings;
     private $events;
 
@@ -15,26 +15,26 @@ class Tag
     }
 
     /**
-     * Set title
+     * Set name
      *
-     * @param  string $title
+     * @param  string $name
      * @return Tag
      */
-    public function setTitle($title)
+    public function setName($name)
     {
-        $this->title = $title;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get title
+     * Get name
      *
      * @return string
      */
-    public function getTitle()
+    public function getName()
     {
-        return $this->title;
+        return $this->name;
     }
 
     /**
@@ -79,11 +79,6 @@ class Tag
         return $this->teachings;
     }
 
-    public function __toString()
-    {
-        return $this->getTitle();
-    }
-
     /**
      * Add events
      *
@@ -115,5 +110,10 @@ class Tag
     public function getEvents()
     {
         return $this->events;
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
     }
 }

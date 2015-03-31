@@ -23,7 +23,7 @@ class TagAdmin extends Admin
     {
         $showMapper
             ->add('id', null, array('label' => 'ID'))
-            ->add('title', null, array('label' => 'Title'))
+            ->add('name', null, array('label' => 'Name'))
         ;
     }
 
@@ -35,8 +35,8 @@ class TagAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('title', null, array('label' => 'Title'))
-            ->add('title', null, array('label' => 'Title'))
+            ->add('name', null, array('label' => 'Name'))
+            ->add('name', null, array('label' => 'Name'))
         ;
     }
 
@@ -50,7 +50,7 @@ class TagAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('id')
-            ->addIdentifier('title', null, array('label' => 'Title'))
+            ->addIdentifier('name', null, array('label' => 'Name'))
         ;
     }
 
@@ -63,32 +63,7 @@ class TagAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('title', null, array('label' => 'Title'))
+            ->add('name', null, array('label' => 'Name'))
         ;
     }
-
-    /**
-     * Конфигурация левого меню при отображении и редатировании записи
-     *
-     * @param \Knp\Menu\ItemInterface              $menu
-     * @param $action
-     * @param null|\Sonata\AdminBundle\Admin\Admin $childAdmin
-     *
-     * @return void
-     */
-    //protected function configureSideMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
-    //{
-        //if (!$childAdmin && !in_array($action, array('edit', 'show'))) {
-            //return;
-        //}
-        //$admin = $this->isChild() ? $this->getParent() : $this;
-        //$id = $admin->getRequest()->get('id');
-
-        //$menu->addChild(
-            //$action == 'edit' ? 'Просмотр новости' : 'Редактирование новости',
-            //array('uri' => $this->generateUrl(
-                //$action == 'edit' ? 'show' : 'edit', array('id' => $id)))
-        //);
-    //}
-
 }

@@ -21,7 +21,7 @@ espace_members_filter_teaching_direction:
     defaults: { _controller: EspaceMembersMainBundle:Teaching:filterDirection, page: 1 }
     requirements:
         _method: GET
-        voie_id: \d+
+        direction_id: \d+
     options:
         expose: true
 

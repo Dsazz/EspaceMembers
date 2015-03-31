@@ -83,7 +83,7 @@ class UserAdmin extends BaseUserAdmin
                         ->add('groups', 'entity', array(
                             'label' => 'Group',
                             'required' => false,
-                            'class' => 'EspaceMembers\MainBundle\Entity\Group',
+                            'class' => 'Application\Sonata\UserBundle\Entity\Group',
                             'expanded' => false,
                             'multiple' =>false,
                             'required' => true,

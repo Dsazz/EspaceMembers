@@ -30,7 +30,7 @@ class TeachingAdmin extends Admin
             ->add('event', null, array('label' => 'Event'))
             ->add('users', null, array('label' => 'Owners'))
             ->add('tags', null, array('label' => 'Tags'))
-            ->add('voies', null, array('label' => 'Voies'))
+            ->add('directions', null, array('label' => 'Directions'))
             ->add('lesson', 'sonata_type_admin', array('label' => 'Lesson'))
             ->add('resume', null, array('label' => 'Resume'))
             ->add('technical_comment', null, array('label' => 'Technical comment'))
@@ -123,7 +123,7 @@ class TeachingAdmin extends Admin
                 'multiple' => true,
                 'btn_add'  => false,
             ))
-            ->add('voies', 'sonata_type_model',
+            ->add('directions', 'sonata_type_model',
                 array(
                     'by_reference' => false,
                     'expanded' => false,
@@ -159,7 +159,7 @@ class TeachingAdmin extends Admin
             ->add('event', null, array('label' => 'Event'))
             ->add('users', null, array('label' => 'Owners'))
             ->add('tags', null, array('label' => 'Tags'))
-            ->add('voies', null, array('label' => 'Voies'))
+            ->add('directions', null, array('label' => 'Directions'))
             ->add('lesson', null, array('label' => 'Lesson'))
             ->add('resume', null, array('label' => 'Resume'))
             ->add('technical_comment', null, array('label' => 'Technical comment'))

@@ -1,6 +1,6 @@
 parameters:
     sonata.user.admin.user.class: EspaceMembers\MainBundle\Admin\UserAdmin
-    sonata.user.admin.user.entity: EspaceMembers\MainBundle\Entity\User
+    sonata.user.admin.user.entity: Application\Sonata\UserBundle\Entity\User
 
 services:
     getid3:
@@ -16,7 +16,7 @@ services:
             - { name: sonata.admin, manager_type: orm, group: EspaceMembers, label: "Group" }
         arguments:
             - ~
-            - EspaceMembers\MainBundle\Entity\Group
+            - Application\Sonata\UserBundle\Entity\Group
             - 'SonataAdminBundle:CRUD'
 
     sonata.admin.teaching:
@@ -28,13 +28,13 @@ services:
             - EspaceMembers\MainBundle\Entity\Teaching
             - 'SonataAdminBundle:CRUD'
 
-    sonata.admin.voie:
-        class: EspaceMembers\MainBundle\Admin\VoieAdmin
+    sonata.admin.direction:
+        class: EspaceMembers\MainBundle\Admin\DirectionAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: EspaceMembers, label: "Voie" }
+            - { name: sonata.admin, manager_type: orm, group: EspaceMembers, label: "Direction" }
         arguments:
             - ~
-            - EspaceMembers\MainBundle\Entity\Voie
+            - EspaceMembers\MainBundle\Entity\Direction
             - 'SonataAdminBundle:CRUD'
 
     sonata.admin.tag:
@@ -95,13 +95,6 @@ services:
             - %kernel.root_dir%
         tags:
             - { name: twig.extension }
-
-    #Doctrine Media Listener
-    media_listener:
-        class: EspaceMembers\MainBundle\Entity\Listener\MediaListener
-        arguments: ["@service_container"]
-        tags:
-            - { name: doctrine.orm.entity_listener }
 
     #Doctrine ParamConverters
     param_converter.teacher_by_event:

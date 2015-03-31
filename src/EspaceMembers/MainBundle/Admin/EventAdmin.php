@@ -35,7 +35,6 @@ class EventAdmin extends Admin
             ->add('teachings', null, array('label' => 'Teachings'))
             ->add('category', null, array('label' => 'Category'))
             ->add('users', null, array('label' => 'Users'))
-            ->add('groups', null, array('label' => 'Groups'))
             ->add('tags', null, array('label' => 'Tags'))
         ;
     }
@@ -136,13 +135,6 @@ class EventAdmin extends Admin
                     //'multiple' => true,
                     //'btn_add'  => false,
             //))
-            ->add('groups', 'sonata_type_model',
-                array(
-                    'by_reference' => false,
-                    'expanded' => false,
-                    'multiple' => true,
-                    'btn_add'  => false,
-            ))
             ->add('tags', 'sonata_type_model',
                 array(
                     'by_reference' => false,
@@ -185,7 +177,6 @@ class EventAdmin extends Admin
             ->add('teachings', null, array('label' => 'Teachings'))
             ->add('category', null, array('label' => 'Category'))
             ->add('users', null, array('label' => 'Users'))
-            ->add('groups', null, array('label' => 'Groups'))
             ->add('tags', null, array('label' => 'Tags'))
         ;
     }

@@ -12,10 +12,10 @@ class RenderController extends Controller
 
         return $this->render('EspaceMembersMainBundle:Template\right-block:index.html.twig', array(
             'chronologies' => $em->getRepository('EspaceMembersMainBundle:Event')->getYears(),
-            'categories'   => $em->getRepository('EspaceMembersMainBundle:Category')->getTitles(),
-            'directions'   => $em->getRepository('EspaceMembersMainBundle:Voie')->getTitles(),
-            'teachers'     => $em->getRepository('EspaceMembersMainBundle:User')->findTeachers(),
-            'tags'         => $em->getRepository('EspaceMembersMainBundle:Tag')->getTitles(),
+            'categories'   => $em->getRepository('EspaceMembersMainBundle:Category')->getNames(),
+            'directions'   => $em->getRepository('EspaceMembersMainBundle:Direction')->getNames(),
+            'teachers'     => $em->getRepository('ApplicationSonataUserBundle:User')->findTeachers(),
+            'tags'         => $em->getRepository('EspaceMembersMainBundle:Tag')->getNames(),
             'currentPath'  => $currentPath
         ));
     }

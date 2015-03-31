@@ -127,7 +127,7 @@ Feature: Teachings
 
     @javascript
     Scenario: Filtering events by tag "Best"
-        When   I click on the element "#ui-accordion-accordion-header-4"
+        When  I click on the element "#ui-accordion-accordion-header-4"
         And   I follow "Best"
         Then  I should see 2 ".left-column" element
         And   I should see "Best News 2013"
