@@ -1,4 +1,12 @@
 <?php
+/**
+ * This file is part of the EspaceMembers project.
+ *
+ * (c) Stanislav Stepanenko <dsazztazz@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace EspaceMembers\MainBundle\Twig;
 
@@ -10,6 +18,11 @@ use Sonata\MediaBundle\Model\MediaInterface;
 use Sonata\MediaBundle\Provider\Pool;
 use Sonata\MediaBundle\Twig\Extension\MediaExtension as SonataMediaExtension;
 
+/**
+ * MediaExtension
+ *
+ * @author Stepanenko Stanislav <dsazztazz@gmail.com>
+ */
 class MediaExtension extends \Twig_Extension
 {
     protected $mediaService;
@@ -22,27 +35,24 @@ class MediaExtension extends \Twig_Extension
      * @param ManagerInterface $mediaManager
      * @param MediaExtension   $sonataMediaExtension
      * @param string           $cdnPath
-     * @param string           $rootDir
      */
     public function __construct(
         Pool $mediaService,
         ManagerInterface $mediaManager,
         SonataMediaExtension $sonataMediaExtension,
         $cdnPath,
-        $rootDir
     )
     {
         $this->mediaService = $mediaService;
         $this->mediaManager = $mediaManager;
         $this->sonataMediaExtension = $sonataMediaExtension;
         $this->cdnPath = $cdnPath;
-        $this->rootDir = $rootDir;
     }
 
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('path_to_media', array($this, 'getPathToMediaByArray')),
+            new \Twig_SimpleFunction('path_to_media', [$this, 'getPathToMediaByArray']),
         );
     }
 

@@ -1,4 +1,12 @@
 <?php
+/**
+ * This file is part of the EspaceMembers project.
+ *
+ * (c) Stanislav Stepanenko <dsazztazz@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace EspaceMembers\MainBundle\Behat;
 
@@ -7,6 +15,11 @@ use Behat\Gherkin\Node\TableNode;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
+/**
+ * ControllerContext
+ *
+ * @author Stepanenko Stanislav <dsazztazz@gmail.com>
+ */
 class ControllerContext extends DefaultContext
 {
     /**

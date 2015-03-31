@@ -1,4 +1,13 @@
 <?php
+/**
+ * This file is part of the EspaceMembers project.
+ *
+ * (c) Stanislav Stepanenko <dsazztazz@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace EspaceMembers\MainBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -8,6 +17,11 @@ use EspaceMembers\MainBundle\Entity\User;
 use Symfony\Component\Security\Core\User\UserInterface;
 use EspaceMembers\MainBundle\Controller\BaseController as Controller;
 
+/**
+ * TeachingController
+ *
+ * @author Stepanenko Stanislav <dsazztazz@gmail.com>
+ */
 class TeachingController extends Controller
 {
     public function indexAction($page)

@@ -92,7 +92,6 @@ services:
             - @sonata.media.manager.media
             - @sonata.media.twig.extension
             - %sonata_media_cdn_server_path%
-            - %kernel.root_dir%
         tags:
             - { name: twig.extension }
 
