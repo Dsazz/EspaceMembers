@@ -21,31 +21,6 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @var string
-     */
-    protected $first_name;
-
-    /**
-     * @var string
-     */
-    protected $last_name;
-
-    /**
-     * @var \DateTime
-     */
-    protected $birthday;
-
-    /**
-     * @var string
-     */
-    protected $description;
-
-    /**
-     * @var SexType
-     */
-    protected $sex;
-
-    /**
      * @var \EspaceMembers\MainBundle\Entity\Media
      */
     protected $avatar;
@@ -78,11 +53,6 @@ class User extends BaseUser
     /**
      * @var string
      */
-    protected $phone;
-
-    /**
-     * @var string
-     */
     private $address;
 
     /**
@@ -110,121 +80,6 @@ class User extends BaseUser
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set first_name
-     *
-     * @param  string $firstName
-     * @return User
-     */
-    public function setFirstName($firstName)
-    {
-        $this->first_name = $firstName;
-
-        return $this;
-    }
-
-    /**
-     * Get first_name
-     *
-     * @return string
-     */
-    public function getFirstName()
-    {
-        return $this->first_name;
-    }
-
-    /**
-     * Set last_name
-     *
-     * @param  string $lastName
-     * @return User
-     */
-    public function setLastName($lastName)
-    {
-        $this->last_name = $lastName;
-
-        return $this;
-    }
-
-    /**
-     * Get last_name
-     *
-     * @return string
-     */
-    public function getLastName()
-    {
-        return $this->last_name;
-    }
-
-    /**
-     * Set birthday
-     *
-     * @param  \DateTime $birthday
-     * @return User
-     */
-    public function setBirthday($birthday)
-    {
-        $this->birthday = $birthday;
-
-        return $this;
-    }
-
-    /**
-     * Get birthday
-     *
-     * @return \DateTime
-     */
-    public function getBirthday()
-    {
-        return $this->birthday;
-    }
-
-    /**
-     * Set description
-     *
-     * @param  string $description
-     * @return User
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Set sex
-     *
-     * @param  SexType $sex
-     * @return User
-     */
-    public function setSex($sex)
-    {
-        $this->sex = $sex;
-
-        return $this;
-    }
-
-    /**
-     * Get sex
-     *
-     * @return SexType
-     */
-    public function getSex()
-    {
-        return $this->sex;
     }
 
     /**
@@ -404,32 +259,9 @@ class User extends BaseUser
      *
      * @return boolean
      */
-    public function getIsTeacher()
+    public function isTeacher()
     {
         return $this->is_teacher;
-    }
-
-    /**
-     * Set phone
-     *
-     * @param  string $phone
-     * @return User
-     */
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
-
-        return $this;
-    }
-
-    /**
-     * Get phone
-     *
-     * @return string
-     */
-    public function getPhone()
-    {
-        return $this->phone;
     }
 
     /**

@@ -10,8 +10,6 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Validator\ErrorElement;
 
-use EspaceMembers\MainBundle\DBAL\Types\SexType;
-
 class UserAdmin extends BaseUserAdmin
 {
     /**
@@ -21,28 +19,13 @@ class UserAdmin extends BaseUserAdmin
     {
         $showMapper
             ->with('General')
-                ->add('first_name')
-                ->add('last_name')
+                ->add('firstname')
+                ->add('lastname')
                 ->add('email')
             ->end()
             ;
     }
 
-    //public function validate(ErrorElement $errorElement, $object)
-    //{
-        //$errorElement
-            //->with('avatar')
-                //->assertFile(array(
-                    //'maxSize' => '50M',
-                    //'mimeTypes' => array(
-                        //'image/pjpeg','image/jpeg','image/png',
-                        //'image/x-png', 'image/gif'
-                    //),
-                    //'notFoundMessage' => "The mime type of the file is invalid. Allowed mime types are 'jpg', 'png', 'gif', 'jpeg' !",
-                //))
-            //->end()
-            //;
-    //}
     /**
      * {@inheritdoc}
      */
@@ -51,8 +34,8 @@ class UserAdmin extends BaseUserAdmin
         $formMapper
             ->tab('User')
                 ->with('General')
-                    ->add('first_name', null, array('label' => 'First name', 'required' => true))
-                    ->add('last_name', null, array('label' => 'Last name', 'required' => true))
+                    ->add('firstname', null, array('label' => 'First name', 'required' => true))
+                    ->add('lastname', null, array('label' => 'Last name', 'required' => true))
                     ->add('avatar', 'sonata_type_model_list',
                         array(
                             'label' => 'Avatar',
@@ -67,7 +50,7 @@ class UserAdmin extends BaseUserAdmin
                     ))
                     ->add('phone', null, array('label' => 'Phone'))
                     ->add('address', null, array('label' => 'Address'))
-                    ->add('description', 'textarea', array(
+                    ->add('biography', 'textarea', array(
                         'label' => 'Description',
                         'attr' => array('class' => 'ckeditor'),
                         'required' => false,
@@ -94,22 +77,13 @@ class UserAdmin extends BaseUserAdmin
         if ($this->getSubject() && !$this->getSubject()->hasRole('ROLE_SUPER_ADMIN')) {
             $formMapper
                     ->with('Administrator')
-                        ->add('birthday', 'date', array(
-                            'label'  => 'birthday',
-                            'format' => 'dd MMMM yyyy',
-                            'widget' => 'choice',
-                            'years'  => range(date('Y'), date('Y')-70),
-                        ))
-                        ->add('sex', 'choice', array(
-                            'label' => 'sex',
-                            'choices' => SexType::getChoices(),
-                        ))
+                        ->add('dateOfBirth', 'birthday')
+                        ->add('gender')
                         ->add('is_teacher', null, array('label' => 'Is teacher ?'))
                         ->add('groups', 'entity', array(
                             'label' => 'Group',
                             'required' => false,
                             'class' => 'EspaceMembers\MainBundle\Entity\Group',
-                            //'expanded' => true,
                             'expanded' => false,
                             'multiple' =>false,
                             'required' => true,
@@ -120,7 +94,6 @@ class UserAdmin extends BaseUserAdmin
                     ->with('Status')
                         ->add('email')
                         ->add('roles','choice',array(
-                            //'choices'=>$this->getConfigurationPool()->getContainer()->getParameter('security.role_hierarchy.roles'),
                             'choices'  => $this->getExistingRoles(),
                             'expanded' => true,
                             'multiple' => true,
@@ -140,8 +113,8 @@ class UserAdmin extends BaseUserAdmin
     {
         $filterMapper
             ->add('id')
-            ->add('first_name', null, array('label' => 'First name'))
-            ->add('last_name', null, array('label' => 'Last name'))
+            ->add('firstname', null, array('label' => 'First name'))
+            ->add('lastname', null, array('label' => 'Last name'))
             ->add('locked')
             ->add('email')
             ;
@@ -154,11 +127,11 @@ class UserAdmin extends BaseUserAdmin
     {
         $listMapper
             ->addIdentifier('id', null, array('label' => 'User ID'))
-            ->add('first_name', null, array('label' => 'First name'))
-            ->add('last_name', null, array('label' => 'Last name'))
+            ->add('firstname', null, array('label' => 'First name'))
+            ->add('lastname', null, array('label' => 'Last name'))
             ->add('email')
-            ->add('birthday', null, array('label' => 'birthday'))
-            ->add('sex', null, array('label' => 'Sex'))
+            ->add('dateOfBirth', null, array('label' => 'birthday'))
+            ->add('gender', null, array('label' => 'gender'))
             ->add('roles', 'choice', array(
                 'label' => 'Roles',
                 'choices' => $this->getExistingRoles(),

@@ -48,25 +48,21 @@ class TeachingContext extends DefaultContext
                 ? $teacher->setEnabled($data['enabled'])
                 : $teacher->setEnabled(true);
 
-            //TODO: remove First Name -> Firstname already exists
             isset($data['first name']) && !empty($data['first name'])
-                ? $teacher->setFirstName(trim($data['first name']))
-                : $teacher->setFirstName($this->faker->firstNameMale);
+                ? $teacher->setFirstname(trim($data['first name']))
+                : $teacher->setFirstname($this->faker->firstNameMale);
 
-            //TODO: remove Last Name -> Lastname already exists
             isset($data['last name']) && !empty($data['last name'])
-                ? $teacher->setLastName(trim($data['last name']))
-                : $teacher->setLastName($this->faker->lastName);
+                ? $teacher->setLastname(trim($data['last name']))
+                : $teacher->setLastname($this->faker->lastName);
 
-            //TODO: remove Description -> Biografy already exists
-            isset($data['description']) && !empty($data['description'])
-                ? $teacher->setDescription($data['description'])
-                : $teacher->setDescription($this->faker->paragraph(5));
+            isset($data['biography']) && !empty($data['biography'])
+                ? $teacher->setBiography($data['biography'])
+                : $teacher->setBiography($this->faker->paragraph(5));
 
-            //TODO: remove Sex -> Gender already exists
             isset($data['gender']) && !empty($data['gender'])
-                ? $teacher->setSex($data['gender'])
-                : $teacher->setSex('MALE');
+                ? $teacher->setGender($data['gender'])
+                : $teacher->setGender('m');
 
             isset($data['is teacher']) && !empty($data['is teacher'])
                 ? $teacher->setIsTeacher((bool)$data['is teacher'])
@@ -87,8 +83,7 @@ class TeachingContext extends DefaultContext
                 }
             }
 
-            //TODO: remove Birthday -> Date of Birth already exists
-            $teacher->setBirthday($this->faker->dateTimeBetween('-30 years', '-20 year'));
+            $teacher->setDateOfBirth($this->faker->dateTimeBetween('-30 years', '-20 year'));
 
             $teacher->setAvatar($this->createImageWithContext('avatar'));
 

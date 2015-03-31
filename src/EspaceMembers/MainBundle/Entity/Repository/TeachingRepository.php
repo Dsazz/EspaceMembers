@@ -11,8 +11,8 @@ class TeachingRepository extends EntityRepository
     {
         return $qb = $this->createQueryBuilder('tch')
             ->select('tch')
-            ->addSelect('partial lsn.{id, contentType, context, providerName, providerStatus, providerReference, playtime}')
-            ->addSelect('partial u.{id, last_name, first_name}')
+            ->addSelect('partial lsn.{id, contentType, context, providerName, providerStatus, providerReference}')
+            ->addSelect('partial u.{id, lastname, firstname}')
             ->addSelect('v')
             ->addSelect('tags')
             ->innerJoin('tch.lesson', 'lsn')

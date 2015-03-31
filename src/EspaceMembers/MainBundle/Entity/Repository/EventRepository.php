@@ -26,7 +26,7 @@ class EventRepository extends EntityRepository
             )
             ->addSelect('partial c.{id, title}')
             ->addSelect('partial tgs.{id, title}')
-            ->addSelect('partial u.{id, last_name, first_name, avatar}')
+            ->addSelect('partial u.{id, lastname, firstname, avatar}')
             ->addSelect(
                 'partial tch.{
                     id, title, serial, lesson, dayNumber, dayTime, date
@@ -55,7 +55,7 @@ class EventRepository extends EntityRepository
             ->where('ev.id = :event_id')
             ->setParameter('event_id', $eventId)
             ->getQuery()
-            ->getOneOrNullResult(Query::HYDRATE_ARRAY);
+            ->getOneOrNullResult();
     }
 
     public function findAllWithPaging()
@@ -67,7 +67,7 @@ class EventRepository extends EntityRepository
                 }'
             )
             ->addSelect('partial c.{id, title}')
-            ->addSelect('partial u.{id, last_name, first_name, avatar}')
+            ->addSelect('partial u.{id, lastname, firstname, avatar}')
             ->addSelect(
                 'partial tch.{
                     id, title, serial, lesson, dayNumber, dayTime, date
@@ -111,7 +111,7 @@ class EventRepository extends EntityRepository
                     id, title, category, year, frontImage, startDate, completionDate
                 }'
             )
-            ->addSelect('partial u.{id, last_name, first_name, avatar}')
+            ->addSelect('partial u.{id, lastname, firstname, avatar}')
             ->addSelect(
                 'partial tch.{
                     id, title, serial, lesson, dayNumber, dayTime, date
@@ -158,7 +158,7 @@ class EventRepository extends EntityRepository
                     id, title, category, year, frontImage, startDate, completionDate
                 }'
             )
-            ->addSelect('partial u.{id, last_name, first_name, avatar}')
+            ->addSelect('partial u.{id, lastname, firstname, avatar}')
             ->addSelect(
                 'partial tch.{
                     id, title, serial, lesson, dayNumber, dayTime, date
@@ -206,7 +206,7 @@ class EventRepository extends EntityRepository
                     id, title, category, year, frontImage, startDate, completionDate
                 }'
             )
-            ->addSelect('partial u.{id, last_name, first_name, avatar}')
+            ->addSelect('partial u.{id, lastname, firstname, avatar}')
             ->addSelect('partial tch.{
                 id, title, serial, lesson, dayNumber, dayTime, date
                 }'
@@ -249,7 +249,7 @@ class EventRepository extends EntityRepository
                     id, title, category, year, frontImage, startDate, completionDate
                 }'
             )
-            ->addSelect('partial u.{id, last_name, first_name, avatar}')
+            ->addSelect('partial u.{id, lastname, firstname, avatar}')
             ->addSelect(
                 'partial tch.{
                     id, title, serial, lesson, dayNumber, dayTime, date
@@ -296,7 +296,7 @@ class EventRepository extends EntityRepository
                     id, title, category, year, frontImage, startDate, completionDate
                 }'
             )
-            ->addSelect('partial u.{id, last_name, first_name, avatar}')
+            ->addSelect('partial u.{id, lastname, firstname, avatar}')
             ->addSelect(
                 'partial tch.{id, title, serial, lesson, dayNumber, dayTime, date
                 }'
@@ -356,8 +356,8 @@ class EventRepository extends EntityRepository
 
         $rsm->addJoinedEntityResult('EspaceMembers\MainBundle\Entity\User', 'u', 'ev', 'users');
         $rsm->addFieldResult('u', 'user_id', 'id');
-        $rsm->addFieldResult('u', 'last_name', 'last_name');
-        $rsm->addFieldResult('u', 'first_name', 'first_name');
+        $rsm->addFieldResult('u', 'lastname', 'lastname');
+        $rsm->addFieldResult('u', 'firstname', 'firstname');
 
         $rsm->addJoinedEntityResult('EspaceMembers\MainBundle\Entity\Media', 'avatar', 'u', 'avatar');
         $rsm->addFieldResult('avatar', 'avatar_id', 'id');
@@ -388,7 +388,7 @@ class EventRepository extends EntityRepository
                 'frntImg.id as front_image_id, frntImg.provider_name as f_prov_name, frntImg.provider_status as f_prov_status, '.
                 'frntImg.provider_reference as f_prov_ref, frntImg.width as f_width, frntImg.height as f_height, '.
                 'frntImg.content_type as f_contentType, frntImg.context as f_context, '.
-                'u.id as user_id, u.last_name, u.first_name, '.
+                'u.id as user_id, u.lastname, u.firstname, '.
                 'avatar.id as avatar_id, avatar.provider_name, avatar.provider_status, '.
                 'avatar.provider_reference, avatar.width, avatar.height, avatar.content_type, avatar.context, '.
                 'tch.id as teaching_id, tch.title as tch_title, tch.serial, tch.dayNumber, tch.dayTime, tch.date, '.
@@ -415,7 +415,7 @@ class EventRepository extends EntityRepository
                 'frntImg.id as front_image_id, frntImg.provider_name as f_prov_name, frntImg.provider_status as f_prov_status, '.
                 'frntImg.provider_reference as f_prov_ref, frntImg.width as f_width, frntImg.height as f_height, '.
                 'frntImg.content_type as f_contentType, frntImg.context as f_context, '.
-                'u.id as user_id, u.last_name, u.first_name, '.
+                'u.id as user_id, u.lastname, u.firstname, '.
                 'avatar.id as avatar_id, avatar.provider_name, avatar.provider_status, '.
                 'avatar.provider_reference, avatar.width, avatar.height, avatar.content_type, avatar.context, '.
                 'tch.id as teaching_id, tch.title as tch_title, tch.serial, tch.dayNumber, tch.dayTime, tch.date, '.
@@ -464,7 +464,7 @@ class EventRepository extends EntityRepository
                 }'
             )
             ->addSelect('partial c.{id, title}')
-            ->addSelect('partial u.{id, last_name, first_name, avatar}')
+            ->addSelect('partial u.{id, lastname, firstname, avatar}')
             ->addSelect(
                 'partial tch.{
                     id, title, serial, lesson, dayNumber, dayTime, date

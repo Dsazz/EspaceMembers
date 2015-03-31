@@ -4,7 +4,7 @@
 </span>
 
 <div class="image-box">
-    <img src="{{ path_to_media_by_array(event.frontImage, 'big') }}" width="175px" height="175px" alt="image">
+    <img src="{{ path_to_media(event.frontImage, 'big') }}" width="175px" height="175px" alt="image">
     <span class="describe">
         Du {{ event.startDate|localizeddate('none', 'none', 'fr_FR' , null, 'd LLLL')|title }}
         Au {{ event.completionDate|localizeddate('none', 'none', 'fr_FR' , null, 'd LLLL')|title }}

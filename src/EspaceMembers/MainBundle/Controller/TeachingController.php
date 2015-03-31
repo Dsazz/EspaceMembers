@@ -3,6 +3,9 @@ namespace EspaceMembers\MainBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use EspaceMembers\MainBundle\Entity\Teaching;
+use EspaceMembers\MainBundle\Entity\Event;
+use EspaceMembers\MainBundle\Entity\User;
+use Symfony\Component\Security\Core\User\UserInterface;
 use EspaceMembers\MainBundle\Controller\BaseController as Controller;
 
 class TeachingController extends Controller
@@ -15,8 +18,8 @@ class TeachingController extends Controller
         $this->setCurrentPageOr404($pagerfanta, $page);
 
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
-            'paginator' => $pagerfanta,
-            'events'  => $pagerfanta->getCurrentPageResults(),
+            'paginator'   => $pagerfanta,
+            'events'      => $pagerfanta->getCurrentPageResults(),
             'bookmarksId' => $em->getRepository('EspaceMembersMainBundle:User')
                 ->getBookmarksId($this->getUser()),
         ));
@@ -31,8 +34,8 @@ class TeachingController extends Controller
         $this->setCurrentPageOr404($pagerfanta, $page);
 
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
-            'paginator'  => $pagerfanta,
-            'events'     => $pagerfanta->getCurrentPageResults(),
+            'paginator'   => $pagerfanta,
+            'events'      => $pagerfanta->getCurrentPageResults(),
             'bookmarksId' => $em->getRepository('EspaceMembersMainBundle:User')
                 ->getBookmarksId($this->getUser()),
         ));
@@ -47,8 +50,8 @@ class TeachingController extends Controller
         $this->setCurrentPageOr404($pagerfanta, $page);
 
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
-            'paginator'  => $pagerfanta,
-            'events'     => $pagerfanta->getCurrentPageResults(),
+            'paginator'   => $pagerfanta,
+            'events'      => $pagerfanta->getCurrentPageResults(),
             'bookmarksId' => $em->getRepository('EspaceMembersMainBundle:User')
                 ->getBookmarksId($this->getUser()),
         ));
@@ -63,8 +66,8 @@ class TeachingController extends Controller
         $this->setCurrentPageOr404($pagerfanta, $page);
 
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
-            'paginator'  => $pagerfanta,
-            'events'     => $pagerfanta->getCurrentPageResults(),
+            'paginator'   => $pagerfanta,
+            'events'      => $pagerfanta->getCurrentPageResults(),
             'bookmarksId' => $em->getRepository('EspaceMembersMainBundle:User')
                 ->getBookmarksId($this->getUser()),
         ));
@@ -79,8 +82,8 @@ class TeachingController extends Controller
         $this->setCurrentPageOr404($pagerfanta, $page);
 
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
-            'paginator'  => $pagerfanta,
-            'events'     => $pagerfanta->getCurrentPageResults(),
+            'paginator'   => $pagerfanta,
+            'events'      => $pagerfanta->getCurrentPageResults(),
             'bookmarksId' => $em->getRepository('EspaceMembersMainBundle:User')
                 ->getBookmarksId($this->getUser()),
         ));
@@ -96,39 +99,52 @@ class TeachingController extends Controller
         $this->setCurrentPageOr404($pagerfanta, $page);
 
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
-            'paginator'  => $pagerfanta,
-            'events'     => $pagerfanta->getCurrentPageResults(),
+            'paginator'   => $pagerfanta,
+            'events'      => $pagerfanta->getCurrentPageResults(),
             'bookmarksId' => $em->getRepository('EspaceMembersMainBundle:User')
                 ->getBookmarksId($this->getUser()),
         ));
     }
 
-    public function playAction($event_id, $teacher_id, $teaching_id)
+    /**
+     * @ParamConverter("event", class="EspaceMembersMainBundle:Event", options={
+     *    "repository_method" = "findEventWithTeachers",
+     *    "id" = "event_id",
+     *  })
+     * @ParamConverter("teacher", class="EspaceMembersMainBundle:User", converter="teacher_by_event_converter")
+     */
+    public function playAction(Event $event, UserInterface $teacher, $teaching_id)
     {
         $em = $this->getDoctrine()->getManager();
 
+        $teaching = $em->getRepository('EspaceMembersMainBundle:Teaching')
+                ->findPartialOneById($teaching_id);
+
+        if (is_null($teaching) || empty($teaching)) {
+            throw $this->createNotFoundException('The teaching does not exist');
+        }
+
         return $this->render('EspaceMembersMainBundle:Teaching:play.html.twig', array(
-            'teachingCurr'=> $em->getRepository('EspaceMembersMainBundle:Teaching')
-                ->findPartialOneById($teaching_id),
-
-            'event' => $em->getRepository('EspaceMembersMainBundle:Event')
-                ->findEventWithTeachers($event_id),
-
-            'teacherCurr' => $em->getRepository('EspaceMembersMainBundle:User')
-                ->findTeacherByEvent($teacher_id, $event_id),
-
-            'bookmarksId' => $em->getRepository('EspaceMembersMainBundle:User')
+            'event'        => $event,
+            'teachingCurr' => $teaching,
+            'teacherCurr'  => $teacher,
+            'bookmarksId'  => $em->getRepository('EspaceMembersMainBundle:User')
                 ->getBookmarksId($this->getUser()),
         ));
     }
 
-    public function viewDetailAction($event_id)
+    /**
+     * @ParamConverter("event", class="EspaceMembersMainBundle:Event", options={
+     *    "repository_method" = "findEventWithTeachers",
+     *    "id" = "event_id",
+     *  })
+     */
+    public function viewDetailAction(Event $event)
     {
         $em = $this->getDoctrine()->getManager();
 
         return $this->render('EspaceMembersMainBundle:Teaching:detail.html.twig', array(
-            'event' => $em->getRepository('EspaceMembersMainBundle:Event')
-                ->findEventWithTeachers($event_id),
+            'event'       => $event,
             'bookmarksId' => $em->getRepository('EspaceMembersMainBundle:User')
                 ->getBookmarksId($this->getUser()),
         ));
