@@ -3,16 +3,13 @@
 namespace EspaceMembers\MainBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use EspaceMembers\MainBundle\Entity\Teaching;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-use Pagerfanta\Exception\NotValidCurrentPageException;
-use Pagerfanta\Adapter\ArrayAdapter;
-use Pagerfanta\Pagerfanta;
+use EspaceMembers\MainBundle\Controller\BaseController as Controller;
+use EspaceMembers\MainBundle\Entity\Teaching;
 
 class BookmarkController extends Controller
 {
@@ -20,7 +17,7 @@ class BookmarkController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $bookmarkData = $em->getRepository('EspaceMembersMainBundle:User')
+        $bookmarkData = $em->getRepository('ApplicationSonataUserBundle:User')
             ->getBookmarksData($this->getUser());
 
         $pagerfanta = $em->getRepository('EspaceMembersMainBundle:Event')
@@ -31,7 +28,7 @@ class BookmarkController extends Controller
         return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
             'paginator'   => $pagerfanta,
             'events'      => $pagerfanta->getCurrentPageResults(),
-            'bookmarksId' => $em->getRepository('EspaceMembersMainBundle:User')
+            'bookmarksId' => $em->getRepository('ApplicationSonataUserBundle:User')
                 ->getBookmarksId($this->getUser()),
         ));
     }
@@ -69,15 +66,6 @@ class BookmarkController extends Controller
             return new JsonResponse(array('error' => 'You don`t have access'), Response::HTTP_FORBIDDEN);
         } catch (NotFoundHttpException $e) {
             return new JsonResponse(array('error' => 'Bookmark not found'), Response::HTTP_NOT_FOUND);
-        }
-    }
-
-    private function setCurrentPageOr404($pagerfanta, $page)
-    {
-        try {
-            $pagerfanta->setCurrentPage($page);
-        } catch (NotValidCurrentPageException $e) {
-            throw new NotFoundHttpException();
         }
     }
 }

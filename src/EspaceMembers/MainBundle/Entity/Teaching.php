@@ -20,7 +20,6 @@ class Teaching
     private $tags;
     private $directions;
     private $users;
-    private $bookmarkOwners;
 
     /**
      * Constructor
@@ -229,10 +228,10 @@ class Teaching
     /**
      * Set lesson
      *
-     * @param  \EspaceMembers\MainBundle\Entity\Media $lesson
+     * @param  \Sonata\MediaBundle\Model\MediaInterface $lesson
      * @return Teaching
      */
-    public function setLesson(\EspaceMembers\MainBundle\Entity\Media $lesson = null)
+    public function setLesson(\Sonata\MediaBundle\Model\MediaInterface $lesson = null)
     {
         $this->lesson = $lesson;
 
@@ -242,7 +241,7 @@ class Teaching
     /**
      * Get lesson
      *
-     * @return \EspaceMembers\MainBundle\Entity\Media
+     * @return \Sonata\MediaBundle\Model\MediaInterface
      */
     public function getLesson()
     {
@@ -369,10 +368,10 @@ class Teaching
     /**
      * Add users
      *
-     * @param  \EspaceMembers\MainBundle\Entity\User $users
+     * @param  \Symfony\Component\Security\Core\User\UserInterface $user
      * @return Teaching
      */
-    public function addUser(\EspaceMembers\MainBundle\Entity\User $user)
+    public function addUser(\Symfony\Component\Security\Core\User\UserInterface $user)
     {
         if (false === $this->getUsers()->contains($user) ) {
             $this->users[] = $user;
@@ -385,11 +384,11 @@ class Teaching
     /**
      * Remove users
      *
-     * @param \EspaceMembers\MainBundle\Entity\User $users
+     * @param  \Symfony\Component\Security\Core\User\UserInterface $user
      */
-    public function removeUser(\EspaceMembers\MainBundle\Entity\User $users)
+    public function removeUser(\Symfony\Component\Security\Core\User\UserInterface $user)
     {
-        $this->users->removeElement($users);
+        $this->users->removeElement($user);
     }
 
     /**
@@ -405,38 +404,5 @@ class Teaching
     public function __toString()
     {
         return $this->getTitle() ?: '';
-    }
-
-    /**
-     * Add bookmarkOwners
-     *
-     * @param  \EspaceMembers\MainBundle\Entity\User $bookmarkOwners
-     * @return Teaching
-     */
-    public function addBookmarkOwner(\EspaceMembers\MainBundle\Entity\User $bookmarkOwners)
-    {
-        $this->bookmarkOwners[] = $bookmarkOwners;
-
-        return $this;
-    }
-
-    /**
-     * Remove bookmarkOwners
-     *
-     * @param \EspaceMembers\MainBundle\Entity\User $bookmarkOwners
-     */
-    public function removeBookmarkOwner(\EspaceMembers\MainBundle\Entity\User $bookmarkOwners)
-    {
-        $this->bookmarkOwners->removeElement($bookmarkOwners);
-    }
-
-    /**
-     * Get bookmarkOwners
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getBookmarkOwners()
-    {
-        return $this->bookmarkOwners;
     }
 }

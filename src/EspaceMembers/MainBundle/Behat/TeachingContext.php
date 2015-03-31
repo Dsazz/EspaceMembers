@@ -7,12 +7,13 @@ use Behat\Gherkin\Node\TableNode;
 
 use EspaceMembers\MainBundle\Entity\Category;
 use EspaceMembers\MainBundle\Entity\Event;
-use EspaceMembers\MainBundle\Entity\Group;
-use EspaceMembers\MainBundle\Entity\Media;
 use EspaceMembers\MainBundle\Entity\Tag;
 use EspaceMembers\MainBundle\Entity\Teaching;
-use EspaceMembers\MainBundle\Entity\User;
 use EspaceMembers\MainBundle\Entity\Direction;
+
+use Application\Sonata\UserBundle\Entity\User;
+use Application\Sonata\UserBundle\Entity\Group;
+use Application\Sonata\MediaBundle\Entity\Media;
 
 class TeachingContext extends DefaultContext
 {

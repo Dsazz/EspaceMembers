@@ -11,7 +11,7 @@ use Behat\Symfony2Extension\Context\KernelAwareContext;
 use Faker\Factory as FakerFactory;
 use Faker\Generator;
 
-use EspaceMembers\MainBundle\Entity\Media;
+use Application\Sonata\MediaBundle\Entity\Media;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -148,7 +148,7 @@ abstract class DefaultContext extends RawMinkContext implements Context, KernelA
      */
     public function getGroupRepository()
     {
-        return $this->getEntityManager()->getRepository('EspaceMembersMainBundle:Group');
+        return $this->getEntityManager()->getRepository('ApplicationSonataUserBundle:Group');
     }
 
     /**
@@ -274,7 +274,7 @@ abstract class DefaultContext extends RawMinkContext implements Context, KernelA
      *
      * @param string $context - context for SonataMediaBundle
      *
-     * @return EspaceMembers\MainBundle\Entity\Media
+     * @return \Application\Sonata\MediaBundle\Entity\Media
      */
     public function createImageWithContext($context)
     {

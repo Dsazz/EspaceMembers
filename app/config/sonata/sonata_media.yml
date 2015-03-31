@@ -1,0 +1,63 @@
+sonata_media:
+    providers:
+        file:
+            allowed_extensions: ['pdf', 'mp4', 'flv', 'mp3', 'avi']
+            allowed_mime_types: ['video/mp4', 'video/x-flv', 'audio/mpeg', 'application/pdf', 'application/pdf', 'application/x-pdf', 'application/acrobat', 'applications/vnd.pdf', 'text/pdf', 'text/x-pdf', 'application/x-troff-msvideo', 'video/avi', 'applicationvideo/msvideo', 'video/x-msvideo' ]
+        image:
+            resizer:  sonata.media.resizer.square
+            allowed_extensions: ['jpg', 'png', 'gif', 'jpeg']
+            allowed_mime_types: ['image/pjpeg','image/jpeg','image/png','image/x-png', 'image/gif']
+    default_context: default
+    db_driver: doctrine_orm # or doctrine_mongodb, doctrine_phpcr
+    contexts:
+        default:  # the default context is mandatory
+            providers:
+                - sonata.media.provider.dailymotion
+                - sonata.media.provider.youtube
+                - sonata.media.provider.image
+                - sonata.media.provider.file
+            formats:
+                small: { width: 100 , quality: 70}
+        lesson:
+            providers:
+                - sonata.media.provider.file
+            formats:
+                mp3:   { quality: 100 }
+                video: { quality: 100 }
+        flayer:
+            download:
+                strategy: sonata.media.security.superadmin_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.file
+            formats:
+                pdf: { quality: 100 }
+        cover:
+            download:
+                strategy: sonata.media.security.superadmin_strategy
+                mode: http
+            providers:
+                - sonata.media.provider.image
+            formats:
+                small: { width: 50, height: 50, quality: 100 }
+                big:   { width: 175, height: 175, quality: 100 }
+        avatar:
+            providers:
+                - sonata.media.provider.image
+            formats:
+                very_small: { width: 25, height: 25,  quality: 100 }
+                small:   { width: 30, height: 30, quality: 100 }
+                medium:  { width: 90, height: 90, quality: 100 }
+                big:     { width: 175, height: 175, quality: 100 }
+
+    cdn:
+        server:
+            path: /uploads/media # http://media.sonata-project.org/
+
+    filesystem:
+        local:
+            directory:  %kernel.root_dir%/../web/uploads/media
+            create:     false
+
+    class:
+        media: Application\Sonata\MediaBundle\Entity\Media

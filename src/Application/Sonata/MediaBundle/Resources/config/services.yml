@@ -1,0 +1,7 @@
+services:
+    #Doctrine Media Listener
+    media_listener:
+        class: Application\Sonata\MediaBundle\Entity\Listener\MediaListener
+        arguments: ["@service_container"]
+        tags:
+            - { name: doctrine.orm.entity_listener }

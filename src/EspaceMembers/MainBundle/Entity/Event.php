@@ -24,7 +24,6 @@ class Event
     private $teachings;
     private $category;
     private $users;
-    private $groups;
     private $tags;
 
     /**
@@ -34,7 +33,6 @@ class Event
     {
         $this->teachings = new \Doctrine\Common\Collections\ArrayCollection();
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -189,10 +187,10 @@ class Event
     /**
      * Set frontImage
      *
-     * @param  \EspaceMembers\MainBundle\Entity\Media $frontImage
+     * @param  \Sonata\MediaBundle\Model\MediaInterface $frontImage
      * @return Event
      */
-    public function setFrontImage(\EspaceMembers\MainBundle\Entity\Media $frontImage = null)
+    public function setFrontImage(\Sonata\MediaBundle\Model\MediaInterface $frontImage = null)
     {
         $this->frontImage = $frontImage;
 
@@ -202,7 +200,7 @@ class Event
     /**
      * Get frontImage
      *
-     * @return \EspaceMembers\MainBundle\Entity\Media
+     * @return \Sonata\MediaBundle\Model\MediaInterface
      */
     public function getFrontImage()
     {
@@ -212,10 +210,10 @@ class Event
     /**
      * Set flayer
      *
-     * @param  \EspaceMembers\MainBundle\Entity\Media $flayer
+     * @param  \Sonata\MediaBundle\Model\MediaInterface $flayer
      * @return Event
      */
-    public function setFlayer(\EspaceMembers\MainBundle\Entity\Media $flayer = null)
+    public function setFlayer(\Sonata\MediaBundle\Model\MediaInterface $flayer = null)
     {
         $this->flayer = $flayer;
 
@@ -225,7 +223,7 @@ class Event
     /**
      * Get flayer
      *
-     * @return \EspaceMembers\MainBundle\Entity\Media
+     * @return \Sonata\MediaBundle\Model\MediaInterface
      */
     public function getFlayer()
     {
@@ -296,13 +294,14 @@ class Event
             $this->addUser($user);
         }
     }
+
     /**
      * Add users
      *
-     * @param  \EspaceMembers\MainBundle\Entity\User $users
+     * @param  \Symfony\Component\Security\Core\User\UserInterface $users
      * @return Event
      */
-    public function addUser(\EspaceMembers\MainBundle\Entity\User $user)
+    public function addUser(\Symfony\Component\Security\Core\User\UserInterface $user)
     {
         if ( false === $this->getUsers()->contains($user) ) {
             $this->users[] = $user;
@@ -315,11 +314,11 @@ class Event
     /**
      * Remove users
      *
-     * @param \EspaceMembers\MainBundle\Entity\User $users
+     * @param \Symfony\Component\Security\Core\User\UserInterface $user
      */
-    public function removeUser(\EspaceMembers\MainBundle\Entity\User $users)
+    public function removeUser(\Symfony\Component\Security\Core\User\UserInterface $user)
     {
-        $this->users->removeElement($users);
+        $this->users->removeElement($user);
     }
 
     /**
@@ -330,49 +329,6 @@ class Event
     public function getUsers()
     {
         return $this->users;
-    }
-
-    public function setGroups(ArrayCollection $groups)
-    {
-        foreach ($groups as $group) {
-            $this->addGroup($group);
-        }
-    }
-
-    /**
-     * Add groups
-     *
-     * @param  \EspaceMembers\MainBundle\Entity\Group $groups
-     * @return Event
-     */
-    public function addGroup(\EspaceMembers\MainBundle\Entity\Group $group)
-    {
-        if ( false === $this->getGroups()->contains($group) ) {
-            $this->groups[] = $group;
-            $group->addEvent($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Remove groups
-     *
-     * @param \EspaceMembers\MainBundle\Entity\Group $groups
-     */
-    public function removeGroup(\EspaceMembers\MainBundle\Entity\Group $groups)
-    {
-        $this->groups->removeElement($groups);
-    }
-
-    /**
-     * Get groups
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getGroups()
-    {
-        return $this->groups;
     }
 
     public function setTags(ArrayCollection $tags)
@@ -390,7 +346,7 @@ class Event
      */
     public function addTag(\EspaceMembers\MainBundle\Entity\Tag $tag)
     {
-        if ( false === $this->getTags()->contains($tag) ) {
+        if (false === $this->getTags()->contains($tag)) {
             $this->tags[] = $tag;
             $tag->addEvent($this);
         }
@@ -416,14 +372,6 @@ class Event
     public function getTags()
     {
         return $this->tags;
-    }
-
-    /**
-     * @ORM\PrePersist
-     */
-    public function setDefaultGroup()
-    {
-        // Add your code here
     }
 
     public function __toString()

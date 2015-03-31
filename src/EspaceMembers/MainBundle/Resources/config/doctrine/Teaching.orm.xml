@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity
+        name="EspaceMembers\MainBundle\Entity\Teaching"
+        table="teaching"
+        repository-class="EspaceMembers\MainBundle\Repository\TeachingRepository"
+        >
+
+        <id name="id" column="id" type="integer">
+            <generator strategy="AUTO" />
+        </id>
+
+        <indexes>
+            <index name="serial_idx" columns="serial"/>
+        </indexes>
+
+        <field name="title" type="string" column="title" length="255" />
+        <field name="serial" type="smallint" column="serial" unsigned="true" />
+        <field name="date" type="datetime" column="date" />
+        <field name="dayNumber" type="smallint" column="dayNumber" />
+        <field name="dayTime" type="string" column="dayTime" length="50" />
+        <field name="resume" type="text" column="resume" nullable="true" />
+        <field name="technical_comment" type="text" column="technical_comment" nullable="true" />
+        <field name="is_show" type="boolean" column="is_show" nullable="true" />
+
+        <one-to-one field="lesson" target-entity="Application\Sonata\MediaBundle\Entity\Media">
+             <cascade><cascade-persist /></cascade>
+            <join-column name="media_id" referenced-column-name="id" on-delete="SET NULL" nullable="true"/>
+        </one-to-one>
+
+        <many-to-one field="event" target-entity="EspaceMembers\MainBundle\Entity\Event" inversed-by="teachings">
+            <cascade><cascade-persist /></cascade>
+            <join-column name="event_id" referenced-column-name="id" on-delete="SET NULL" />
+        </many-to-one>
+
+        <many-to-many field="directions" mapped-by="teachings" target-entity="EspaceMembers\MainBundle\Entity\Direction">
+            <cascade><cascade-persist/></cascade>
+        </many-to-many>
+
+        <many-to-many field="tags" mapped-by="teachings" target-entity="EspaceMembers\MainBundle\Entity\Tag">
+            <cascade><cascade-persist/></cascade>
+        </many-to-many>
+
+        <many-to-many field="users" mapped-by="teachings" target-entity="Application\Sonata\UserBundle\Entity\User">
+            <cascade><cascade-persist/></cascade>
+        </many-to-many>
+
+    </entity>
+
+</doctrine-mapping>

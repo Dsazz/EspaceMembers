@@ -1,7 +1,3 @@
-# Set env variable:
-#export MINK_EXTENSION_PARAMS="base_url=h*"
-#run all tests:
-#for f in `find src/ -path '*/Features'`; do ./bin/behat -c app/config/behat.yml $f; done
 default:
     suites:
         controller:

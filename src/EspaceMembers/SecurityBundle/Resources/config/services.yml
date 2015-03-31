@@ -1,16 +1,9 @@
 parameters:
     user_security.login_success_handler.class: EspaceMembers\SecurityBundle\Component\Authentication\Handler\LoginSuccessHandler
-    user_security.logout_success_handler.class: EspaceMembers\SecurityBundle\Component\Authentication\Handler\LogoutSuccessHandler
 
 services:
     user_security.login_success:
         class:  %user_security.login_success_handler.class%
         arguments:  [@router, @security.context]
-        tags:
-            - { name: 'monolog.logger', channel: 'security' }
-
-    user_security.logout_success:
-        class:  %user_security.logout_success_handler.class%
-        arguments:  [@router]
         tags:
             - { name: 'monolog.logger', channel: 'security' }

@@ -14,7 +14,7 @@ class RenderController extends Controller
             'chronologies' => $em->getRepository('EspaceMembersMainBundle:Event')->getYears(),
             'categories'   => $em->getRepository('EspaceMembersMainBundle:Category')->getNames(),
             'directions'   => $em->getRepository('EspaceMembersMainBundle:Direction')->getNames(),
-            'teachers'     => $em->getRepository('EspaceMembersMainBundle:User')->findTeachers(),
+            'teachers'     => $em->getRepository('ApplicationSonataUserBundle:User')->findTeachers(),
             'tags'         => $em->getRepository('EspaceMembersMainBundle:Tag')->getNames(),
             'currentPath'  => $currentPath
         ));

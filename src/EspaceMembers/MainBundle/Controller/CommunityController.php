@@ -12,10 +12,8 @@ class CommunityController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         return $this->render('EspaceMembersMainBundle:Community:communaute.html.twig', array(
-            'users'  => $em->getRepository('EspaceMembersMainBundle:User')
-                ->findTeachers(),
-            'groups' => $em->getRepository('EspaceMembersMainBundle:Group')
-                ->findAllNames(),
+            'users'  => $em->getRepository('ApplicationSonataUserBundle:User')->findTeachers(),
+            'groups' => $em->getRepository('ApplicationSonataUserBundle:Group')->findAllNames(),
         ));
     }
 
@@ -24,10 +22,9 @@ class CommunityController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         return $this->render('EspaceMembersMainBundle:Community:communaute.html.twig', array(
-            'users'  => $em->getRepository('EspaceMembersMainBundle:User')
+            'users'  => $em->getRepository('ApplicationSonataUserBundle:User')
                 ->findTeachersByGroup($request->get('group_name')),
-            'groups' => $em->getRepository('EspaceMembersMainBundle:Group')
-                ->findAllNames(),
+            'groups' => $em->getRepository('ApplicationSonataUserBundle:Group')->findAllNames(),
         ));
     }
 
