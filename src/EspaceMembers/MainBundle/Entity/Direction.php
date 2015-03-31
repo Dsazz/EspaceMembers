@@ -2,10 +2,10 @@
 
 namespace EspaceMembers\MainBundle\Entity;
 
-class Voie
+class Direction
 {
     private $id;
-    private $title;
+    private $name;
     private $teachings;
 
     /**
@@ -27,33 +27,33 @@ class Voie
     }
 
     /**
-     * Set title
+     * Set name
      *
-     * @param  string $title
-     * @return Voie
+     * @param  string $name
+     * @return Direction
      */
-    public function setTitle($title)
+    public function setName($name)
     {
-        $this->title = $title;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get title
+     * Get name
      *
      * @return string
      */
-    public function getTitle()
+    public function getName()
     {
-        return $this->title;
+        return $this->name;
     }
 
     /**
      * Add teachings
      *
      * @param  \EspaceMembers\MainBundle\Entity\Teaching $teachings
-     * @return Voie
+     * @return Direction
      */
     public function addTeaching(\EspaceMembers\MainBundle\Entity\Teaching $teachings)
     {
@@ -84,6 +84,6 @@ class Voie
 
     public function __toString()
     {
-        return $this->getTitle();
+        return $this->getName();
     }
 }

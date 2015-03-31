@@ -12,7 +12,7 @@ use EspaceMembers\MainBundle\Entity\Media;
 use EspaceMembers\MainBundle\Entity\Tag;
 use EspaceMembers\MainBundle\Entity\Teaching;
 use EspaceMembers\MainBundle\Entity\User;
-use EspaceMembers\MainBundle\Entity\Voie;
+use EspaceMembers\MainBundle\Entity\Direction;
 
 class TeachingContext extends DefaultContext
 {
@@ -125,12 +125,11 @@ class TeachingContext extends DefaultContext
         $manager = $this->getEntityManager();
 
         foreach ($table->getHash() as $data) {
-            //TODO: refactor title -> name
             $category = new Category();
 
             isset($data['name']) && !empty($data['name'])
-                ? $category->setTitle(trim($data['name']))
-                : $category->setTitle($this->faker->unique()->word);
+                ? $category->setName(trim($data['name']))
+                : $category->setName($this->faker->unique()->word);
 
             $manager->persist($category);
         }
@@ -143,17 +142,16 @@ class TeachingContext extends DefaultContext
      * @Given /^there are following directions:$/
      * @Given /^the following directions exist:$/
      */
-    public function thereAreVoies(TableNode $table)
+    public function thereAreDirections(TableNode $table)
     {
         $manager = $this->getEntityManager();
 
         foreach ($table->getHash() as $data) {
-            //TODO: refactor title -> name
-            $direction = new Voie();
+            $direction = new Direction();
 
             isset($data['name']) && !empty($data['name'])
-                ? $direction->setTitle(trim($data['name']))
-                : $direction->setTitle($this->faker->unique()->word);
+                ? $direction->setName(trim($data['name']))
+                : $direction->setName($this->faker->unique()->word);
 
             $manager->persist($direction);
         }
@@ -171,12 +169,11 @@ class TeachingContext extends DefaultContext
         $manager = $this->getEntityManager();
 
         foreach ($table->getHash() as $data) {
-            //TODO: refactor Title -> Name in entity Tag
             $tag = new Tag();
 
             isset($data['name']) && !empty($data['name'])
-                ? $tag->setTitle(trim($data['name']))
-                : $tag->setTitle($this->faker->unique()->word);
+                ? $tag->setName(trim($data['name']))
+                : $tag->setName($this->faker->unique()->word);
 
             $manager->persist($tag);
         }
@@ -215,7 +212,7 @@ class TeachingContext extends DefaultContext
             if (isset($data['tags']) && !empty($data['tags'])) {
                 foreach (explode(',', $data['tags']) as $tag) {
                     $tag = $this->getTagRepository()
-                        ->findOneBy(array('title' => trim($tag)));
+                        ->findOneBy(array('name' => trim($tag)));
 
                     $event->addTag($tag);
                 }
@@ -241,7 +238,7 @@ class TeachingContext extends DefaultContext
 
             if (isset($data['category']) && !empty($data['category'])) {
                 $category = $this->getCategoryRepository()
-                    ->findOneBy(array('title' => trim($data['category'])));
+                    ->findOneBy(array('name' => trim($data['category'])));
 
                 $event->setCategory($category);
             }
@@ -294,17 +291,17 @@ class TeachingContext extends DefaultContext
 
             if (isset($data['directions']) && !empty($data['directions'])) {
                 foreach (explode(',', $data['directions']) as $direction) {
-                    $direction = $this->getVoieRepository()
-                        ->findOneBy(array('title' => trim($direction)));
+                    $direction = $this->getDirectionRepository()
+                        ->findOneBy(array('name' => trim($direction)));
 
-                    $teaching->addVoie($direction);
+                    $teaching->addDirection($direction);
                 }
             }
 
             if (isset($data['tags']) && !empty($data['tags'])) {
                 foreach (explode(',', $data['tags']) as $tag) {
                     $tag = $this->getTagRepository()
-                        ->findOneBy(array('title' => trim($tag)));
+                        ->findOneBy(array('name' => trim($tag)));
 
                     $teaching->addTag($tag);
                 }

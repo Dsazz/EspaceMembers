@@ -28,13 +28,13 @@ services:
             - EspaceMembers\MainBundle\Entity\Teaching
             - 'SonataAdminBundle:CRUD'
 
-    sonata.admin.voie:
-        class: EspaceMembers\MainBundle\Admin\VoieAdmin
+    sonata.admin.direction:
+        class: EspaceMembers\MainBundle\Admin\DirectionAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: EspaceMembers, label: "Voie" }
+            - { name: sonata.admin, manager_type: orm, group: EspaceMembers, label: "Direction" }
         arguments:
             - ~
-            - EspaceMembers\MainBundle\Entity\Voie
+            - EspaceMembers\MainBundle\Entity\Direction
             - 'SonataAdminBundle:CRUD'
 
     sonata.admin.tag:

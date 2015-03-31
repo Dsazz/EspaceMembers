@@ -17,7 +17,7 @@ class TeachingRepository extends EntityRepository
             ->addSelect('tags')
             ->innerJoin('tch.lesson', 'lsn')
             ->innerJoin('tch.users', 'u')
-            ->innerJoin('tch.voies', 'v')
+            ->innerJoin('tch.directions', 'v')
             ->innerJoin('tch.tags', 'tags')
             ->where('tch.is_show = 1 AND tch.id = :teaching_id')
             ->setParameter("teaching_id", $teaching_id)

@@ -162,13 +162,13 @@ abstract class DefaultContext extends RawMinkContext implements Context, KernelA
     }
 
     /**
-     * Get repository of Voie
+     * Get repository of Direction
      *
      * @return Doctrine\ORM\EntityRepository
      */
-    public function getVoieRepository()
+    public function getDirectionRepository()
     {
-        return $this->getEntityManager()->getRepository('EspaceMembersMainBundle:Voie');
+        return $this->getEntityManager()->getRepository('EspaceMembersMainBundle:Direction');
     }
 
     /**

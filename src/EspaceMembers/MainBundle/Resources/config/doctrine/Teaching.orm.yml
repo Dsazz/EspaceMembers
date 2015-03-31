@@ -53,8 +53,8 @@ EspaceMembers\MainBundle\Entity\Teaching:
           referencedColumnName: id
           onDelete: SET NULL
   manyToMany:
-    voies:
-      targetEntity: EspaceMembers\MainBundle\Entity\Voie
+    directions:
+      targetEntity: EspaceMembers\MainBundle\Entity\Direction
       mappedBy: teachings
       cascade: ["persist"]
     tags:

@@ -5,7 +5,7 @@ namespace EspaceMembers\MainBundle\Entity;
 class Category
 {
     private $id;
-    private $title;
+    private $name;
     private $events;
 
     public function __construct()
@@ -24,26 +24,26 @@ class Category
     }
 
     /**
-     * Set title
+     * Set name
      *
-     * @param  string   $title
+     * @param  string   $name
      * @return Category
      */
-    public function setTitle($title)
+    public function setName($name)
     {
-        $this->title = $title;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get title
+     * Get name
      *
      * @return string
      */
-    public function getTitle()
+    public function getName()
     {
-        return $this->title;
+        return $this->name;
     }
 
     /**
@@ -81,6 +81,6 @@ class Category
 
     public function __toString()
     {
-        return $this->getTitle();
+        return $this->getName();
     }
 }

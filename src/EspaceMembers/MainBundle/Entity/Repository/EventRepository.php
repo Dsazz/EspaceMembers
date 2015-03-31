@@ -24,8 +24,8 @@ class EventRepository extends EntityRepository
                     startDate, completionDate, description
                 }'
             )
-            ->addSelect('partial c.{id, title}')
-            ->addSelect('partial tgs.{id, title}')
+            ->addSelect('partial c.{id, name}')
+            ->addSelect('partial tgs.{id, name}')
             ->addSelect('partial u.{id, lastname, firstname, avatar}')
             ->addSelect(
                 'partial tch.{
@@ -66,7 +66,7 @@ class EventRepository extends EntityRepository
                     id, title, category, year, frontImage, startDate, completionDate
                 }'
             )
-            ->addSelect('partial c.{id, title}')
+            ->addSelect('partial c.{id, name}')
             ->addSelect('partial u.{id, lastname, firstname, avatar}')
             ->addSelect(
                 'partial tch.{
@@ -117,7 +117,7 @@ class EventRepository extends EntityRepository
                     id, title, serial, lesson, dayNumber, dayTime, date
                 }'
             )
-            ->addSelect('partial c.{id, title}')
+            ->addSelect('partial c.{id, name}')
             ->addSelect('partial lsn.{id, contentType, playtime}')
             ->addSelect(
                 'partial frntImg.{
@@ -164,7 +164,7 @@ class EventRepository extends EntityRepository
                     id, title, serial, lesson, dayNumber, dayTime, date
                 }'
             )
-            ->addSelect('partial c.{id, title}')
+            ->addSelect('partial c.{id, name}')
             ->addSelect('partial lsn.{id, contentType, playtime}')
             ->addSelect(
                 'partial frntImg.{
@@ -211,7 +211,7 @@ class EventRepository extends EntityRepository
                 id, title, serial, lesson, dayNumber, dayTime, date
                 }'
             )
-            ->addSelect('partial c.{id, title}')
+            ->addSelect('partial c.{id, name}')
             ->addSelect('partial lsn.{id, contentType, playtime}')
             ->addSelect(
                 'partial frntImg.{
@@ -255,7 +255,7 @@ class EventRepository extends EntityRepository
                     id, title, serial, lesson, dayNumber, dayTime, date
                 }'
             )
-            ->addSelect('partial c.{id, title}')
+            ->addSelect('partial c.{id, name}')
             ->addSelect('partial lsn.{id, contentType, playtime}')
             ->addSelect(
                 'partial frntImg.{
@@ -275,7 +275,7 @@ class EventRepository extends EntityRepository
             ->innerJoin('u.teachings', 'tch', 'WITH', 'tch.is_show = 1 AND tch.event = ev')
             ->innerJoin('u.avatar', 'avatar')
             ->innerJoin('tch.lesson', 'lsn')
-            ->innerJoin('tch.voies', 'v', 'WITH', 'v.id = :direction_id')
+            ->innerJoin('tch.directions', 'v', 'WITH', 'v.id = :direction_id')
             ->orderBy('ev.year', 'DESC')
 
             ->setParameter('direction_id', $directionId)
@@ -301,7 +301,7 @@ class EventRepository extends EntityRepository
                 'partial tch.{id, title, serial, lesson, dayNumber, dayTime, date
                 }'
             )
-            ->addSelect('partial c.{id, title}')
+            ->addSelect('partial c.{id, name}')
             ->addSelect('partial lsn.{id, contentType, playtime}')
             ->addSelect(
                 'partial frntImg.{
@@ -342,7 +342,7 @@ class EventRepository extends EntityRepository
 
         $rsm->addJoinedEntityResult('EspaceMembers\MainBundle\Entity\Category', 'c', 'ev', 'category');
         $rsm->addFieldResult('c', 'category_id', 'id');
-        $rsm->addFieldResult('c', 'c_title', 'title');
+        $rsm->addFieldResult('c', 'c_name', 'name');
 
         $rsm->addJoinedEntityResult('EspaceMembers\MainBundle\Entity\Media', 'frntImg', 'ev', 'frontImage');
         $rsm->addFieldResult('frntImg', 'front_image_id', 'id');
@@ -384,7 +384,7 @@ class EventRepository extends EntityRepository
 
         $sql =
             '( SELECT ev.id as event_id, ev.title, ev.year, ev.startDate , ev.completionDate , '.
-                'c.id as category_id, c.title as c_title, '.
+                'c.id as category_id, c.name as c_name, '.
                 'frntImg.id as front_image_id, frntImg.provider_name as f_prov_name, frntImg.provider_status as f_prov_status, '.
                 'frntImg.provider_reference as f_prov_ref, frntImg.width as f_width, frntImg.height as f_height, '.
                 'frntImg.content_type as f_contentType, frntImg.context as f_context, '.
@@ -411,7 +411,7 @@ class EventRepository extends EntityRepository
             'UNION '.
 
             '( SELECT ev.id as event_id, ev.title, ev.year, ev.startDate , ev.completionDate , '.
-                'c.id as category_id, c.title as c_title, '.
+                'c.id as category_id, c.name as c_name, '.
                 'frntImg.id as front_image_id, frntImg.provider_name as f_prov_name, frntImg.provider_status as f_prov_status, '.
                 'frntImg.provider_reference as f_prov_ref, frntImg.width as f_width, frntImg.height as f_height, '.
                 'frntImg.content_type as f_contentType, frntImg.context as f_context, '.
@@ -463,7 +463,7 @@ class EventRepository extends EntityRepository
                     id, title, category, year, frontImage, startDate, completionDate
                 }'
             )
-            ->addSelect('partial c.{id, title}')
+            ->addSelect('partial c.{id, name}')
             ->addSelect('partial u.{id, lastname, firstname, avatar}')
             ->addSelect(
                 'partial tch.{

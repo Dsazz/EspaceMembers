@@ -13,7 +13,7 @@
         <h2>{{ event.title|capitalize }}</h2>
         <span class="sub-heading">
             <img src="{{ asset('bundles/espacemembersmain/images/flag.png') }}" alt="flag" />
-            {{ event.category.title|capitalize }}
+            {{ event.category.name|capitalize }}
         </span>
 
         <div class="image-box">
@@ -34,12 +34,12 @@
             </p>
 
             <p>Catégorie:<br />
-                {{ event.category.title|capitalize }}
+                {{ event.category.name|capitalize }}
             </p>
 
             <p>Thèmes:<br />
             {% for tag in event.tags %}
-                <a href="#" class="theme-button">{{ tag.title }}</a>
+                <a href="#" class="theme-button">{{ tag.name }}</a>
             {% else %}
                 <a href="#" class="theme-button">Not found tag</a>
             {% endfor %}

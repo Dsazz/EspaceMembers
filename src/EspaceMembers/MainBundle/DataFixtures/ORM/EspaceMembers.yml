@@ -27,17 +27,15 @@ EspaceMembers\MainBundle\Entity\Group:
 
 EspaceMembers\MainBundle\Entity\Category:
     category{1..10}:
-        title(unique): <word()>
+        name(unique): <word()>
 
-#Refactor name of Entity: voie -> direction
-EspaceMembers\MainBundle\Entity\Voie:
-    voie{1..10}:
-        title(unique): <word()>
+EspaceMembers\MainBundle\Entity\Direction:
+    direction{1..10}:
+        name(unique): <word()>
 
-#Refactor field of Entity: title -> name
 EspaceMembers\MainBundle\Entity\Tag:
     tag{1..10}:
-        title(unique): <word()>
+        name(unique): <word()>
 
 EspaceMembers\MainBundle\Entity\User:
     user(template):
@@ -96,7 +94,7 @@ EspaceMembers\MainBundle\Entity\Teaching:
         resume: <fr_FR:text(200)>
         technical_comment: <fr_FR:text(200)>
         is_show: 1
-        voies(unique): [@voie*, @voie*]
+        directions(unique): [@direction*, @direction*]
         tags: [@tag*]
     teachingMP3_{1..10}(extends teaching_prototype):
         serial: 1

@@ -117,30 +117,28 @@
 
             <p>Enseignant(s):<br />
             {% for teacher in teachingCurr.users %}
-                <a href="{{ path('espace_members_filter_teaching_teacher', {
-                        'teacher_id': teacher.id
-                    }) }}" class="link">
+                <a href="{{ path('espace_members_filter_teaching_teacher', { 'teacher_id': teacher.id }) }}" class="link">
                     {{ teacher.lastname }} {{ teacher.firstname }}
                 </a>
             {% endfor %}
             </p>
 
             <p>Catégorie:<br />
-                {{ event.category.title|capitalize }}
+                {{ event.category.name|capitalize }}
             </p>
 
             <p>Voie(s):<br />
-                {% set voiesTitles %}
-                    {% for voie in teachingCurr.voies %}
-                        {{ voie == teachingCurr.voies|last ? voie.title : voie.title~',' }}
+                {% set directionsName %}
+                    {% for direction in teachingCurr.directions %}
+                        {{ direction == teachingCurr.directions|last ? direction.name : direction.name ~ ',' }}
                     {% endfor %}
                 {% endset %}
-                {{ voiesTitles[0:voiesTitles|length]|title }}
+                {{ directionsName[0:directionsName|length]|title }}
             </p>
 
             <p>Thèmes:<br />
             {% for tag in teachingCurr.tags %}
-                <a href="{{ path('espace_members_filter_teaching_tag', { 'tag_id': tag.id}) }}" class="theme-button">{{ tag.title }}</a>
+                <a href="{{ path('espace_members_filter_teaching_tag', { 'tag_id': tag.id}) }}" class="theme-button">{{ tag.name }}</a>
             {% else %}
                 <a href="#" class="theme-button">Not found tag</a>
             {% endfor %}

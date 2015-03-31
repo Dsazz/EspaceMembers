@@ -7,7 +7,7 @@ EspaceMembers\MainBundle\Entity\Tag:
       type: integer
       generator: { strategy: AUTO }
   fields:
-    title:
+    name:
       type: string
       length: 255
       unique: true

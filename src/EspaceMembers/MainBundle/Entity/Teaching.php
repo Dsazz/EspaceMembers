@@ -18,7 +18,7 @@ class Teaching
     private $lesson;
     private $event;
     private $tags;
-    private $voies;
+    private $directions;
     private $users;
     private $bookmarkOwners;
 
@@ -27,9 +27,9 @@ class Teaching
      */
     public function __construct()
     {
-        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->voies = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tags = new ArrayCollection();
+        $this->directions = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     /**
@@ -316,47 +316,47 @@ class Teaching
         return $this->tags;
     }
 
-    public function setVoies(ArrayCollection $voies)
+    public function setDirections(ArrayCollection $directions)
     {
-        foreach ($voies as $voie) {
-            $this->addVoie($voie);
+        foreach ($directions as $direction) {
+            $this->addDirection($direction);
         }
     }
 
     /**
-     * Add voies
+     * Add direction
      *
-     * @param  \EspaceMembers\MainBundle\Entity\Voie $voies
+     * @param  \EspaceMembers\MainBundle\Entity\Direction $direction
      * @return Teaching
      */
-    public function addVoie(\EspaceMembers\MainBundle\Entity\Voie $voie)
+    public function addDirection(\EspaceMembers\MainBundle\Entity\Direction $direction)
     {
-        if (false === $this->getVoies()->contains($voie) ) {
-            $this->voies[] = $voie;
-            $voie->addTeaching($this);
+        if (false === $this->getDirections()->contains($direction) ) {
+            $this->directions[] = $direction;
+            $direction->addTeaching($this);
         }
 
         return $this;
     }
 
     /**
-     * Remove voies
+     * Remove direction
      *
-     * @param \EspaceMembers\MainBundle\Entity\Voie $voies
+     * @param \EspaceMembers\MainBundle\Entity\Direction $direction
      */
-    public function removeVoie(\EspaceMembers\MainBundle\Entity\Voie $voies)
+    public function removeDirection(\EspaceMembers\MainBundle\Entity\Direction $direction)
     {
-        $this->voies->removeElement($voies);
+        $this->directions->removeElement($direction);
     }
 
     /**
-     * Get voies
+     * Get directions
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getVoies()
+    public function getDirections()
     {
-        return $this->voies;
+        return $this->directions;
     }
 
     public function setUsers(ArrayCollection $users)

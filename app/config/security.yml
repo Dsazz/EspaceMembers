@@ -71,4 +71,3 @@ security:
         - { path: ^/profile/edit-profile, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN, ROLE_USER] }
         - { path: ^/bookmark/.*, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN, ROLE_USER] }
         - { path: ^/.*, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN, ROLE_USER] }
-

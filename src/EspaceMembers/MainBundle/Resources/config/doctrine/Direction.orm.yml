@@ -1,23 +1,23 @@
-EspaceMembers\MainBundle\Entity\Voie:
+EspaceMembers\MainBundle\Entity\Direction:
   type: entity
-  repositoryClass: EspaceMembers\MainBundle\Entity\Repository\VoieRepository
-  table: voie
+  repositoryClass: EspaceMembers\MainBundle\Entity\Repository\DirectionRepository
+  table: direction
   id:
     id:
       type: integer
       generator: { strategy: AUTO }
   fields:
-    title:
+    name:
       type: string
       length: 255
       unique: true
   manyToMany:
     teachings:
       targetEntity: EspaceMembers\MainBundle\Entity\Teaching
-      inversedBy: voies
+      inversedBy: directions
       cascade: ["persist"]
       joinTable:
-        name: teachings_voies
+        name: teachings_directions
         joinColumns:
           voie_id:
             referencedColumnName: id

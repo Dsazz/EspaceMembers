@@ -6,11 +6,11 @@ use Doctrine\Common\Cache\ApcCache;
 
 class TagRepository extends EntityRepository
 {
-    public function getTitles()
+    public function getNames()
     {
         return $qb = $this->createQueryBuilder('t')
-            ->select('partial t.{id, title}')
-            ->orderBy('t.title', 'ASC')
+            ->select('partial t.{id, name}')
+            ->orderBy('t.name', 'ASC')
             ->getQuery()
             ->useResultCache(true, 3600)
             ->getResult();
