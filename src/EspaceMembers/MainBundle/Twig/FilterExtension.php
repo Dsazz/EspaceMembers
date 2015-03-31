@@ -6,7 +6,7 @@ class FilterExtension extends \Twig_Extension
     public function getFilters()
     {
         return array(
-            new \Twig_SimpleFilter('isBookmark', array($this, 'isBookmark')),
+            new \Twig_SimpleFilter('isBookmark', [$this, 'isBookmark']),
         );
     }
 

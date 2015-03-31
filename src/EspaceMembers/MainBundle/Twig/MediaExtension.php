@@ -42,7 +42,7 @@ class MediaExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('path_to_media', array($this, 'getPathToMediaByArray')),
+            new \Twig_SimpleFunction('path_to_media', [$this, 'getPathToMediaByArray']),
         );
     }
 

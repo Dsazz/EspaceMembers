@@ -29,7 +29,6 @@
             {% for user in users if user.lastname|first|upper == letter %}
             <div class="box">
                 {% if loop.first %}<span class="right-tag">{{ letter }}</span> {% endif %}
-                {#{% media user.avatar, 'big' with { 'width': '175px', 'height': '175px', 'alt': 'image', 'title': '' } %}#}
                 <img src="{{ path_to_media(user.avatar, 'big') }}" width="175px" height="175px" alt="image">
 
                 <h2>{{ user.lastname }} {{ user.firstname }}</h2>
