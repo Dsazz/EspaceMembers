@@ -1,4 +1,12 @@
 <?php
+/**
+ * This file is part of the EspaceMembers project.
+ *
+ * (c) Stanislav Stepanenko <dsazztazz@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace EspaceMembers\MainBundle\Controller;
 
@@ -11,6 +19,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use EspaceMembers\MainBundle\Controller\BaseController as Controller;
 use EspaceMembers\MainBundle\Entity\Teaching;
 
+/**
+ * BookmarkController
+ *
+ * @author Stepanenko Stanislav <dsazztazz@gmail.com>
+ */
 class BookmarkController extends Controller
 {
     public function indexAction($page)

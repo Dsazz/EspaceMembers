@@ -1,4 +1,12 @@
 <?php
+/**
+ * This file is part of the EspaceMembers project.
+ *
+ * (c) Stanislav Stepanenko <dsazztazz@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace EspaceMembers\MainBundle\DataFixtures\ORM;
 
@@ -14,6 +22,11 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
+/**
+ * LoadFixtureData
+ *
+ * @author Stepanenko Stanislav <dsazztazz@gmail.com>
+ */
 class LoadFixtureData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface
 {
     /**
@@ -71,7 +84,6 @@ class LoadFixtureData extends AbstractFixture implements FixtureInterface, Conta
         return $binaryContents[array_rand($binaryContents)];
     }
 
-    //For random sex of user
     public function randTimeDay()
     {
         $time = array(
@@ -81,15 +93,13 @@ class LoadFixtureData extends AbstractFixture implements FixtureInterface, Conta
         return $time[array_rand($time)];
     }
 
-    //For random sex of user
-    public function randSex()
+    public function randGender()
     {
         $sex = array('m', 'f');
 
-        return $sex[array_rand($sex)];
+        return $gender[array_rand($gender)];
     }
 
-    //For random role of user
     public function randRole()
     {
         $role = array(

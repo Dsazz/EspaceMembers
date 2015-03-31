@@ -1,4 +1,12 @@
 <?php
+/**
+ * This file is part of the EspaceMembers project.
+ *
+ * (c) Stanislav Stepanenko <dsazztazz@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace EspaceMembers\MainBundle\Behat;
 
@@ -21,6 +29,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 require_once 'PHPUnit/Autoload.php';
 require_once 'PHPUnit/Framework/Assert/Functions.php';
 
+/**
+ * DefaultContext
+ *
+ * @author Stepanenko Stanislav <dsazztazz@gmail.com>
+ */
 abstract class DefaultContext extends RawMinkContext implements Context, KernelAwareContext
 {
     /**

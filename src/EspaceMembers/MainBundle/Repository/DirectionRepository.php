@@ -1,9 +1,22 @@
 <?php
+/**
+ * This file is part of the EspaceMembers project.
+ *
+ * (c) Stanislav Stepanenko <dsazztazz@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace EspaceMembers\MainBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\Common\Cache\ApcCache;
 
+/**
+ * DirectionRepository
+ *
+ * @author Stepanenko Stanislav <dsazztazz@gmail.com>
+ */
 class DirectionRepository extends EntityRepository
 {
     public function getNames()

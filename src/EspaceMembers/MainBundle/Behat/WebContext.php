@@ -1,4 +1,12 @@
 <?php
+/**
+ * This file is part of the EspaceMembers project.
+ *
+ * (c) Stanislav Stepanenko <dsazztazz@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace EspaceMembers\MainBundle\Behat;
 
@@ -10,6 +18,11 @@ use Behat\Mink\Exception\ElementNotFoundException;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
+/**
+ * WebContext
+ *
+ * @author Stepanenko Stanislav <dsazztazz@gmail.com>
+ */
 /**
  * Defines application features from the specific context.
  */

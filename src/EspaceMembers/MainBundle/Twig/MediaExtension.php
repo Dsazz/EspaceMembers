@@ -22,21 +22,18 @@ class MediaExtension extends \Twig_Extension
      * @param ManagerInterface $mediaManager
      * @param MediaExtension   $sonataMediaExtension
      * @param string           $cdnPath
-     * @param string           $rootDir
      */
     public function __construct(
         Pool $mediaService,
         ManagerInterface $mediaManager,
         SonataMediaExtension $sonataMediaExtension,
         $cdnPath,
-        $rootDir
     )
     {
         $this->mediaService = $mediaService;
         $this->mediaManager = $mediaManager;
         $this->sonataMediaExtension = $sonataMediaExtension;
         $this->cdnPath = $cdnPath;
-        $this->rootDir = $rootDir;
     }
 
     public function getFunctions()

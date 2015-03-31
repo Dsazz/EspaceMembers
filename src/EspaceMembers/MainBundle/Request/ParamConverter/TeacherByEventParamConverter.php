@@ -1,4 +1,13 @@
 <?php
+/**
+ * This file is part of the EspaceMembers project.
+ *
+ * (c) Stanislav Stepanenko <dsazztazz@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace EspaceMembers\MainBundle\Request\ParamConverter;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -9,6 +18,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * TeacherByEventParamConverter
+ *
+ * @author Stepanenko Stanislav <dsazztazz@gmail.com>
+ */
 class TeacherByEventParamConverter implements ParamConverterInterface
 {
     /**

@@ -1,10 +1,23 @@
 <?php
+/**
+ * This file is part of the EspaceMembers project.
+ *
+ * (c) Stanislav Stepanenko <dsazztazz@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace EspaceMembers\MainBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use EspaceMembers\MainBundle\Controller\BaseController as Controller;
 
+/**
+ * CommunityController
+ *
+ * @author Stepanenko Stanislav <dsazztazz@gmail.com>
+ */
 class CommunityController extends Controller
 {
     public function indexAction(Request $request, $page)
