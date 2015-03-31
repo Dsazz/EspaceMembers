@@ -1,6 +1,20 @@
 <?php
+/**
+ * This file is part of the EspaceMembers project.
+ *
+ * (c) Stanislav Stepanenko <dsazztazz@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace EspaceMembers\MainBundle\Twig;
 
+/**
+ * FilterExtension
+ *
+ * @author Stepanenko Stanislav <dsazztazz@gmail.com>
+ */
 class FilterExtension extends \Twig_Extension
 {
     public function getFilters()
