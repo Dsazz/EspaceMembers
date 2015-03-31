@@ -60,17 +60,19 @@
           <nav id="main-nav">
               <ul>
                   {% block communate_active %}
-                      <li class="first"><a class="communaute"
-                          href="{{ path('espace_members_community') }}">Communauté </a></li>
+                  <li class="first"><a class="communaute" href="{{ path('espace_members_community') }}">Communauté </a></li>
                   {% endblock communate_active %}
+
                   {% block profil_active %}
                   <li><a class="profil" href="{{ path('sonata_user_profile_show') }}">Profil</a></li>
                   {% endblock profil_active %}
+
                   {% block enseignement_active %}
                   <li><a class="enseignements" href="{{ path('espace_members_teaching') }}">Enseignements</a></li>
                   {% endblock enseignement_active %}
+
                   {% block etude_active %}
-                      <li><a class="etude" href="#">Etude des voies</a></li>
+                  <li><a class="etude" href="#">Etude des voies</a></li>
                   {% endblock etude_active %}
               </ul>
               <form class="clearfix" name="search">
@@ -80,9 +82,11 @@
           </nav>
       </div>
 
+      {% block logo_active %}
       <a class="logo" href="{{ path('espace_members_teaching') }}">
           <img src="{{ asset('bundles/espacemembersmain/images/logo.png') }}" alt="logo" />
       </a>
+      {% endblock logo_active %}
 
       {% endblock %}
   </div><!-- #End HEADER -->
