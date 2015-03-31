@@ -1,7 +1,13 @@
 espace_members_community:
-    path:     /
-    defaults: { _controller: EspaceMembersMainBundle:Community:index }
+    path:     /{page}
+    defaults: { _controller: EspaceMembersMainBundle:Community:index, page: 1 }
+    requirements:
+        _method: GET
+        page: \d+
 
 espace_members_community_filter:
-    path:     /group/{group_name}
-    defaults: { _controller: EspaceMembersMainBundle:Community:filterByGroup }
+    path:     /group/{group_name}/{page}
+    defaults: { _controller: EspaceMembersMainBundle:Community:filterByGroup, page: 1 }
+    requirements:
+        _method: GET
+        page: \d+

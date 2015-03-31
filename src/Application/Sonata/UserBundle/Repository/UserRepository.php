@@ -15,12 +15,34 @@ use PDO;
 
 class UserRepository extends EntityRepository
 {
+    public function findTeachersAndStudents()
+    {
+        return $qb = $this->createQueryBuilder('u')
+            ->select(
+                'partial u.{
+                    id, firstname, lastname, address, phone, email, biography
+                }'
+            )
+            ->addSelect(
+                'partial avatar.{
+                    id, providerName, providerStatus, providerReference,
+                    width, height, contentType, context
+                }'
+            )
+            ->innerJoin('u.avatar', 'avatar')
+            ->where('u.roles NOT LIKE :superadmin')
+            ->orderBy('u.lastname', 'ASC')
+            ->setParameter('superadmin', '%ROLE_SUPER_ADMIN%')
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findTeachers()
     {
         return $qb = $this->createQueryBuilder('u')
             ->select(
                 'partial u.{
-                    id, firstname, lastname, address, phone, email, is_teacher
+                    id, firstname, lastname, address, phone, email, biography
                 }'
             )
             ->addSelect(
@@ -31,6 +53,7 @@ class UserRepository extends EntityRepository
             )
             ->innerJoin('u.avatar', 'avatar')
             ->where('u.is_teacher = 1')
+            ->orderBy('u.lastname', 'ASC')
             ->getQuery()
             ->useResultCache(true, 3600)
             ->getResult();
@@ -41,7 +64,7 @@ class UserRepository extends EntityRepository
         return $qb = $this->createQueryBuilder('u')
             ->select(
                 'partial u.{
-                    id, firstname, lastname, address, phone, email, is_teacher
+                    id, firstname, lastname, address, phone, email, is_teacher, biography
                 }'
             )
             ->addSelect(
@@ -67,12 +90,12 @@ class UserRepository extends EntityRepository
             ->getOneOrNullResult();
     }
 
-    public function findTeachersByGroup($groupName)
+    public function findTeacherAndStudentsByGroup($groupName)
     {
         return $qb = $this->createQueryBuilder('u')
             ->select(
                 'partial u.{
-                    id, firstname, lastname, address, phone, email, is_teacher
+                    id, firstname, lastname, address, phone, email, biography
                 }'
             )
             ->addSelect(
@@ -83,8 +106,9 @@ class UserRepository extends EntityRepository
             )
             ->innerJoin('u.avatar', 'avatar')
             ->innerJoin('u.groups', 'g', 'WITH', 'g.name = :group_name')
-            ->where('u.is_teacher = 1')
+            ->where('u.roles NOT LIKE :superadmin')
             ->setParameter("group_name", $groupName)
+            ->setParameter('superadmin', '%ROLE_SUPER_ADMIN%')
             ->getQuery()
             ->useResultCache(true, 3600)
             ->getArrayResult();

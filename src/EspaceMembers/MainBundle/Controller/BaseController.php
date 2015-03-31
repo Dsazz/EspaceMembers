@@ -4,6 +4,8 @@ namespace EspaceMembers\MainBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Pagerfanta\Exception\NotValidCurrentPageException;
+
+use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 
 class BaseController extends Controller
@@ -15,5 +17,13 @@ class BaseController extends Controller
         } catch (NotValidCurrentPageException $e) {
             throw new NotFoundHttpException();
         }
+    }
+
+    protected function getPagerfantaByArrayResults(array $arrayResults, $maxPerPage = 10)
+    {
+        $adapter = new ArrayAdapter($arrayResults);
+        $pagerfanta = new Pagerfanta($adapter);
+
+        return $pagerfanta->setMaxPerPage($maxPerPage);
     }
 }
