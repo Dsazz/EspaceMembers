@@ -14,6 +14,10 @@
             <generator strategy="AUTO" />
         </id>
 
+        <indexes>
+            <index name="ctg_name_idx" columns="name"/>
+        </indexes>
+
         <field name="name" type="string" column="name" length="255" unique="true" />
 
        <one-to-many field="events" target-entity="EspaceMembers\MainBundle\Entity\Event" mapped-by="category">

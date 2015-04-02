@@ -14,6 +14,10 @@
             <generator strategy="AUTO" />
         </id>
 
+        <indexes>
+            <index name="tag_name_idx" columns="name"/>
+        </indexes>
+
         <field name="name" type="string" column="name" length="255" unique="true"/>
 
         <many-to-many field="teachings" inversed-by="tags" target-entity="EspaceMembers\MainBundle\Entity\Teaching">

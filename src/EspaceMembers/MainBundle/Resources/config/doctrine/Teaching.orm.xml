@@ -15,7 +15,7 @@
         </id>
 
         <indexes>
-            <index name="serial_idx" columns="serial"/>
+            <index name="tch_serial_idx" columns="serial"/>
         </indexes>
 
         <field name="title" type="string" column="title" length="255" />

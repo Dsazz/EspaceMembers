@@ -15,7 +15,8 @@
         </id>
 
         <indexes>
-            <index name="year_idx" columns="year"/>
+            <index name="ev_year_idx" columns="year"/>
+            <index name="ev_title_idx" columns="title"/>
         </indexes>
 
         <field name="title" type="string" column="title" length="255" />

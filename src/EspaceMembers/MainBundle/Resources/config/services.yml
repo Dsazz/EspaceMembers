@@ -80,11 +80,6 @@ services:
         tags:
             - { name: twig.extension }
 
-    twig.extension.espace_members_extension_dump:
-        class: EspaceMembers\MainBundle\Twig\DumpyTwigFilter
-        tags:
-            - { name: twig.extension }
-
     twig.sonata_media.extension:
         class: EspaceMembers\MainBundle\Twig\MediaExtension
         arguments:
