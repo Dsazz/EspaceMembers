@@ -40,7 +40,7 @@ class MediaExtension extends \Twig_Extension
         Pool $mediaService,
         ManagerInterface $mediaManager,
         SonataMediaExtension $sonataMediaExtension,
-        $cdnPath,
+        $cdnPath
     )
     {
         $this->mediaService = $mediaService;
