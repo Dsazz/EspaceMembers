@@ -6,6 +6,10 @@ espace:
         show: Montrer profil
     lessons: Enseignements
 
+    detail: EN SAVOIR
+
+    search: Recherche
+
     filter:
         chronology: Chronologie
         categories: Catégories

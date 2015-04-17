@@ -81,7 +81,7 @@
                   {#<li><a class="etude" href="#">Etude des voies</a></li>#}
                   {#{% endblock etude_active %}#}
                   <form class="clearfix" action="{{ path('espace_members_teaching_search') }}" method="get">
-                      <input type="text" placeholder="Keywords" value="{{ app.request.get('query') }}" class="search" name="query">
+                      <input type="text" placeholder="{{ 'espace.search'|trans({}, 'EspaceMembers') }}" value="{{ app.request.get('query') }}" class="search" name="query">
                       <input type="submit" class="search-submit" value="">
                   </form>
               </ul>

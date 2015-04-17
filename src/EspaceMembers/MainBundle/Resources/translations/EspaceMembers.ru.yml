@@ -6,6 +6,10 @@ espace:
         show: Показать профиль
     lessons: Занятия
 
+    detail: ДЕТАЛЬНЕЕ
+
+    search: Поиск
+
     filter:
         chronology: Хронология
         categories: Категории

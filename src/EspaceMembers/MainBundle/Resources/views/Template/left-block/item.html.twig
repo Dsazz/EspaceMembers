@@ -9,7 +9,7 @@
         Du {{ event.startDate|localizeddate('none', 'none', 'fr_FR' , null, 'd LLLL')|title }}
         Au {{ event.completionDate|localizeddate('none', 'none', 'fr_FR' , null, 'd LLLL')|title }}
     </span>
-    <a href="{{ path('espace_members_detail_teaching', {'event_id' : event.id} ) }}" class="zoom">EN SAVOIR</a>
+    <a href="{{ path('espace_members_detail_teaching', {'event_id' : event.id} ) }}" class="zoom">{{ 'espace.detail'|trans({}, 'EspaceMembers') }}</a>
 </div>
 
 {% for teacher in event.users %}
