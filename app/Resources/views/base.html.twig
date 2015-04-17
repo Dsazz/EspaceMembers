@@ -75,9 +75,9 @@
                   <li><a class="etude" href="#">Etude des voies</a></li>
                   {% endblock etude_active %}
               </ul>
-              <form class="clearfix" name="search">
-                  <input type="text" value="Keywords" class="search" name="search">
-                  <input type="submit" class="search-submit" value="" name="submit">
+              <form class="clearfix" action="{{ path('espace_members_teaching_search') }}" method="get">
+                  <input type="text" placeholder="Keywords" value="{{ app.request.get('query') }}" class="search" name="query">
+                  <input type="submit" class="search-submit" value="">
               </form>
           </nav>
       </div>

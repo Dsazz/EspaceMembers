@@ -15,6 +15,7 @@ use EspaceMembers\MainBundle\Entity\Teaching;
 use EspaceMembers\MainBundle\Entity\Event;
 use EspaceMembers\MainBundle\Entity\User;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\Request;
 use EspaceMembers\MainBundle\Controller\BaseController as Controller;
 
 /**
@@ -27,7 +28,29 @@ class TeachingController extends Controller
     public function indexAction($page)
     {
         $em = $this->getDoctrine()->getManager();
-        $pagerfanta = $em->getRepository('EspaceMembersMainBundle:Event')->findAllWithPaging($page);
+        $pagerfanta = $em->getRepository('EspaceMembersMainBundle:Event')->findAllWithPaging();
+
+        $this->setCurrentPageOr404($pagerfanta, $page);
+
+        return $this->render('EspaceMembersMainBundle:Teaching:index.html.twig', array(
+            'paginator'   => $pagerfanta,
+            'events'      => $pagerfanta->getCurrentPageResults(),
+            'bookmarksId' => $em->getRepository('ApplicationSonataUserBundle:User')
+                ->getBookmarksId($this->getUser()),
+        ));
+    }
+
+    public function searchAction(Request $request, $page)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $query = trim($request->query->get('query'));
+
+        if(!$query) {
+            return $this->redirect($this->generateUrl('espace_members_teaching'));
+        }
+
+        $pagerfanta = $em->getRepository('EspaceMembersMainBundle:Event')->search($query);
 
         $this->setCurrentPageOr404($pagerfanta, $page);
 
