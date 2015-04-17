@@ -44,7 +44,13 @@
                     <img src="{{ asset('bundles/espacemembersmain/images/hr.png') }}" alt="bookmarks" />
                 </a>
                 <a href="#"><img src="{{ asset('bundles/espacemembersmain/images/gft.png') }}" alt="icon" /></a>
-                <a style="margin:5px 20px 0px 0px;" href="{{ path('sonata_user_admin_security_logout')}}">Déconnexion</a>
+                <a style="margin:5px 20px 0px 0px;" href="{{ path('sonata_user_admin_security_logout')}}">{{ 'layout.logout'|trans({}, 'FOSUserBundle')}}</a>
+
+                {% if is_granted('ROLE_ADMIN') %}
+                <a style="margin:5px 20px 0px 0px;" href="{{ path('sonata_admin_dashboard')}}">Admin</a>
+                {% endif %}
+                <a  style="margin:5px 20px 0px 0px;" href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'ru'})) }}">Русский</a>
+                <a  style="margin:5px 20px 0px 0px;" href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'fr'})) }}">Français</a>
             </div>
         </div>
         {% endblock %}
@@ -60,25 +66,25 @@
           <nav id="main-nav">
               <ul>
                   {% block communate_active %}
-                  <li class="first"><a class="communaute" href="{{ path('espace_members_community') }}">Communauté </a></li>
+                  <li class="first"><a class="communaute" href="{{ path('espace_members_community') }}">{{ 'espace.community'|trans({}, 'EspaceMembers') }}</a></li>
                   {% endblock communate_active %}
 
                   {% block profil_active %}
-                  <li><a class="profil" href="{{ path('sonata_user_profile_show') }}">Profil</a></li>
+                  <li><a class="profil" href="{{ path('sonata_user_profile_show') }}">{{ 'espace.profile.menu'|trans({}, 'EspaceMembers') }}</a></li>
                   {% endblock profil_active %}
 
                   {% block enseignement_active %}
-                  <li><a class="enseignements" href="{{ path('espace_members_teaching') }}">Enseignements</a></li>
+                  <li><a class="enseignements" href="{{ path('espace_members_teaching') }}">{{ 'espace.lessons'|trans({}, 'EspaceMembers') }}</a></li>
                   {% endblock enseignement_active %}
 
-                  {% block etude_active %}
-                  <li><a class="etude" href="#">Etude des voies</a></li>
-                  {% endblock etude_active %}
+                  {#{% block etude_active %}#}
+                  {#<li><a class="etude" href="#">Etude des voies</a></li>#}
+                  {#{% endblock etude_active %}#}
+                  <form class="clearfix" action="{{ path('espace_members_teaching_search') }}" method="get">
+                      <input type="text" placeholder="Keywords" value="{{ app.request.get('query') }}" class="search" name="query">
+                      <input type="submit" class="search-submit" value="">
+                  </form>
               </ul>
-              <form class="clearfix" action="{{ path('espace_members_teaching_search') }}" method="get">
-                  <input type="text" placeholder="Keywords" value="{{ app.request.get('query') }}" class="search" name="query">
-                  <input type="submit" class="search-submit" value="">
-              </form>
           </nav>
       </div>
 

@@ -1,0 +1,14 @@
+espace:
+    community: Сообщество
+    profile:
+        menu: Профиль
+        edit: Редактировать профиль
+        show: Показать профиль
+    lessons: Занятия
+
+    filter:
+        chronology: Хронология
+        categories: Категории
+        voie: По направлениям
+        teacher: По преподавателям
+        tag: По тегам

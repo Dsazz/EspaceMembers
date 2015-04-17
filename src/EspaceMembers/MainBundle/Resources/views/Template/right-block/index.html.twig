@@ -26,7 +26,7 @@
        {% set chronologieIsActive = filterCategory matches '/chronology/' %}
        <h3 {{ chronologieIsActive ? 'class="ui-active-accordion"' }}>
             <img src="{{ asset('bundles/espacemembersmain/js/images/calendar.png') }}" alt="icon" />
-            Chronologique
+            {{ 'espace.filter.chronology'|trans({}, 'EspaceMembers') }}
        </h3>
        <div {{ chronologieIsActive ? 'class="accordion-filter-list"' }}>
            <ul>
@@ -52,7 +52,7 @@
        {% set categoryIsActive = filterCategory matches '/category/' %}
        <h3 {{ categoryIsActive ? 'class="ui-active-accordion"' }}>
             <img src="{{ asset('bundles/espacemembersmain/js/images/folder.png') }}" alt="icon" />
-            Catégories
+            {{ 'espace.filter.categories'|trans({}, 'EspaceMembers') }}
        </h3>
        <div {{ categoryIsActive ? 'class="accordion-filter-list"' }}>
            <ul>
@@ -78,7 +78,7 @@
        {% set directionIsActive = filterCategory matches '/direction/' %}
        <h3 {{ directionIsActive ? 'class="ui-active-accordion"' }}>
             <img src="{{ asset('bundles/espacemembersmain/js/images/notes.png') }}" alt="icon" />
-            Par voie
+            {{ 'espace.filter.voie'|trans({}, 'EspaceMembers') }}
        </h3>
        <div {{ directionIsActive ? 'class="accordion-filter-list"' }}>
            <ul>
@@ -104,7 +104,7 @@
        {% set teacherIsActive = filterCategory matches '/teacher/' %}
        <h3 {{ teacherIsActive ? 'class="ui-active-accordion"' }}>
            <img src="{{ asset('bundles/espacemembersmain/js/images/mic.png') }}" alt="icon" />
-           Par enseignant
+            {{ 'espace.filter.teacher'|trans({}, 'EspaceMembers') }}
        </h3>
        <div {{ teacherIsActive ? 'class="accordion-filter-list"' }}>
            <ul>
@@ -130,7 +130,7 @@
        {% set tagIsActive = filterCategory matches '/tag/' %}
        <h3 {{ tagIsActive ? 'class="ui-active-accordion"' }}>
            <img src="{{ asset('bundles/espacemembersmain/js/images/comment.png') }}" alt="icon" />
-           Par thème
+            {{ 'espace.filter.tag'|trans({}, 'EspaceMembers') }}
        </h3>
        <div>
            <ul>

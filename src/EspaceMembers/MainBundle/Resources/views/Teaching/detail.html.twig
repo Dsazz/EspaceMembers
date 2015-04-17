@@ -2,7 +2,7 @@
 
 {% block enseignement_active %}
 <li class="current">
-    <a class="active enseignements" href="{{ path ('espace_members_teaching') }}">Enseignements</a>
+    <a class="enseignements active" href="{{ path('espace_members_teaching') }}">{{ 'espace.lessons'|trans({}, 'EspaceMembers') }}</a>
 </li>
 {% endblock enseignement_active %}
 

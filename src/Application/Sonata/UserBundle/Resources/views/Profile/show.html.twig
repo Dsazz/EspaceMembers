@@ -2,7 +2,7 @@
 
 {% block profil_active %}
     <li class="current">
-        <a class="profil active" href="{{ path ('sonata_user_profile_show') }}">Profil </a>
+        <a class="profil active" href="{{ path('sonata_user_profile_show') }}">{{ 'espace.profile.menu'|trans({}, 'EspaceMembers') }}</a>
     </li>
 {% endblock profil_active %}
 
@@ -10,7 +10,7 @@
 <div class="content">
     <div class="full-width2">
         <div class="left-bar">
-            <a href="{{ path('sonata_user_profile_edit') }}" class="link">Edit profile</a>
+            <a href="{{ path('sonata_user_profile_edit') }}" class="link">{{ 'espace.profile.edit'|trans({}, 'EspaceMembers') }}</a>
         </div>
         <div class="right-bar">
             {% for flashMessage in app.session.flashbag.get('sonata_user_success') %}

@@ -8,7 +8,7 @@
 
 {% block profil_active %}
     <li class="current">
-        <a class="profil active" href="{{ path ('sonata_user_profile_show') }}">Profil </a>
+        <a class="profil active" href="{{ path('sonata_user_profile_show') }}">{{ 'espace.profile.menu'|trans({}, 'EspaceMembers') }}</a>
     </li>
 {% endblock profil_active %}
 
@@ -17,13 +17,12 @@
     <div class="full-width2">
 
         <div class="left-bar">
-            <a href="{{ path('sonata_user_profile_show') }}" class="link">Show profile</a>
+            <a href="{{ path('sonata_user_profile_show') }}" class="link">{{ 'espace.profile.show'|trans({}, 'EspaceMembers') }}</a>
         </div>
 
         <div class="right-bar">
-            <h1>Edit profile:</h1>
-            <form action="{{ path('sonata_user_profile_edit') }}" method="POST" class="pure-form
-                pure-form-stacked">
+            <h1>{{ 'espace.profile.edit'|trans({}, 'EspaceMembers') }}:</h1>
+            <form action="{{ path('sonata_user_profile_edit') }}" method="POST" class="pure-form pure-form-stacked">
                 {{ form_errors(form) }}
                 <fieldset>
                     {{ form_widget(form) }}

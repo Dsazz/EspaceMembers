@@ -1,0 +1,14 @@
+espace:
+    community: Communauté
+    profile:
+        menu: Profil
+        edit: Modifier le profil
+        show: Montrer profil
+    lessons: Enseignements
+
+    filter:
+        chronology: Chronologie
+        categories: Catégories
+        voie: Par voies
+        teacher: Par enseignants
+        tag: Par thème

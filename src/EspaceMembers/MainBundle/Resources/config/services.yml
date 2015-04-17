@@ -97,3 +97,9 @@ services:
             - { name: request.param_converter, converter: teacher_by_event_converter }
         arguments:
             - @?doctrine
+
+    espace.locale_listener:
+        class: EspaceMembers\MainBundle\EventListener\LocaleListener
+        arguments: ["%kernel.default_locale%"]
+        tags:
+            - { name: kernel.event_subscriber }
