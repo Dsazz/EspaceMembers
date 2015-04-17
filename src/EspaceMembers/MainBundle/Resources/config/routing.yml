@@ -10,6 +10,13 @@ espace_members_bookmark_page:
   resource: "@EspaceMembersMainBundle/Resources/config/routing/bookmark_routing.yml"
   prefix: /bookmark
 
+espace_members_teaching_search:
+    path:     /search/{page}
+    defaults: { _controller: EspaceMembersMainBundle:Teaching:search, page: 1 }
+    requirements:
+        _method: GET
+        page: \d+
+
 espace_members_teaching:
     path:     /{page}
     defaults: { _controller: EspaceMembersMainBundle:Teaching:index, page: 1 }

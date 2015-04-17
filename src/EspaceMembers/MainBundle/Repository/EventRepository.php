@@ -522,4 +522,51 @@ class EventRepository extends EntityRepository
 
         return $pagerfanta->setMaxPerPage(Event::MAX_PER_PAGE);
     }
+
+    public function search($query)
+    {
+        $qb = $this->createQueryBuilder('ev')
+            ->select(
+                'partial ev.{
+                    id, title, category, year, frontImage, startDate, completionDate
+                }'
+            )
+            ->addSelect('partial c.{id, name}')
+            ->addSelect('partial u.{id, lastname, firstname, avatar}')
+            ->addSelect(
+                'partial tch.{
+                    id, title, serial, lesson, dayNumber, dayTime, date
+                }'
+            )
+            ->addSelect('partial lsn.{id, contentType, playtime}')
+            ->addSelect(
+                'partial frntImg.{
+                    id, providerName, providerStatus, providerReference,
+                    width, height, contentType, context
+                }'
+            )
+            ->addSelect(
+                'partial avatar.{
+                    id, providerName, providerStatus, providerReference,
+                    width, height, contentType, context
+                }'
+            )
+            ->innerJoin('ev.users', 'u', 'WITH', 'u.is_teacher = 1')
+            ->innerJoin('ev.category', 'c')
+            ->innerJoin('ev.frontImage', 'frntImg')
+            ->innerJoin('u.teachings', 'tch', 'WITH', 'tch.is_show = 1 AND tch.event = ev')
+            ->innerJoin('u.avatar', 'avatar')
+            ->innerJoin('tch.lesson', 'lsn')
+            ->where('ev.title LIKE :search AND tch.event = ev')
+            ->orderBy('tch.serial', 'ASC')
+            ->addOrderBy('ev.year', 'DESC')
+            ->setParameter('search', '%'.$query.'%')
+            ->getQuery()
+            ->getArrayResult();
+
+        $adapter = new ArrayAdapter($qb);
+        $pagerfanta = new Pagerfanta($adapter);
+
+        return $pagerfanta->setMaxPerPage(Event::MAX_PER_PAGE);
+    }
 }
