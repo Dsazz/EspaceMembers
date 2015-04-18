@@ -45,10 +45,10 @@
                 </a>
                 {#<a href="#"><img src="{{ asset('bundles/espacemembersmain/images/gft.png') }}" alt="icon" /></a>#}
                 <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'ru'})) }}">
-                    <img src="{{ asset('bundles/espacemembersmain/images/flag-rus.png') }}" alt="Русский" />
+                    <img src="{{ asset('bundles/espacemembersmain/images/flag-rus.png') }}" title="Русский" alt="Русский" />
                 </a>
                 <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'fr'})) }}">
-                    <img src="{{ asset('bundles/espacemembersmain/images/flag-fr.png') }}" alt="Français" />
+                    <img src="{{ asset('bundles/espacemembersmain/images/flag-fr.png') }}" title="Français" alt="Français" />
                 </a>
                 <a style="margin:5px 20px 0px 0px;" href="{{ path('sonata_user_admin_security_logout')}}">{{ 'layout.logout'|trans({}, 'FOSUserBundle')}}</a>
 
