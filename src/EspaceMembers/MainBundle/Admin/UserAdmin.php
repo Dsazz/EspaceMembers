@@ -47,11 +47,10 @@ class UserAdmin extends BaseUserAdmin
         $formMapper
             ->tab('User')
                 ->with('General')
-                    ->add('firstname', null, array('label' => 'First name', 'required' => true))
-                    ->add('lastname', null, array('label' => 'Last name', 'required' => true))
+                    ->add('firstname')
+                    ->add('lastname')
                     ->add('avatar', 'sonata_type_model_list',
                         array(
-                            'label' => 'Avatar',
                             'btn_list' => false
                         ),
                         array(
@@ -61,15 +60,13 @@ class UserAdmin extends BaseUserAdmin
                     ->add('plainPassword', 'text', array(
                         'required' => (!$this->getSubject() || is_null($this->getSubject()->getId()))
                     ))
-                    ->add('phone', null, array('label' => 'Phone'))
-                    ->add('address', null, array('label' => 'Address'))
+                    ->add('phone')
+                    ->add('address')
                     ->add('biography', 'textarea', array(
-                        'label' => 'Description',
                         'attr' => array('class' => 'ckeditor'),
                         'required' => false,
                     ))
                     ->add('events', 'sonata_type_model', array(
-                        'label' => 'Events',
                         'by_reference' => false,
                         'expanded' => false,
                         'multiple' => true,
@@ -77,7 +74,6 @@ class UserAdmin extends BaseUserAdmin
                         'required' => false,
                     ))
                     ->add('teachings', 'sonata_type_model', array(
-                        'label' => 'Teachings',
                         'by_reference' => false,
                         'expanded' => false,
                         'multiple' => true,
@@ -92,9 +88,8 @@ class UserAdmin extends BaseUserAdmin
                     ->with('Administrator')
                         ->add('dateOfBirth', 'birthday')
                         ->add('gender')
-                        ->add('is_teacher', null, array('label' => 'Is teacher ?'))
+                        ->add('is_teacher')
                         ->add('groups', 'entity', array(
-                            'label' => 'Group',
                             'required' => false,
                             'class' => 'Application\Sonata\UserBundle\Entity\Group',
                             'expanded' => false,
@@ -110,7 +105,7 @@ class UserAdmin extends BaseUserAdmin
                             'choices'  => $this->getExistingRoles(),
                             'expanded' => true,
                             'multiple' => true,
-                        ))
+                        ), array('translation_domain' => 'SonataUserBundle'))
                         ->add('locked', null, array('required' => false))
                         ->add('enabled', null, array('required' => false))
                     ->end()
@@ -126,8 +121,8 @@ class UserAdmin extends BaseUserAdmin
     {
         $filterMapper
             ->add('id')
-            ->add('firstname', null, array('label' => 'First name'))
-            ->add('lastname', null, array('label' => 'Last name'))
+            ->add('firstname')
+            ->add('lastname')
             ->add('locked')
             ->add('email')
             ;
@@ -139,29 +134,28 @@ class UserAdmin extends BaseUserAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('id', null, array('label' => 'User ID'))
-            ->add('firstname', null, array('label' => 'First name'))
-            ->add('lastname', null, array('label' => 'Last name'))
+            ->addIdentifier('id')
+            ->add('firstname')
+            ->add('lastname')
             ->add('email')
-            ->add('dateOfBirth', null, array('label' => 'birthday'))
-            ->add('gender', null, array('label' => 'gender'))
+            ->add('dateOfBirth')
+            ->add('gender')
             ->add('roles', 'choice', array(
-                'label' => 'Roles',
                 'choices' => $this->getExistingRoles(),
                 'multiple' => true,
-            ))
+            ), array('translation_domain' => 'SonataUserBundle'))
             ->add('createdAt')
             ;
 
         if ($this->isGranted('ROLE_ALLOWED_TO_SWITCH')) {
             $listMapper
-                ->add('is_teacher', null, array('editable' => true, 'label' => 'Teacher'))
+                ->add('is_teacher', null, array('editable' => true))
                 ->add('enabled', null, array('editable' => true))
                 ->add('locked', null, array('editable' => true))
             ;
         } else {
             $listMapper
-                ->add('is_teacher', null, array('editable' => false, 'label' => 'Teacher'))
+                ->add('is_teacher', null, array('editable' => false))
                 ->add('enabled', null, array('editable' => false))
                 ->add('locked', null, array('editable' => false))
             ;

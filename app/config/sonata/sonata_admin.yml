@@ -9,9 +9,11 @@ sonata_admin:
         user_block:          ApplicationSonataUserBundle:Admin\Core:user_block.html.twig
     dashboard:
         groups:
-            EspaceMembers: ~
+            EspaceMembers:
+                icon:  '<i class="fa ion-ios-gear-outline"></i>'
             user:
-                label: Users management
+                label: user_managments
                 items:
                     - sonata.user.admin.user
                 roles: [ ROLE_SUPER_ADMIN ]
+                icon:  '<i class="fa ion-person-stalker"></i>'

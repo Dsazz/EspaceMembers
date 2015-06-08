@@ -1,5 +1,12 @@
 {% extends 'EspaceMembersMainBundle::layout.html.twig' %}
 
+{% set alphabet = [
+    'а','б','в','г','д','е','ё','ж','з','и','й','к','л','м','н','о','п','р','с','т',
+    'у','ф','х','ц','ч','щ','ш','ь','ы','ъ','э','ю','я', 'a', 'b', 'c', 'd', 'e',
+    'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
+    'u', 'v', 'w', 'x', 'y', 'z'
+    ]
+%}
 {% block communate_active %}
     <li class="first current">
         <a class="communaute active" href="{{ path('espace_members_community') }}">{{ 'espace.community'|trans({}, 'EspaceMembers') }}</a>
@@ -20,24 +27,24 @@
         {% for group in groups %}
             <a href="{{ path('espace_members_community_filter', {'group_name': group.name}) }}" class="link">{{ group.name }}</a>
         {% else %}
-            <a href="#" class="link">Not found groups</a>
+            <a href="#" class="link">{{ 'espace.group.404'|trans({}, 'EspaceMembers') }}</a>
         {% endfor %}
         </div>
 
         <div class="right-bar">
-        {% for letter in 'a'|upper..'z'|upper %}
-            {% for user in users if user.lastname|first|upper == letter %}
+        {% for letter in alphabet %}
+            {% for user in users if user.lastname|first|upper == letter|upper %}
             <div class="box">
-                {% if loop.first %}<span class="right-tag">{{ letter }}</span> {% endif %}
+                {% if loop.first %}<span class="right-tag">{{ letter|upper }}</span> {% endif %}
                 <img src="{{ path_to_media(user.avatar, 'big') }}" width="175px" height="175px" alt="image">
 
                 <h2>{{ user.lastname }} {{ user.firstname }}</h2>
 
                 <p>{{ user.biography|length > 255 ? user.biography|slice(0, 255) ~ '...' : user.biography }}</p>
                 <p>
-                    Téléphone: {{ user.phone|length   > 0 ? user.phone   : "" }}<br />
-                    Email:     {{ user.email|length   > 0 ? user.email   : "" }}<br />
-                    Adresse:   {{ user.address|length > 0 ? user.address : "" }}
+                    {{ 'espace.phone'|trans({}, 'EspaceMembers') }}: {{ user.phone|length   > 0 ? user.phone   : "" }}<br />
+                    {{ 'espace.email'|trans({}, 'EspaceMembers') }}: {{ user.email|length   > 0 ? user.email   : "" }}<br />
+                    {{ 'espace.address'|trans({}, 'EspaceMembers') }}: {{ user.address|length > 0 ? user.address : "" }}
                 </p>
             </div>
             {% endfor %}

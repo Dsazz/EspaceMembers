@@ -9,6 +9,6 @@
     <h2>{{ event.title|capitalize }}</h2>
     {{ include('EspaceMembersMainBundle:Template/left-block:item.html.twig', {'event' : event, 'bookmarksId' : bookmarksId}) }}
 {% else %}
-    <p>Not found events</p>
+    {{ 'espace.events.404'|trans({}, 'EspaceMembers') }}
 {% endfor %}
 </div>

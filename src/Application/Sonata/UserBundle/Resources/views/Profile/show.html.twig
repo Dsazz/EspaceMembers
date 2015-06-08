@@ -26,9 +26,9 @@
 
                 <p>{{ user.biography|length > 255 ? user.biography|slice(0, 255) ~ '...' : user.biography }}</p>
                 <p>
-                Téléphone:{{ user.phone|length > 0 ? user.phone : "" }}<br />
-                Email:{{ user.email|length > 0 ? user.email : "" }}<br />
-                Adresse:{{ user.address|length > 0 ? user.address : "" }}
+                {{ 'espace.phone'|trans({}, 'EspaceMembers') }}: {{ user.phone|length   > 0 ? user.phone   : "" }}<br />
+                {{ 'espace.email'|trans({}, 'EspaceMembers') }}: {{ user.email|length   > 0 ? user.email   : "" }}<br />
+                {{ 'espace.address'|trans({}, 'EspaceMembers') }}: {{ user.address|length > 0 ? user.address : "" }}
                 </p>
             </div>
         </div>

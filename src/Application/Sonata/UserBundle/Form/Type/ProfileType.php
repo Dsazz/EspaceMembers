@@ -45,37 +45,48 @@ class ProfileType extends AbstractType
         $user = $this->securityContext->getToken()->getUser();
         $builder
                 ->add('firstname', null, array(
-                    'label' => 'First name',
+                    'label' => 'form.label_firstname',
                     'attr' => array('class' => 'pure-input-1-2'),
-                    'required' => false))
+                    'required' => false,
+                    'translation_domain' => 'SonataUserBundle'
+                ))
                 ->add('lastname', null, array(
-                    'label' => 'Last name',
+                    'label' => 'form.label_lastname',
                     'attr' => array('class' => 'pure-input-1-2'),
-                    'required' => false))
+                    'required' => false,
+                    'translation_domain' => 'SonataUserBundle'
+                ))
                 ->add('avatar', 'sonata_media_type', array(
                         'provider' => 'sonata.media.provider.image',
                         'context' => 'avatar',
                         'required' => false,
+                        'label' => 'form.label_avatar',
+                        'translation_domain' => 'SonataUserBundle'
                     )
                 )
                 ->add('plainPassword', 'text', array(
                     'attr' => array('class' => 'pure-input-1-2'),
-                    'required' => false
+                    'required' => false,
+                    'label' => 'form.label_plain_password',
+                    'translation_domain' => 'SonataUserBundle'
                 ))
                 ->add('phone', null, array(
-                    'label' => 'Phone',
+                    'label' => 'form.label_phone',
                     'attr' => array('class' => 'pure-input-1-2'),
                     'required' => false,
+                    'translation_domain' => 'SonataUserBundle'
                 ))
                 ->add('address', null, array(
-                    'label' => 'Address',
+                    'label' => 'form.label_address',
                     'attr' => array('class' => 'pure-input-1-2'),
                     'required' => false,
+                    'translation_domain' => 'SonataUserBundle'
                 ))
                 ->add('biography', 'textarea', array(
-                    'label' => 'Description',
+                    'label' => 'form.label_biography',
                     'attr' => array('class' => 'pure-input-1-2', 'rows' => '7'),
                     'required' => false,
+                    'translation_domain' => 'SonataUserBundle'
                 ))
         ;
 
@@ -89,43 +100,27 @@ class ProfileType extends AbstractType
                         'required' => false,
                         'attr' => array('class' => 'fix-birthday'),
                         'empty_value' => false,
+                        'translation_domain' => 'SonataUserBundle'
                     ))
-                    ->add('gender')
-                    ->add('is_teacher', null, array('label' => 'Is teacher ?'))
+                    ->add('gender', null, array('label' => 'form.label_gender'))
+                    ->add('is_teacher', null, array('label' => 'form.label_is_teacher'))
                     ->add('groups', 'entity', array(
-                        'label' => 'Group',
+                        'label' => 'form.label_groups',
                         'required' => false,
                         'class' => 'Application\Sonata\UserBundle\Entity\Group',
                         'expanded' => false,
                         'multiple' =>false,
                         'required' => true,
+                        'translation_domain' => 'SonataUserBundle'
                     ))
                     ->add('email', 'email', array(
-                        'label' => 'Email',
+                        'label' => 'form.email',
                         'attr' => array('class' => 'pure-input-1-2'),
                         'required' => false,
-                    ))
-                    ->add('roles','choice',array(
-                        'choices'  => $this->getExistingRoles(),
-                        'expanded' => true,
-                        'multiple' => true,
-                        'required' => false,
-                        'attr' => array('class' => 'fix-role')
+                        'translation_domain' => 'SonataUserBundle'
                     ))
             ;
         }
-    }
-
-    public function getExistingRoles()
-    {
-        $roleHierarchy = $this->container->getParameter('security.role_hierarchy.roles');
-        $roles = array_keys($roleHierarchy);
-
-        foreach ($roles as $role) {
-            $theRoles[$role] = $role;
-        }
-
-        return $theRoles;
     }
 
     /**

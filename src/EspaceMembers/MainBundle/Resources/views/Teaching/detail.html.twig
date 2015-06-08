@@ -19,29 +19,31 @@
         <div class="image-box">
             <img src="{{ path_to_media(event.frontImage, 'big') }}" width="175px" height="175px" alt="image">
             <span class="describe">
-                Du {{ event.startDate|localizeddate('none', 'none', 'fr_FR' , null, 'd LLLL')|title }}
-                Au {{ event.completionDate|localizeddate('none', 'none', 'fr_FR' , null, 'd LLLL')|title }}
+                {{ 'espace.events.since'|trans({}, 'EspaceMembers') }}
+                {{ event.startDate|localizeddate('none', 'none', app.request.locale, null, 'd LLLL')|title }}
+                {{ 'espace.events.to'|trans({}, 'EspaceMembers') }}
+                {{ event.completionDate|localizeddate('none', 'none', app.request.locale, null, 'd LLLL')|title }}
             </span>
 
             <p>{{ event.description|length > 255 ? event.description|slice(0, 255) ~ '...' : event.description }}</p>
 
-            <p>Enseignant(s):<br />
+            <p>{{ 'espace.teacher.title'|trans({}, 'EspaceMembers') }}:<br />
             {% for teacher in event.users %}
                 <a href="#" class="link">{{ teacher.lastname }} {{ teacher.firstname }}<br /></a>
             {% else %}
-                <a href="#" class="link">Not found teachers</a>
+                <a href="#" class="link">{{ 'espace.teacher.404'|trans({}, 'EspaceMembers') }}</a>
             {% endfor %}
             </p>
 
-            <p>Catégorie:<br />
+            <p>{{ 'espace.teaching.category'|trans({}, 'EspaceMembers') }}:<br />
                 {{ event.category.name|capitalize }}
             </p>
 
-            <p>Thèmes:<br />
+            <p>{{ 'espace.teaching.tag'|trans({}, 'EspaceMembers') }}:<br />
             {% for tag in event.tags %}
                 <a href="#" class="theme-button">{{ tag.name }}</a>
             {% else %}
-                <a href="#" class="theme-button">Not found tag</a>
+                <a href="#" class="theme-button">{{ 'espace.tag.404'|trans({}, 'EspaceMembers') }}</a>
             {% endfor %}
             </p>
         </div>

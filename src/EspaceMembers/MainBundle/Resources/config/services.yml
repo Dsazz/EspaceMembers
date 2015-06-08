@@ -13,56 +13,68 @@ services:
     sonata.admin.group:
         class: EspaceMembers\MainBundle\Admin\GroupAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: EspaceMembers, label: "Group" }
+            - { name: sonata.admin, manager_type: orm, group: EspaceMembers, label: "group_list", label_translator_strategy: sonata.admin.label.strategy.underscore}
         arguments:
             - ~
             - Application\Sonata\UserBundle\Entity\Group
             - 'SonataAdminBundle:CRUD'
+        calls:
+            - [setTranslationDomain, ['SonataAdminBundle']]
 
     sonata.admin.teaching:
         class: EspaceMembers\MainBundle\Admin\TeachingAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: EspaceMembers, label: "Teaching" }
+            - { name: sonata.admin, manager_type: orm, group: EspaceMembers, label_catalogue:"SonataAdminBundle",  label: "teaching_list", label_translator_strategy: "sonata.admin.label.strategy.underscore" }
         arguments:
             - ~
             - EspaceMembers\MainBundle\Entity\Teaching
             - 'SonataAdminBundle:CRUD'
+        calls:
+            - [setTranslationDomain, ['SonataAdminBundle']]
 
     sonata.admin.direction:
         class: EspaceMembers\MainBundle\Admin\DirectionAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: EspaceMembers, label: "Direction" }
+            - { name: sonata.admin, manager_type: orm, group: EspaceMembers, label_catalogue:"SonataAdminBundle",  label: "direction_list", label_translator_strategy: "sonata.admin.label.strategy.underscore" }
         arguments:
             - ~
             - EspaceMembers\MainBundle\Entity\Direction
             - 'SonataAdminBundle:CRUD'
+        calls:
+            - [setTranslationDomain, ['SonataAdminBundle']]
 
     sonata.admin.tag:
         class: EspaceMembers\MainBundle\Admin\TagAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: EspaceMembers,  label: "Tag", show_in_dashboard: false}
+            - { name: sonata.admin, manager_type: orm, group: EspaceMembers, show_in_dashboard: false, label_catalogue:"SonataAdminBundle",  label: "tag_list", label_translator_strategy: "sonata.admin.label.strategy.underscore" }
         arguments:
             - ~
             - EspaceMembers\MainBundle\Entity\Tag
             - 'SonataAdminBundle:CRUD'
+        calls:
+            - [setTranslationDomain, ['SonataAdminBundle']]
 
     sonata.admin.category:
         class: EspaceMembers\MainBundle\Admin\CategoryAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: EspaceMembers,  label: "Category" }
+            - { name: sonata.admin, manager_type: orm, group: EspaceMembers, label_catalogue:"SonataAdminBundle",  label: "category_list", label_translator_strategy: sonata.admin.label.strategy.underscore }
         arguments:
             - ~
             - EspaceMembers\MainBundle\Entity\Category
             - 'SonataAdminBundle:CRUD'
+        calls:
+            - [setTranslationDomain, ['SonataAdminBundle']]
 
     sonata.admin.event:
         class: EspaceMembers\MainBundle\Admin\EventAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: EspaceMembers,  label: "Event" }
+            - { name: sonata.admin, manager_type: orm, group: EspaceMembers, label_catalogue:"SonataAdminBundle",  label: "event_list", label_translator_strategy: "sonata.admin.label.strategy.underscore" }
         arguments:
             - ~
             - EspaceMembers\MainBundle\Entity\Event
             - 'SonataAdminBundle:CRUD'
+        calls:
+            - [setTranslationDomain, ['SonataAdminBundle']]
 
     #TWIG INTL
     twig.extension.intl:

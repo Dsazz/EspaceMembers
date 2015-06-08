@@ -1,0 +1,353 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="SonataAdminBundle.en.xliff" >
+        <body>
+            <trans-unit id="link_action_create">
+                <source>link_action_create</source>
+                <target>Добавить</target>
+            </trans-unit>
+            <trans-unit id="link_add">
+                <source>link_add</source>
+                <target>Добавить</target>
+            </trans-unit>
+            <trans-unit id="btn_create_and_create_a_new_one">
+                <source>btn_create_and_create_a_new_one</source>
+                <target>Создать и добавить новую запись</target>
+            </trans-unit>
+            <trans-unit id="stats_view_more">
+                <source>stats_view_more</source>
+                <target>Показать больше</target>
+            </trans-unit>
+            <trans-unit id="user_managments">
+                <source>user_managments</source>
+                <target>Управление пользователями</target>
+            </trans-unit>
+
+            <!--Menu-->
+            <trans-unit id="group_list">
+                <source>group_list</source>
+                <target>Группы пользователей</target>
+            </trans-unit>
+            <trans-unit id="teaching_list">
+                <source>teaching_list</source>
+                <target>Лекции</target>
+            </trans-unit>
+            <trans-unit id="direction_list">
+                <source>direction_list</source>
+                <target>Направления лекций</target>
+            </trans-unit>
+            <trans-unit id="category_list">
+                <source>category_list</source>
+                <target>Категории</target>
+            </trans-unit>
+            <trans-unit id="event_list">
+                <source>event_list</source>
+                <target>События</target>
+            </trans-unit>
+
+
+            <!--Breadcrumbs-->
+            <trans-unit id="breadcrumb.link_teaching_list">
+                <source>breadcrumb.link_teaching_list</source>
+                <target>Лекции</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_direction_list">
+                <source>breadcrumb.link_direction_list</source>
+                <target>Направления лекций</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_category_list">
+                <source>breadcrumb.link_category_list</source>
+                <target>Категории</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.link_event_list">
+                <source>breadcrumb.link_event_list</source>
+                <target>События</target>
+            </trans-unit>
+
+            <!--Forms labels-->
+            <trans-unit id="form.label_resume">
+                <source>form.label_resume</source>
+                <target>Описание</target>
+            </trans-unit>
+            <trans-unit id="form.label_users">
+                <source>form.label_users</source>
+                <target>Пользователи</target>
+            </trans-unit>
+            <trans-unit id="form.label_locked">
+                <source>form.label_locked</source>
+                <target>Заблокированное</target>
+            </trans-unit>
+            <trans-unit id="form.label_enabled">
+                <source>form.label_enabled</source>
+                <target>Активен</target>
+            </trans-unit>
+            <trans-unit id="form.label_name">
+                <source>form.label_name</source>
+                <target>Название</target>
+            </trans-unit>
+            <trans-unit id="form.label_title">
+                <source>form.label_title</source>
+                <target>Заголовок</target>
+            </trans-unit>
+            <trans-unit id="form.label_category">
+                <source>form.label_category</source>
+                <target>Категория</target>
+            </trans-unit>
+            <trans-unit id="form.label_serial">
+                <source>form.label_serial</source>
+                <target>Номер лекции</target>
+            </trans-unit>
+            <trans-unit id="form.label_date">
+                <source>form.label_date</source>
+                <target>Дата проведения</target>
+            </trans-unit>
+            <trans-unit id="form.label_day_number">
+                <source>form.label_day_number</source>
+                <target>День</target>
+            </trans-unit>
+            <trans-unit id="form.label_day_time">
+                <source>form.label_day_time</source>
+                <target>Время дня</target>
+            </trans-unit>
+            <trans-unit id="form.label_event">
+                <source>form.label_event</source>
+                <target>Событие</target>
+            </trans-unit>
+            <trans-unit id="form.label_tags">
+                <source>form.label_tags</source>
+                <target>Теги</target>
+            </trans-unit>
+            <trans-unit id="form.label_directions">
+                <source>form.label_directions</source>
+                <target>Направления лекций</target>
+            </trans-unit>
+            <trans-unit id="form.label_lesson">
+                <source>form.label_lesson</source>
+                <target>Лекции</target>
+            </trans-unit>
+            <trans-unit id="form.label_technical_comment">
+                <source>form.label_technical_comment</source>
+                <target>Комментарий преподавателя</target>
+            </trans-unit>
+            <trans-unit id="form.label_is_show">
+                <source>form.label_is_show</source>
+                <target>Показать на сайте ?</target>
+            </trans-unit>
+            <trans-unit id="form.label_start_date">
+                <source>form.label_start_date</source>
+                <target>Начало проведения</target>
+            </trans-unit>
+            <trans-unit id="form.label_completion_date">
+                <source>form.label_completion_date</source>
+                <target>Конец проведения</target>
+            </trans-unit>
+            <trans-unit id="form.label_year">
+                <source>form.label_year</source>
+                <target>Год</target>
+            </trans-unit>
+            <trans-unit id="form.label_description">
+                <source>form.label_description</source>
+                <target>Описание</target>
+            </trans-unit>
+            <trans-unit id="form.label_front_image">
+                <source>form.label_front_image</source>
+                <target>Заглавное изображение</target>
+            </trans-unit>
+            <trans-unit id="form.label_flayer">
+                <source>form.label_flayer</source>
+                <target>Флаер</target>
+            </trans-unit>
+            <trans-unit id="form.label_teachings">
+                <source>form.label_teachings</source>
+                <target>Лекции</target>
+            </trans-unit>
+            <trans-unit id="form.label_roles">
+                <source>form.label_roles</source>
+                <target>Роли</target>
+            </trans-unit>
+            <trans-unit id="form.label_is_teacher">
+                <source>form.label_is_teacher</source>
+                <target>Преподаватель ?</target>
+            </trans-unit>
+            <trans-unit id="form.label_address">
+                <source>form.label_address</source>
+                <target>Адрес</target>
+            </trans-unit>
+            <trans-unit id="form.label_avatar">
+                <source>form.label_avatar</source>
+                <target>Аватар</target>
+            </trans-unit>
+
+            <!--Filters-->
+            <trans-unit id="filter.label_id">
+                <source>filter.label_id</source>
+                <target>ID</target>
+            </trans-unit>
+            <trans-unit id="filter.label_users">
+                <source>filter.label_users</source>
+                <target>Пользователи</target>
+            </trans-unit>
+            <trans-unit id="filter.label_locked">
+                <source>filter.label_locked</source>
+                <target>Заблокированное</target>
+            </trans-unit>
+            <trans-unit id="filter.label_enabled">
+                <source>filter.label_enabled</source>
+                <target>Активен</target>
+            </trans-unit>
+            <trans-unit id="filter.label_name">
+                <source>filter.label_name</source>
+                <target>Название</target>
+            </trans-unit>
+            <trans-unit id="filter.label_title">
+                <source>filter.label_title</source>
+                <target>Заголовок</target>
+            </trans-unit>
+            <trans-unit id="filter.label_category">
+                <source>filter.label_category</source>
+                <target>Категория</target>
+            </trans-unit>
+
+            <!--Table lables-->
+            <trans-unit id="list.label_id">
+                <source>list.label_id</source>
+                <target>ID</target>
+            </trans-unit>
+            <trans-unit id="list.label__action">
+                <source>list.label__action</source>
+                <target>Действие</target>
+            </trans-unit>
+            <trans-unit id="list.label_locked">
+                <source>list.label_locked</source>
+                <target>Заблокировано</target>
+            </trans-unit>
+            <trans-unit id="list.label_name">
+                <source>list.label_name</source>
+                <target>Название</target>
+            </trans-unit>
+            <trans-unit id="list.label_title">
+                <source>list.label_title</source>
+                <target>Заголовок</target>
+            </trans-unit>
+            <trans-unit id="list.label_description">
+                <source>list.label_description</source>
+                <target>Описание</target>
+            </trans-unit>
+            <trans-unit id="list.label_category">
+                <source>list.label_category</source>
+                <target>Категория</target>
+            </trans-unit>
+            <trans-unit id="list.label_roles">
+                <source>list.label_roles</source>
+                <target>Роли</target>
+            </trans-unit>
+            <trans-unit id="list.label_resume">
+                <source>list.label_resume</source>
+                <target>Описание</target>
+            </trans-unit>
+            <trans-unit id="list.label_users">
+                <source>list.label_users</source>
+                <target>Пользователи</target>
+            </trans-unit>
+            <trans-unit id="list.label_serial">
+                <source>list.label_serial</source>
+                <target>Номер лекции</target>
+            </trans-unit>
+            <trans-unit id="list.label_date">
+                <source>list.label_date</source>
+                <target>Дата проведения</target>
+            </trans-unit>
+            <trans-unit id="list.label_day_number">
+                <source>list.label_day_number</source>
+                <target>День</target>
+            </trans-unit>
+            <trans-unit id="list.label_day_time">
+                <source>list.label_day_time</source>
+                <target>Время дня</target>
+            </trans-unit>
+            <trans-unit id="list.label_event">
+                <source>list.label_event</source>
+                <target>Событие</target>
+            </trans-unit>
+            <trans-unit id="list.label_tags">
+                <source>list.label_tags</source>
+                <target>Теги</target>
+            </trans-unit>
+            <trans-unit id="list.label_directions">
+                <source>list.label_directions</source>
+                <target>Направления лекций</target>
+            </trans-unit>
+            <trans-unit id="list.label_lesson">
+                <source>list.label_lesson</source>
+                <target>Лекции</target>
+            </trans-unit>
+            <trans-unit id="list.label_technical_comment">
+                <source>list.label_technical_comment</source>
+                <target>Комментарий преподавателя</target>
+            </trans-unit>
+            <trans-unit id="list.label_is_show">
+                <source>list.label_is_show</source>
+                <target>Показать на сайте ?</target>
+            </trans-unit>
+            <trans-unit id="list.label_start_date">
+                <source>list.label_start_date</source>
+                <target>Начало проведения</target>
+            </trans-unit>
+            <trans-unit id="list.label_completion_date">
+                <source>list.label_completion_date</source>
+                <target>Конец проведения</target>
+            </trans-unit>
+            <trans-unit id="list.label_year">
+                <source>list.label_year</source>
+                <target>Год</target>
+            </trans-unit>
+            <trans-unit id="list.label_front_image">
+                <source>list.label_front_image</source>
+                <target>Заглавное изображение</target>
+            </trans-unit>
+            <trans-unit id="list.label_flayer">
+                <source>list.label_flayer</source>
+                <target>Флаер</target>
+            </trans-unit>
+            <trans-unit id="list.label_teachings">
+                <source>list.label_teachings</source>
+                <target>Лекции</target>
+            </trans-unit>
+            <trans-unit id="list.label_is_teacher">
+                <source>list.label_is_teacher</source>
+                <target>Преподаватель ?</target>
+            </trans-unit>
+            <trans-unit id="list.label_address">
+                <source>list.label_address</source>
+                <target>Адрес</target>
+            </trans-unit>
+            <trans-unit id="list.label_avatar">
+                <source>list.label_avatar</source>
+                <target>Аватар</target>
+            </trans-unit>
+
+
+            <!--Table show-->
+            <trans-unit id="show.label_name">
+                <source>show.label_name</source>
+                <target>Название</target>
+            </trans-unit>
+            <trans-unit id="show.label_title">
+                <source>show.label_title</source>
+                <target>Заголовок</target>
+            </trans-unit>
+            <trans-unit id="show.label_description">
+                <source>show.label_description</source>
+                <target>Описание</target>
+            </trans-unit>
+            <trans-unit id="show.label_property_name">
+                <source>show.label_property_name</source>
+                <target>Название</target>
+            </trans-unit>
+            <trans-unit id="show.label_category">
+                <source>show.label_category</source>
+                <target>Категория</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

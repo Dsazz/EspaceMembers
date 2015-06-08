@@ -34,10 +34,9 @@ class GroupAdmin extends BaseGroupAdmin
     protected function configureShowField(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id', null, array('label' => 'ID'))
-            ->add('name', null, array('label' => 'Name'))
+            ->add('id')
+            ->add('name')
             ->add('roles', 'choice', array(
-                'label' => 'Roles',
                 'choices' => $this->getExistingRoles(),
                 'multiple' => true,
             ))
@@ -52,10 +51,9 @@ class GroupAdmin extends BaseGroupAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('name', null, array('label' => 'Name'))
+            ->add('name')
             ->add('roles', 'choice', array(
                 'choices' => $this->getExistingRoles(),
-                'label' => 'Roles',
                 'expanded' => true,
                 'multiple' => true,
                 'mapped' => true,
@@ -72,9 +70,8 @@ class GroupAdmin extends BaseGroupAdmin
     {
         $listMapper
             ->addIdentifier('id')
-            ->addIdentifier('name', null, array('label' => 'Name'))
+            ->addIdentifier('name')
             ->add('roles', 'choice', array(
-                'label' => 'Roles',
                 'choices' => $this->getExistingRoles(),
                 'multiple' => true,
             ))
@@ -90,7 +87,7 @@ class GroupAdmin extends BaseGroupAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('name', null, array('label' => 'Name'));
+            ->add('name');
     }
 
     public function getExistingRoles()

@@ -1,6 +1,8 @@
 <div class="item">
     <div class="hoverclick">
-        <span class="categorie">Causerie {{ teaching.serial }}</span>
+        <span class="categorie">
+            {{ 'espace.teaching.serial'|trans({}, 'EspaceMembers') }} {{ teaching.serial }}
+        </span>
         {% set pathToPlayingTeaching %}
             {{ path('espace_members_playing_teaching', {
                 'event_id' : event.id,
@@ -9,10 +11,11 @@
             }}
         {% endset %}
         <a href="{{ pathToPlayingTeaching }}" class="tittle">
-            {{ teaching.title|length > 37 ?  teaching.title|slice(0, 37) ~ '...' : teaching.title }}
-            <span class="uploaded-time">Jour {{ teaching.dayNumber }},
-                {{ teaching.date|localizeddate('none', 'none', 'fr_FR' , null, 'd
-                LLLL Y') }} (env. {{teaching.dayTime}} )
+            {{ teaching.title|length > 40 ?  teaching.title|slice(0, 40) ~ '...' : teaching.title }}
+            <span class="uploaded-time">
+                {{ 'espace.teaching.day'|trans({}, 'EspaceMembers') }} {{ teaching.dayNumber }},
+                {{ teaching.date|localizeddate('none', 'none', app.request.locale, null, 'd
+                LLLL Y') }} ( {{teaching.dayTime}} )
             </span>
         </a>
         <a href="{{ pathToPlayingTeaching }}" class="play">

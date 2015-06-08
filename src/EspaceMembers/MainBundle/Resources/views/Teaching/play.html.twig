@@ -49,7 +49,7 @@
                 <ul class="menu" data-max="{{ teacherCurr.teachings|length }}">
                     <li>
                         <a style="cursor:pointer;" data-curr-serial="{{ teachingCurr.serial }}">
-                            Causerie {{ teachingCurr.serial }} / {{ teacherCurr.teachings|length }}
+                           {{ 'espace.teaching.serial'|trans({}, 'EspaceMembers') }} {{ teachingCurr.serial }} / {{ teacherCurr.teachings|length }}
                         </a>
                         <ul class="sub-menu" style="display: none;">
                         {% for teaching in teacherCurr.teachings %}
@@ -61,12 +61,15 @@
                                 }}
                             {% endset %}
                             <li data-serial="{{ teaching.serial }}">
-                                <span class="categorie">Causerie {{ teaching.serial }}</span>
+                                <span class="categorie">
+                                    {{ 'espace.teaching.serial'|trans({}, 'EspaceMembers') }} {{ teaching.serial }}
+                                </span>
                                 <a href="{{ pathToPlayingTeaching }}" class="tittle">
                                     {{ teaching.title|length > 37 ?  teaching.title|slice(0, 37) ~ '...' : teaching.title }}
-                                    <span class="uploaded-time">Jour {{ teaching.dayNumber }},
-                                        {{ teaching.date|localizeddate('none', 'none', 'fr_FR' , null, 'd
-                                        LLLL Y') }} (env. {{teaching.dayTime}} )
+                                    <span class="uploaded-time">
+                                        {{ 'espace.teaching.day'|trans({}, 'EspaceMembers') }} {{ teaching.dayNumber }},
+                                        {{ teaching.date|localizeddate('none', 'none', app.request.locale, null, 'd
+                                        LLLL Y') }} ( {{teaching.dayTime}} )
                                     </span>
                                 </a>
                                 <a href="{{ pathToPlayingTeaching }}" class="play">
@@ -99,23 +102,27 @@
         <div class="favbox">
             <h2>{{ teachingCurr.title|capitalize }}</h2>
             {% if bookmarksId is defined and bookmarksId|isBookmark(teachingCurr.id) %}
-                <a href="#" class="active" data-id="{{ teachingCurr.id }}">ENLEVER DE MES FAVORIS</a>
+                <a href="#" class="active" data-id="{{ teachingCurr.id }}">
+                    {{ 'espace.bookmark.remove'|trans({}, 'EspaceMembers') }}
+                </a>
             {% else %}
-                <a href="#" class="unactive" data-id="{{ teachingCurr.id }}">AJOUTER A MES FAVORIS</a>
+                <a href="#" class="unactive" data-id="{{ teachingCurr.id }}">
+                    {{ 'espace.bookmark.add'|trans({}, 'EspaceMembers') }}
+                </a>
             {% endif %}
         </div>
 
         <div class="left-bar2">
             <p class="heading">{{ event.title|capitalize }}</p>
-            <p>Causerie {{ teachingCurr.serial }}<br />
+            <p>{{ 'espace.teaching.serial'|trans({}, 'EspaceMembers') }} {{ teachingCurr.serial }}<br />
                 <span style="color:#282629;">
-                    {{ teachingCurr.date|localizeddate('none', 'none', 'fr_FR' , null, 'd LLLL Y') }}
+                    {{ teachingCurr.date|localizeddate('none', 'none', app.request.locale, null, 'd LLLL Y') }}
                 </span>
                 <br />
-                Jour {{ teachingCurr.dayNumber }}, {{teachingCurr.dayTime}}
+                {{ 'espace.teaching.day'|trans({}, 'EspaceMembers') }} {{ teachingCurr.dayNumber }}, {{teachingCurr.dayTime}}
             </p>
 
-            <p>Enseignant(s):<br />
+            <p>{{ 'espace.teacher.title'|trans({}, 'EspaceMembers') }}:<br />
             {% for teacher in teachingCurr.users %}
                 <a href="{{ path('espace_members_filter_teaching_teacher', { 'teacher_id': teacher.id }) }}" class="link">
                     {{ teacher.lastname }} {{ teacher.firstname }}
@@ -123,11 +130,11 @@
             {% endfor %}
             </p>
 
-            <p>Catégorie:<br />
+            <p>{{ 'espace.teaching.category'|trans({}, 'EspaceMembers') }}:<br />
                 {{ event.category.name|capitalize }}
             </p>
 
-            <p>Voie(s):<br />
+            <p>{{ 'espace.teaching.direction'|trans({}, 'EspaceMembers') }}:<br />
                 {% set directionsName %}
                     {% for direction in teachingCurr.directions %}
                         {{ direction == teachingCurr.directions|last ? direction.name : direction.name ~ ',' }}
@@ -136,11 +143,11 @@
                 {{ directionsName[0:directionsName|length]|title }}
             </p>
 
-            <p>Thèmes:<br />
+            <p>{{ 'espace.teaching.tag'|trans({}, 'EspaceMembers') }}:<br />
             {% for tag in teachingCurr.tags %}
                 <a href="{{ path('espace_members_filter_teaching_tag', { 'tag_id': tag.id}) }}" class="theme-button">{{ tag.name }}</a>
             {% else %}
-                <a href="#" class="theme-button">Not found tag</a>
+                <a href="#" class="theme-button">{{ 'espace.tag.404'|trans({}, 'EspaceMembers') }}</a>
             {% endfor %}
             </p>
 

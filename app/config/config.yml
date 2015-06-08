@@ -90,6 +90,8 @@ doctrine:
                     EspaceMembersMainBundle: ~
                     ApplicationSonataUserBundle: ~
                     SonataUserBundle: ~
+                    SonataClassificationBundle: ~
+                    ApplicationSonataClassificationBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:

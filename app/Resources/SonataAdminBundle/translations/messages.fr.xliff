@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="SonataUserBundle.en.xliff" >
+        <body>
+            <trans-unit id="ROLE_USER">
+                <source>ROLE_USER</source>
+                <target>Étudiant</target>
+            </trans-unit>
+            <trans-unit id="ROLE_ADMIN">
+                <source>ROLE_ADMIN</source>
+                <target>Enseignant</target>
+            </trans-unit>
+            <trans-unit id="ROLE_SUPER_ADMIN">
+                <source>ROLE_SUPER_ADMIN</source>
+                <target>Administrateur</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

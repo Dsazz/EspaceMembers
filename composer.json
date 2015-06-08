@@ -20,10 +20,10 @@
         "sensio/framework-extra-bundle": "~3.0",
         "incenteev/composer-parameter-handler": "~2.0",
 
-        "sonata-project/admin-bundle": "dev-master",
-        "sonata-project/media-bundle": "~2.3",
+        "sonata-project/admin-bundle": " ~2.4@dev",
+        "sonata-project/media-bundle": " ~2.4@dev",
         "sonata-project/datagrid-bundle": "dev-master",
-        "sonata-project/doctrine-orm-admin-bundle": "~2.3",
+        "sonata-project/doctrine-orm-admin-bundle": "~2.4@dev",
         "sonata-project/user-bundle": "dev-master",
 
         "jms/serializer-bundle": "0.13.*",
@@ -31,7 +31,6 @@
 
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "doctrine/data-fixtures" : "*",
-        "hautelook/alice-bundle": "dev-master",
         "fresh/doctrine-enum-bundle": "v2.5",
 
         "phansys/getid3": "2.1.*@dev",
@@ -51,7 +50,10 @@
         "white-october/pagerfanta-bundle": "~1.0",
         "phpunit/phpunit": " ~4.6",
         "codeception/specify": "*",
-        "codeception/verify": " *"
+        "codeception/verify": " *",
+        "sonata-project/classification-bundle": "dev-master",
+        "sonata-project/core-bundle": " ~2.3@dev,>=2.3.1",
+        "fzaninotto/faker": "1.6.*@dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

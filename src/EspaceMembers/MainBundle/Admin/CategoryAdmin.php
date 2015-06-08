@@ -32,8 +32,8 @@ class CategoryAdmin extends Admin
     protected function configureShowField(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id', null, array('label' => 'ID'))
-            ->add('name', null, array('label' => 'Name'))
+            ->add('id')
+            ->add('name')
         ;
     }
 
@@ -45,7 +45,7 @@ class CategoryAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('name', null, array('label' => 'Name'))
+            ->add('name')
         ;
     }
 
@@ -59,7 +59,7 @@ class CategoryAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('id')
-            ->addIdentifier('name', null, array('label' => 'Name'))
+            ->addIdentifier('name')
         ;
     }
 
@@ -72,7 +72,7 @@ class CategoryAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('name', null, array('label' => 'Name'))
+            ->add('name')
         ;
     }
 

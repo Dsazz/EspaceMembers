@@ -1,5 +1,6 @@
 espace:
     community: Communauté
+
     profile:
         menu: Profil
         edit: Modifier le profil
@@ -16,3 +17,34 @@ espace:
         voie: Par voies
         teacher: Par enseignants
         tag: Par thème
+        all: Tout
+
+    events:
+        404: Pas trouvé enseignement
+        since: Du
+        to: Au
+
+    teaching:
+        serial: Causerie
+        day: Jour
+        category: Catégorie
+        tag: Thèmes
+        direction: Voie(s)
+
+    tag:
+        404: Pas trouvé thèmes
+
+    teacher:
+        title: Enseignant(s)
+        404: Pas trouvé enseignants
+
+    group:
+        404: Pas trouvé groups
+
+    bookmark:
+        remove: ENLEVER DE MES FAVORIS
+        add: AJOUTER A MES FAVORIS
+
+    phone: Téléphone
+    email: Email
+    address: Adresse

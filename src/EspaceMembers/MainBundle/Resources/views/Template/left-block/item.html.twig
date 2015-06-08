@@ -6,8 +6,10 @@
 <div class="image-box">
     <img src="{{ path_to_media(event.frontImage, 'big') }}" width="175px" height="175px" alt="image">
     <span class="describe">
-        Du {{ event.startDate|localizeddate('none', 'none', 'fr_FR' , null, 'd LLLL')|title }}
-        Au {{ event.completionDate|localizeddate('none', 'none', 'fr_FR' , null, 'd LLLL')|title }}
+        {{ 'espace.events.since'|trans({}, 'EspaceMembers') }}
+        {{ event.startDate|localizeddate('none', 'none', app.request.locale, null, 'd LLLL')|title }}
+        {{ 'espace.events.to'|trans({}, 'EspaceMembers') }}
+        {{ event.completionDate|localizeddate('none', 'none', app.request.locale, null, 'd LLLL')|title }}
     </span>
     <a href="{{ path('espace_members_detail_teaching', {'event_id' : event.id} ) }}" class="zoom">{{ 'espace.detail'|trans({}, 'EspaceMembers') }}</a>
 </div>

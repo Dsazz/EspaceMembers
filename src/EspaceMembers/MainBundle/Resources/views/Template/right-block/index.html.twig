@@ -32,7 +32,9 @@
            <ul>
                <li>
                    <a href="{{ path('espace_members_teaching') }}"
-                       {{ chronologieIsActive ? 'class="droplink2"' : 'class="droplink2"' }}>Tout</a>
+                       {{ chronologieIsActive ? 'class="droplink2"' : 'class="droplink2"' }}>
+                       {{ 'espace.filter.all'|trans({}, 'EspaceMembers') }}
+                   </a>
                </li>
                {% for chronologie in chronologies %}
                {% set chronologiePath = path('espace_members_filter_teaching_chronology', {'year': chronologie.year}) %}
@@ -58,7 +60,9 @@
            <ul>
                <li>
                    <a href="{{ path('espace_members_teaching') }}"
-                       {{ categoryIsActive ? 'class="droplink2"' : 'class="droplink2"' }}>Tout</a>
+                       {{ categoryIsActive ? 'class="droplink2"' : 'class="droplink2"' }}>
+                       {{ 'espace.filter.all'|trans({}, 'EspaceMembers') }}
+                   </a>
                </li>
                {% for category in categories %}
                {% set categoryPath = path('espace_members_filter_teaching_category', { 'category_id': category.id}) %}
@@ -84,7 +88,9 @@
            <ul>
                <li>
                    <a href="{{ path('espace_members_teaching') }}"
-                       {{ directionIsActive ? 'class="droplink2"' : 'class="droplink2"' }}>Tout</a>
+                       {{ directionIsActive ? 'class="droplink2"' : 'class="droplink2"' }}>
+                       {{ 'espace.filter.all'|trans({}, 'EspaceMembers') }}
+                   </a>
                </li>
                {% for direction in directions %}
                {% set directionPath = path('espace_members_filter_teaching_direction', { 'direction_id': direction.id}) %}
@@ -110,7 +116,9 @@
            <ul>
                <li>
                    <a href="{{ path('espace_members_teaching') }}"
-                       {{ directionIsActive ? 'class="droplink2"' : 'class="droplink2"' }}>Tout</a>
+                       {{ directionIsActive ? 'class="droplink2"' : 'class="droplink2"' }}>
+                       {{ 'espace.filter.all'|trans({}, 'EspaceMembers') }}
+                   </a>
                </li>
                {% for teacher in teachers %}
                {% set teacherPath = path('espace_members_filter_teaching_teacher', { 'teacher_id': teacher.id}) %}
@@ -136,7 +144,9 @@
            <ul>
                <li>
                    <a href="{{ path('espace_members_teaching') }}"
-                       {{ tagIsActive ? 'class="droplink2"' : 'class="droplink2"' }}>Tout</a>
+                       {{ tagIsActive ? 'class="droplink2"' : 'class="droplink2"' }}>
+                       {{ 'espace.filter.all'|trans({}, 'EspaceMembers') }}
+                   </a>
                </li>
                {% for tag in tags %}
                {% set tagPath = path('espace_members_filter_teaching_tag', { 'tag_id': tag.id}) %}
