@@ -1,10 +1,6 @@
 # Space-Project on Symfony2
 
-
-Space-Projec Setup
-=============
-
-1. Symfony
+1. Symfony2
 ----------
 
 Clone the repo
