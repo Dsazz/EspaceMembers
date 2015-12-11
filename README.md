@@ -50,3 +50,7 @@ To run the tests Behat:
 ```bash
 $ php bin/behat
 ```
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Dsazz/space-project/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
